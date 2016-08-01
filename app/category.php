@@ -21,4 +21,8 @@ class category extends Model
     function edit($data,$id){
     	return category::where($this->primaryKey,$id)->update($data);
     }
+
+    function get_all($orderby,$ordering){
+    	return category::orderBy($orderby,$ordering)->where('category_status',1)->get();
+    }
 }

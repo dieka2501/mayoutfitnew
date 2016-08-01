@@ -19,7 +19,7 @@
     </a>
   </li>
   <li {{ (Request::is('*product') ? 'class="active"' : '') }}>
-    <a href="{!!config('app.url')!!}public/product">
+    <a href="{!!config('app.url')!!}public/admin/product">
       <i class="fa fa-list"></i>
       <span>Product</span>
     </a>
