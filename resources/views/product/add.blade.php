@@ -51,7 +51,7 @@
                           <div class="input-group-addon">
                             Rp
                           </div>
-                          <input type="text" class="form-control" name="product_hpp" id="product_price"  value="{!!$product_hpp!!}" required="required">
+                          <input type="text" class="form-control" name="product_hpp" id="product_hpp"  value="{!!$product_hpp!!}" required="required">
                         </div><!-- /.input group -->
                       </div>
                     </div>
@@ -62,7 +62,7 @@
                           <div class="input-group-addon">
                             Rp
                           </div>
-                          <input type="text" class="form-control" name="product_margin" id="product_margin"  value="{!!$product_margin!!}" required="required">
+                          <input type="text" class="form-control" name="product_margin" id="product_margin"  value="{!!$product_margin!!}" required="required" readonly>
                         </div><!-- /.input group -->
                       </div>
                     </div>
@@ -129,4 +129,26 @@
           </div>
           {!!Form::close()!!}
         </section><!-- /.content -->
+        <script   src="https://code.jquery.com/jquery-3.1.0.js"   integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="   crossorigin="anonymous"></script>
+        <script type="text/javascript">
+          function htng_margin(hpp,price){
+            var margin = price - hpp ;
+            $('#product_margin').val(margin);
+          }
+          $(document).ready(function(){
+            $('#product_hpp').keyup(function(){
+                var price   = $('#product_price').val();
+                var hpp     = $('#product_hpp').val();
+                htng_margin(hpp,price);
+            });
+
+            $('#product_price').keyup(function(){
+                var price   = $('#product_price').val();
+                var hpp     = $('#product_hpp').val();
+                htng_margin(hpp,price);
+            });        
+
+          });
+
+        </script>
 @stop      
