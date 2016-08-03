@@ -34,5 +34,13 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::post('/product/add', 'productController@store');
 	Route::get('/product/edit/{id}', 'productController@edit');	
 	Route::post('/product/edit', 'productController@update');	
-	Route::get('/product/delete/{id}', 'productController@destroy');		
+	Route::get('/product/delete/{id}', 'productController@destroy');
+
+	//Order
+	Route::get('/order', 'orderController@index');	
+	Route::get('/order/add', 'orderController@create');	
+	Route::post('/order/add', 'orderController@store');
+	Route::get('/order/edit/{id}', 'orderController@edit');	
+	Route::post('/order/edit', 'orderController@update');	
+	Route::get('/order/delete/{id}', 'orderController@destroy');		
 });
