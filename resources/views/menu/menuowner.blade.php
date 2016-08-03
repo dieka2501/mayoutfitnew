@@ -6,6 +6,12 @@
       <span>Dashboard</span>
     </a>
   </li>
+  <li {{ (Request::is('*order') ? 'class="active"' : '') }}>
+    <a href="{!!config('app.url')!!}public/admin/order">
+      <i class="fa fa-bell"></i>
+      <span>Order</span>
+    </a>
+  </li>
   <!-- <li {{ (Request::is('*brand') ? 'class="active"' : '') }}>
     <a href="{!!config('app.url')!!}public/brand">
       <i class="fa fa-asterisk"></i>
@@ -24,12 +30,7 @@
       <span>Product</span>
     </a>
   </li>
-  <!-- <li {{ (Request::is('*sales-online') ? 'class="active"' : '') }}>
-    <a href="{!!config('app.url')!!}public/sales-online">
-      <i class="fa fa-bell"></i>
-      <span>Sales Online</span>
-    </a>
-  </li> -->
+  
   <!-- <li {{ (Request::is('*sales-offline') ? 'class="active"' : '') }}>
     <a href="{!!config('app.url')!!}public/sales-offline">
       <i class="fa fa-bell-slash"></i>
