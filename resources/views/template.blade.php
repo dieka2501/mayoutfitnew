@@ -24,6 +24,19 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style type="text/css">
+      .mb15 {
+        margin-bottom: 15px;
+      }
+      .input-group .radio {
+        min-height: auto!important;
+        padding-top: 0px!important;
+      }
+      .input-group .radio label {
+        min-height: 27px;
+        min-height: auto!important;
+      }
+    </style>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
