@@ -44,3 +44,11 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::post('/order/edit', 'orderController@update');	
 	Route::get('/order/delete/{id}', 'orderController@destroy');		
 });
+
+Route::group(['prefix'=>'api'],function(){
+	Route::post('/kota/getidprovinsi','apiController@get_kota_idprovinsi');
+	Route::post('/kecamatan/getidprovinsiidkota','apiController@get_kecamatan_idprovinsi_idkota');
+	Route::post('/ongkir','apiController@get_ongkir');
+	Route::get('/product/autocomplete','apiController@get_product_auto');
+	Route::post('/product/idproduct','apiController@get_product_byid');
+});

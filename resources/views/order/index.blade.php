@@ -33,7 +33,8 @@
                       <td>{!!$lists->order_name!!}</td>
                       <td>{!!$lists->order_phone!!}</td>
                       <td>{!!number_format($lists->order_total)!!}</td>
-                        <?Php if($lists->order_status == 0){
+                        <?Php
+                         if($lists->order_status == 0){
                             $stat = "Pending";
                         }elseif($lists->order_status == 1){
                             $stat = "Payment";

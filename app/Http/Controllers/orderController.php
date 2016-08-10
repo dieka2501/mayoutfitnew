@@ -7,6 +7,7 @@ use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\order;
+use App\provinsi; 
 class orderController extends Controller
 {
     function __construct(){
@@ -17,7 +18,8 @@ class orderController extends Controller
         view()->share('name',session('name'));
         view()->share('email',session('email'));
         view()->share('date_register',session('date_register'));  
-        $this->order = new order;
+        $this->order        = new order;
+        $this->provinsi     = new provinsi;
         // $this->product      = new product;
         // $this->category     = new category;
         $this->path         = public_path().'/upload/';
@@ -40,9 +42,27 @@ class orderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('order.add');
+    public function create(){
+        $getuniqueid        = $this->order->get_order_today();
+        $cuniqueid          = count($getuniqueid);
+        $get_provinsi       = $this->provinsi->get_all('nama_provinsi','ASC');
+        $arr_provinsi[]     = "-- Select Province -- "; 
+        foreach ($get_provinsi as $prov) {
+            $arr_provinsi[$prov->id]    = $prov->nama_provinsi;
+        }
+        $arr_kota[]         = "-- Select City -- "; 
+        $arr_kecamatan[]    = "-- Select District -- "; 
+        $nextid                     = $cuniqueid+1;
+        $view['uniqid']             = sprintf("%1$03d",$nextid);
+        $view['arr_provinsi']       = $arr_provinsi;
+        $view['provinsi']           = session('provinsi');
+        $view['arr_kota']           = $arr_kota;
+        $view['kota']               = session('city');
+        $view['arr_kecamatan']      = $arr_kecamatan;
+        $view['kecamatan']          = session('district');
+
+
+        return view('order.add',$view);
     }
 
     /**

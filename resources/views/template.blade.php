@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Mayoutfit | Dashboard</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="_token" content="{!! csrf_token() !!}"/>
     <!-- Bootstrap Core -->
     <link rel="stylesheet" href="{!!config('app.url')!!}public/assets/bootstrap/css/bootstrap.min.css">
     <!-- Plugins -->
@@ -17,7 +18,43 @@
     <link rel="stylesheet" href="{!!config('app.url')!!}public/assets/plugins/datatables/dataTables.bootstrap.css">
     <link rel="stylesheet" href="{!!config('app.url')!!}public/assets/dist/css/AdminLTE.css">
     <link rel="stylesheet" href="{!!config('app.url')!!}public/assets/dist/css/skins/_all-skins.min.css">
-
+    <!-- jQuery 2.1.4 -->
+    <script src="{!!config('app.url')!!}public/assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script   src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="{!!config('app.url')!!}public/assets/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Select 2 -->
+    <script src="{!!config('app.url')!!}public/assets/plugins/select2/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="{!!config('app.url')!!}public/assets/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="{!!config('app.url')!!}public/assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="{!!config('app.url')!!}public/assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <!-- date-range-picker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+    <script src="{!!config('app.url')!!}public/assets/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap color picker -->
+    <script src="{!!config('app.url')!!}public/assets/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+    <!-- bootstrap time picker -->
+    <script src="{!!config('app.url')!!}public/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <!-- SlimScroll 1.3.0 -->
+    <script src="{!!config('app.url')!!}public/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="{!!config('app.url')!!}public/assets/plugins/iCheck/icheck.min.js"></script>
+    <script src="{!!config('app.url')!!}public/assets/plugins/fastclick/fastclick.min.js"></script>
+    <!-- DataTables -->
+    <script src="{!!config('app.url')!!}public/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="{!!config('app.url')!!}public/assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="{!!config('app.url')!!}public/assets/dist/js/app.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
+    <!-- SlimScroll 1.3.0 -->
+    <script src="{!!config('app.url')!!}public/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- ChartJS 1.0.1 -->
+    <script src="{!!config('app.url')!!}public/assets/plugins/chartjs/Chart.min.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <!-- <script src="{{Config::get('app.url')}}assets/dist/js/pages/dashboard2.js"></script> -->
+    <!-- AdminLTE for demo purposes -->
+    <script src="{!!config('app.url')!!}public/assets/dist/js/demo.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -505,42 +542,7 @@
 
     </div><!-- ./wrapper -->
 
-    <!-- jQuery 2.1.4 -->
-    <script src="{!!config('app.url')!!}public/assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <!-- Bootstrap 3.3.5 -->
-    <script src="{!!config('app.url')!!}public/assets/bootstrap/js/bootstrap.min.js"></script>
-    <!-- Select 2 -->
-    <script src="{!!config('app.url')!!}public/assets/plugins/select2/select2.full.min.js"></script>
-    <!-- InputMask -->
-    <script src="{!!config('app.url')!!}public/assets/plugins/input-mask/jquery.inputmask.js"></script>
-    <script src="{!!config('app.url')!!}public/assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-    <script src="{!!config('app.url')!!}public/assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-    <!-- date-range-picker -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-    <script src="{!!config('app.url')!!}public/assets/plugins/daterangepicker/daterangepicker.js"></script>
-    <!-- bootstrap color picker -->
-    <script src="{!!config('app.url')!!}public/assets/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-    <!-- bootstrap time picker -->
-    <script src="{!!config('app.url')!!}public/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-    <!-- SlimScroll 1.3.0 -->
-    <script src="{!!config('app.url')!!}public/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-    <!-- iCheck 1.0.1 -->
-    <script src="{!!config('app.url')!!}public/assets/plugins/iCheck/icheck.min.js"></script>
-    <script src="{!!config('app.url')!!}public/assets/plugins/fastclick/fastclick.min.js"></script>
-    <!-- DataTables -->
-    <script src="{!!config('app.url')!!}public/assets/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="{!!config('app.url')!!}public/assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="{!!config('app.url')!!}public/assets/dist/js/app.min.js"></script>
-    <script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
-    <!-- SlimScroll 1.3.0 -->
-    <script src="{!!config('app.url')!!}public/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-    <!-- ChartJS 1.0.1 -->
-    <script src="{!!config('app.url')!!}public/assets/plugins/chartjs/Chart.min.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <!-- <script src="{{Config::get('app.url')}}assets/dist/js/pages/dashboard2.js"></script> -->
-    <!-- AdminLTE for demo purposes -->
-    <script src="{!!config('app.url')!!}public/assets/dist/js/demo.js"></script>
+    
     <!-- page script -->
     <script>
       $(function () {
@@ -606,6 +608,10 @@
 
         CKEDITOR.replace('editor1');
       });
+      // $(document).ready(function(){
+
+      // });
+      
     </script>
   </body>
 </html>
