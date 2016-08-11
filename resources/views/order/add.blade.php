@@ -2,14 +2,16 @@
 @section('content')
         <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
         <!-- Main content -->
+        {!!session('notip')!!}
         <section class="content">
+        {!!Form::open(['url'=>$url,'method'=>'POST'])!!}
           <div class="row">
             <div class="col-md-12">
               <div class="box box-danger">
                 <div class="box-header">
                   <h3 class="box-title">Create Order</h3>
                   <br>
-                  <h2 class="box-title">Number Order : {!!$uniqid!!}</h2>
+                  <h2 class="box-title">Number Order : {!!date('Ymd').$uniqid!!}</h2>
                 </div>
                 <div class="box-body">
                   <div class="box-body">
@@ -118,7 +120,7 @@
                         <!-- -->
                         <div class="row">
                           <div class="col-md-12">
-                              <button class='btn btn-primary' id="add-data">ADD</button>    
+                              <button class='btn btn-primary' id="add-data" type="button">ADD</button>    
                           </div>
                         </div>
                     </div>
@@ -173,6 +175,13 @@
                             </div>
                           </div>
 
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Kodepos</label>
+                            <div class="col-sm-9">
+                              <input type="text" name='order_shipment_zip' id='order_shipment_zip' class="form-control">
+                            </div>
+                          </div>
+
                         </div>
                         <div class="col-md-6">
 
@@ -213,7 +222,7 @@
                           <div class="form-group">
                             <label class="col-sm-4 control-label">Total Biaya Kirim</label>
                             <div class="col-sm-8">
-                              <input type="text" name="" class="form-control" name='order_shipment_price' id="order_shipment_price" readonly="readonly" value="0">
+                              <input type="text" class="form-control" name='order_shipment_price' id="order_shipment_price" readonly="readonly" value="0">
                             </div>
                           </div>
 
@@ -241,6 +250,11 @@
                         </div>
                       </div>
                     </div>
+                    <div class='row'>
+                        <div class="col-md-12">
+                            <textarea class="form-control" name='order_note' id='order_note' placeholder="Catatan Pembelian"></textarea>
+                        </div>
+                    </div>
                   </div>
                 </div><!-- /.box-body -->
                 <div class="box-footer">
@@ -250,6 +264,7 @@
               </div><!-- /.box -->
             </div><!-- /.col (left) -->
           </div><!-- /.row -->
+          {!!Form::close()!!}
         </section><!-- /.content -->
         <!-- <script   src="https://code.jquery.com/jquery-2.2.4.min.js"></script> -->
         <!-- <script   src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script> -->

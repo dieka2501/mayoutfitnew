@@ -7,7 +7,9 @@ use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\order;
+use App\orderDetail;
 use App\provinsi; 
+use App\product; 
 class orderController extends Controller
 {
     function __construct(){
@@ -20,7 +22,8 @@ class orderController extends Controller
         view()->share('date_register',session('date_register'));  
         $this->order        = new order;
         $this->provinsi     = new provinsi;
-        // $this->product      = new product;
+        $this->od           = new orderDetail;
+        $this->product      = new product;
         // $this->category     = new category;
         $this->path         = public_path().'/upload/';
     }
@@ -60,6 +63,7 @@ class orderController extends Controller
         $view['kota']               = session('city');
         $view['arr_kecamatan']      = $arr_kecamatan;
         $view['kecamatan']          = session('district');
+        $view['url']                = config('app.url')."public/admin/order/add";
 
 
         return view('order.add',$view);
@@ -73,7 +77,68 @@ class orderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // var_dump($request->input());die;
+        $order_name             = $request->input('order_name');
+        $uniqid                 = $request->input('uniqid');
+        $order_phone            = $request->input('order_phone');
+        $order_shipment_name    = $request->input('order_shipment_name');
+        $order_shipment_phone   = $request->input('order_shipment_phone');
+        $order_note             = $request->input('order_note');        
+        $product_name           = $request->input('product_name');
+        $product_id             = $request->input('product_id');
+        $order_detail_price     = $request->input('order_detail_price');
+        $product_stock          = $request->input('product_stock');
+        $order_detail_qty       = $request->input('order_detail_qty');
+        $order_detail_diskon    = $request->input('order_detail_diskon');
+        $subtotal               = $request->input('subtotal');
+        $cdetail                = count($product_name);
+
+        $provinsi               = $request->input('provinsi');
+        $kota                   = $request->input('kota');
+        $kecamatan              = $request->input('kecamatan');
+        $order_address          = $request->input('order_address');
+        $order_shipment_price   = $request->input('order_shipment_price');
+        $order_shipment_zip     = $request->input('order_shipment_zip');
+        $weight                 = $request->input('weight');
+        $diskon_total           = $request->input('diskon_total');
+        $grand_total            = $request->input('grand_total');
+        if($grand_total > 0 && $provinsi != 0 && $kota != 0 && $kecamatan != 0){
+            $insert['order_code']               = date('Ymd').$uniqid;
+            $insert['order_name']               = $order_name;
+            $insert['order_phone']              = $order_phone;
+            $insert['province_id']              = $provinsi;
+            $insert['city_id']                  = $kota;
+            $insert['district_id']              = $kecamatan;
+            $insert['order_total']              = $grand_total;
+            $insert['order_shipment_name']      = $order_shipment_name;
+            $insert['order_shipment_phone']     = $order_shipment_phone;
+            $insert['order_shipment_address']   = $order_address;
+            $insert['order_shipment_zip']       = $order_shipment_zip;
+            $insert['order_shipment_price']     = $order_shipment_price;
+            $insert['order_note']               = $order_note;
+            $insert['order_discount']           = $diskon_total;
+            $insert['created_at']               = date('Y-m-d H:i:s');
+            $order_id   = $this->order->add($insert);
+            for($i = 0; $i < $cdetail; $i++){
+                $detail['order_id']                        = $order_id;
+                $detail['product_id']                      = $product_id[$i];
+                $detail['order_detail_price']              = $order_detail_price[$i];
+                $detail['order_detail_discount_nominal']   = $order_detail_diskon[$i];
+                $detail['order_detail_qty']                = $order_detail_qty[$i];
+                $detail['created_at']                      = date('Y-m-d H:i:s');
+                $this->od->add($detail);
+                $getstock = $this->product->get_id($product_id[$i]);
+                $newstock = $getstock->product_stock - $order_detail_qty[$i];
+                $this->product->edit($product_id[$i],['product_stock'=>$newstock]);
+            }
+            $request->session()->flash('notip',"<div class='alert alert-success'>Order telah dibuat</div>");
+            return redirect('/admin/order');
+
+        }else{
+            $request->session()->flash('notip',"<div class='alert alert-danger'> Alamat harus diisi</div>");
+            return redirect('/admin/order/add');
+
+        }
     }
 
     /**
