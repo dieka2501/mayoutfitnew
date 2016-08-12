@@ -52,6 +52,7 @@
                       <td style="width:150px;">
                         <a href="{!!config('app.url')!!}public/admin/product/edit/{!!$lists->idproduct!!}" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
                         <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="{!!config('app.url')!!}public/admin/product/delete/{!!$lists->idproduct!!}" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
+                        
                       </td>
                     </tr>
                   @endforeach

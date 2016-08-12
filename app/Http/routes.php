@@ -43,6 +43,7 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('/order/edit/{id}', 'orderController@edit');	
 	Route::post('/order/edit', 'orderController@update');	
 	Route::get('/order/delete/{id}', 'orderController@destroy');		
+	Route::get('/order/print/{id}', 'orderController@print_out');	
 });
 
 Route::group(['prefix'=>'api'],function(){

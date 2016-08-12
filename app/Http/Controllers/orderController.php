@@ -117,6 +117,7 @@ class orderController extends Controller
             $insert['order_shipment_price']     = $order_shipment_price;
             $insert['order_note']               = $order_note;
             $insert['order_discount']           = $diskon_total;
+            $insert['order_admin']              = session('username');
             $insert['created_at']               = date('Y-m-d H:i:s');
             $order_id   = $this->order->add($insert);
             for($i = 0; $i < $cdetail; $i++){
@@ -184,5 +185,29 @@ class orderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    function print_out($id){
+        $getintern              = $this->order->get_id_join_loc($id);
+        $getdetail              = $this->od->get_idorder($id);
+        $data['penerima']       = $getintern->order_name;
+        $data['pengirim']       = $getintern->order_shipment_name;
+        $data['no_hp']          = $getintern->order_shipment_phone;
+        $data['alamat']         = $getintern->order_shipment_address;
+        $data['provinsi']       = $getintern->nama_provinsi;
+        $data['kota']           = $getintern->nama_kota;
+        $data['kecamatan']      = $getintern->nama_kecamatan;
+        $data['total_bayar']    = $getintern->order_total;
+        $data['biaya_kirim']    = $getintern->order_shipment_price;
+        $data['no_order']       = $getintern->order_code;
+        $data['admin']          = $getintern->order_admin;
+        $data['order_unik']     = substr($getintern->order_code, '-3');
+        $data['detail']         = $getdetail;
+        // }
+        $namapengirim = ($getintern->order_shipment_name != "" )? $getintern->order_shipment_name : "Mayoutfit";
+        $string = 'MO~^~'.$getintern->order_code."~^~".$getintern->order_name."~^~".$getintern->order_shipment_address." ".$getintern->nama_kecamatan." ".$getintern->nama_kota." ".$getintern->nama_provinsi."~^~".$getintern->order_shipment_phone."~^~".$namapengirim.'~^~'.$getintern->order_phone.'~^~03SM';
+        $data['qr'] = $string;
+        // $print['print'] = 1;
+        return view('print.print',$data);
     }
 }
