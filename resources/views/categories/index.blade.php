@@ -9,6 +9,13 @@
                   <h3 class="box-title">Data Categories</h3>
                   {!!$notip!!}
                   <div class="box-tools pull-right">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                    <div class="input-group-btn">
+                      <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                    </div>
+                  </div>
                   <a href="{{Request::url()}}/add">
                     <button class="btn btn-box-tool"><i class="fa fa-plus"></i> <span class="hidden-xs">Add Categories</span></button>
                   </a>
