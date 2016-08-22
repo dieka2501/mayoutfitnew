@@ -50,7 +50,7 @@
                       <td>{!!$stat!!}</td>
                       <td style="width:150px;">
                         <a href="{!!config('app.url')!!}public/admin/order/edit/{!!$lists->idorder!!}" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                        <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="{!!config('app.url')!!}public/admin/order/edit/{!!$lists->idorder!!}" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
+                        <!-- <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="config('app.url')public/admin/order/edit/$lists->idorder" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a> -->
                         <a href="{!!config('app.url')!!}public/admin/order/print/{!!$lists->idorder!!}" target="__blank" class="btn btn-success btn-xs"><i class="fa fa-print"></i> Print</a>
                       </td>
                     </tr>
