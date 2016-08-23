@@ -23,4 +23,8 @@ class product extends Model
     function edit($id,$data){
     	return product::where($this->primaryKey,$id)->update($data);
     }
+
+    function get_byname_all($name){
+    	return product::orderBy('product_name','ASC')->where('product_name','like','%'.$name.'%')->get();
+    }
 }
