@@ -6,136 +6,83 @@
             <div class="col-xs-12">
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Data Report</h3>
+                  <h3 class="box-title">Report Order</h3>
                   <div class="box-tools pull-right">
-                  <a href="{{Request::url()}}/add">
-                    <button class="btn btn-box-tool"><i class="fa fa-plus"></i> <span class="hidden-xs">Add Report</span></button>
-                  </a>
+                    
                   </div>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <div class="container">
+                      {!!Form::open(['url'=>$url,'method'=>'GET'])!!}
+                        <div class='row'>
+                            <div class="col-md-5">
+                                <input type="text" name="start_date" id='start_date' class="form-control tanggal" placeholder="Tanggal Mulai" value="{!!$date_start!!}">
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" name="end_date" id='end_date' class="form-control tanggal" placeholder="Tanggal Selesai" value="{!!$date_end!!}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10 text-right">
+                                <button class="btn btn-box-tool" type='submit'><i class="fa fa-print"></i> <span class="hidden-xs">Print</span></button>           
+                            </div>
+                        </div>
+                      {!!Form::close()!!}
+                      
+                    </div>
+                  <table id="example" class="table table-bordered table-striped table-hover">
                     <thead>
                       <tr>
-                      <th>Sample Header</th>
-                      <th>Sample Header</th>
-                      <th>Sample Header</th>
-                      <th>Action</th>
+                        <th>Nama Barang</th>
+                        <th>Qty</th>
+                        <th>Penjualan</th>
+                        <th>Diskon</th>
+                        <th>HPP</th>
+                        <th>Profit</th>
                       </tr>
                     </thead>
                   <tbody>
+
+                    @foreach($order as $orders)
+                    <?php 
+                      $profit = ($orders->order_detail_price - $orders->order_detail_discount_nominal) -$orders->product_hpp;
+
+                    ?>
                     <tr>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td style="width:150px;">
-                        <a href="{{Request::url()}}/edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                        <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
-                      </td>
+                      <td>{!!$orders->product_name!!}</td>
+                      <td>{!!$orders->order_detail_qty!!}</td>
+                      <td>Rp. {!!number_format($orders->order_detail_price)!!}</td>
+                      <td>Rp. {!!number_format($orders->order_detail_discount_nominal)!!}</td>
+                      <td>Rp. {!!number_format($orders->product_hpp)!!}</td>
+                      <td>Rp. {!!number_format($profit)!!}</td>
+
                     </tr>
-                    <tr>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td style="width:150px;">
-                        <a href="{{Request::url()}}/edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                        <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td style="width:150px;">
-                        <a href="{{Request::url()}}/edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                        <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td style="width:150px;">
-                        <a href="{{Request::url()}}/edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                        <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td style="width:150px;">
-                        <a href="{{Request::url()}}/edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                        <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td style="width:150px;">
-                        <a href="{{Request::url()}}/edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                        <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td style="width:150px;">
-                        <a href="{{Request::url()}}/edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                        <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td style="width:150px;">
-                        <a href="{{Request::url()}}/edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                        <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td style="width:150px;">
-                        <a href="{{Request::url()}}/edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                        <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td style="width:150px;">
-                        <a href="{{Request::url()}}/edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                        <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td>Sample Data</td>
-                      <td style="width:150px;">
-                        <a href="{{Request::url()}}/edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                        <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
-                      </td>
-                    </tr>
+                    @endforeach
+
                   </tbody>
                   <tfoot>
                   <tr>
-                  <th>Sample Footer</th>
-                  <th>Sample Footer</th>
-                  <th>Sample Footer</th>
-                  <th>Action</th>
+                    <th>Nama Barang</th>
+                    <th>Qty</th>
+                    <th>Penjualan</th>
+                    <th>Diskon</th>
+                    <th>HPP</th>
+                    <th>Profit</th>
                   </tr>
                   </tfoot>
                   </table>
+                  <p>{!!$order->appends(['date_start'=>$date_start,'date_end'=>$date_end])->render()!!}</p>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col -->
           </div><!-- /.row -->
         </section><!-- /.content -->
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('.tanggal').datepicker({
+                    dateFormat : "yy-mm-dd"
+                    
+                });
+            });
+        </script>
 @stop        
