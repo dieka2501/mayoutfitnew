@@ -13,6 +13,7 @@ use App\product;
 use App\kota;
 use App\kecamatan;
 use App\ongkir;
+use App\payment;
 class orderController extends Controller
 {
     function __construct(){
@@ -32,6 +33,7 @@ class orderController extends Controller
         $this->kota         = new kota;
         $this->kecamatan    = new kecamatan;
         $this->ongkir       = new ongkir;
+        $this->payment      = new payment;
     }
     /**
      * Display a listing of the resource.
@@ -89,7 +91,8 @@ class orderController extends Controller
         $order_phone            = $request->input('order_phone');
         $order_shipment_name    = $request->input('order_shipment_name');
         $order_shipment_phone   = $request->input('order_shipment_phone');
-        $order_note             = $request->input('order_note');        
+        $order_note             = $request->input('order_note');
+        $order_weight           = $request->input('weight');      
         $product_name           = $request->input('product_name');
         $product_id             = $request->input('product_id');
         $order_detail_price     = $request->input('order_detail_price');
@@ -122,6 +125,7 @@ class orderController extends Controller
             $insert['order_shipment_zip']       = $order_shipment_zip;
             $insert['order_shipment_price']     = $order_shipment_price;
             $insert['order_note']               = $order_note;
+            $insert['order_weight']             = $order_weight;
             $insert['order_discount']           = $diskon_total;
             $insert['order_admin']              = session('username');
             $insert['created_at']               = date('Y-m-d H:i:s');
@@ -132,6 +136,7 @@ class orderController extends Controller
                 $detail['order_detail_price']              = $order_detail_price[$i];
                 $detail['order_detail_discount_nominal']   = $order_detail_diskon[$i];
                 $detail['order_detail_qty']                = $order_detail_qty[$i];
+                $detail['order_detail_subtotal']           = $subtotal[$i];
                 $detail['created_at']                      = date('Y-m-d H:i:s');
                 $this->od->add($detail);
                 $getstock = $this->product->get_id($product_id[$i]);
@@ -340,5 +345,42 @@ class orderController extends Controller
         $data['qr'] = $string;
         // $print['print'] = 1;
         return view('print.print',$data);
+    }
+
+    function konfirm_bayar($id){
+        $getorder       = $this->order->get_id($id);
+        $getpayment     = $this->payment->get_idorder($id);
+        $view['order']                   = $getorder;
+        $view['payment_name']            = (count($getpayment) > 0)? $getpayment->payment_name:"";
+        $view['payment_bank_transfer']   = (count($getpayment) > 0)? $getpayment->payment_bank_transfer:"";
+        $view['payment_nominal']         = (count($getpayment) > 0)? $getpayment->payment_nominal:"";
+        $view['url']    = config('app.url').'public/admin/order/konfirm/bayar';
+        return view('confirmation.payment',$view);
+    }
+
+    function do_payment(Request $request){
+        $idorder                 = $request->input('order_id');
+        $grand_total             = $request->input('grand_total');
+        $payment_name            = $request->input('payment_name');
+        $payment_bank_transfer   = $request->input('payment_bank_transfer');
+        $payment_nominal         = $request->input('payment_nominal');
+
+
+        $insert['order_id']               = $idorder;
+        $insert['payment_name']           = $payment_name;
+        $insert['payment_bank_transfer']  = $payment_bank_transfer;
+        $insert['payment_nominal']        = $payment_nominal;
+        $insert['created_at']             = date('Y-m-d H:i:s');
+        $this->payment->delete_idorder($idorder);
+        $idpayment  = $this->payment->add($insert);
+        if($idpayment > 0){
+            $this->order->edit($idorder,['order_status'=>1]);
+            $request->session()->flash('notip',"<div class='alert alert-success'>Payment berhasil</div>");
+            return redirect('/admin/order');
+        }else{
+            $request->session()->flash('notip',"<div class='alert alert-success'>Payment gagal, silahkan ulangi.</div>");
+            return redirect('/admin/order/konfirm/bayar/'.$idorder);
+        }
+
     }
 }

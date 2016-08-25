@@ -61,12 +61,12 @@
       <span>Banner Management</span>
     </a>
   </li> -->
-  <!-- <li {{ (Request::is('*report') ? 'class="active"' : '') }}>
-    <a href="{!!config('app.url')!!}public/report">
+  <li {{ (Request::is('*report') ? 'class="active"' : '') }}>
+    <a href="{!!config('app.url')!!}public/admin/report/order">
       <i class="fa fa-bar-chart"></i>
-      <span>Report</span>
+      <span>Report Order</span>
     </a>
-  </li> -->
+  </li>
   <!-- <li {{ (Request::is('*configuration') ? 'class="active"' : '') }}>
     <a href="{!!config('app.url')!!}public/configuration">
       <i class="fa fa-gear"></i>

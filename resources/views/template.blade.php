@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{!!config('app.url')!!}public/assets/plugins/datatables/dataTables.bootstrap.css">
     <link rel="stylesheet" href="{!!config('app.url')!!}public/assets/dist/css/AdminLTE.css">
     <link rel="stylesheet" href="{!!config('app.url')!!}public/assets/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
     <!-- jQuery 2.1.4 -->
     <script src="{!!config('app.url')!!}public/assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <script   src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>

@@ -43,7 +43,13 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('/order/edit/{id}', 'orderController@edit');	
 	Route::post('/order/edit', 'orderController@update');	
 	Route::get('/order/delete/{id}', 'orderController@destroy');		
-	Route::get('/order/print/{id}', 'orderController@print_out');	
+	Route::get('/order/print/{id}', 'orderController@print_out');
+	Route::get('/order/konfirm/bayar/{id}', 'orderController@konfirm_bayar');	
+	Route::post('/order/konfirm/bayar', 'orderController@do_payment');	
+
+	//Report Order
+	Route::get('/report/order', 'reportOrderController@index');	
+	Route::get('/report/order/print', 'reportOrderController@create');	
 });
 
 Route::group(['prefix'=>'api'],function(){
