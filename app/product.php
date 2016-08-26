@@ -9,8 +9,15 @@ class product extends Model
 	protected $table = "product";
 	protected $primaryKey = "idproduct";
 	function get_page(){
-		return product::orderBy($this->primaryKey,'DESC')->where('deleted_at',NULL)->paginate(20);
+		return product::orderBy($this->primaryKey,'DESC')->join('category',$this->table.'.category_id','=','category.idcategory')->where('product.deleted_at',NULL)->paginate(20);
 	}
+
+    function get_search($cari){
+        return product::orderBy($this->primaryKey,'DESC')->join('category',$this->table.'.category_id','=','category.idcategory')->where('product.deleted_at',NULL)
+                ->where(function($query) use ($cari){
+                    $query->where('product_name','like','%'.$cari.'%')->orWhere('product_code','like','%'.$cari.'%')->orWhere('category_name','like','%'.$cari.'%');
+                })->paginate(20);
+    }
     //
     function add($data){
     	return product::insertGetId($data);

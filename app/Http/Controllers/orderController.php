@@ -40,10 +40,21 @@ class orderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $get_data           = $this->order->get_page();
+        if($request->has('cari')){
+            $cari       = $request->input('cari');
+
+            $get_data   = $this->order->get_search($cari);    
+            // var_dump($get_data);die;
+        }else{
+            $cari       = "";
+            $get_data   = $this->order->get_page();    
+        }
+        
+        $view['url']        = config('app.url').'public/admin/order';
         $view['list']       = $get_data;
+        $view['cari']       = $cari;
         return view('order.index',$view);
         //
     }

@@ -9,19 +9,33 @@
                   <h3 class="box-title">Data Product</h3>
                   {!!session('notip')!!}
                   <div class="box-tools pull-right">
-                  <div class="input-group input-group-sm" style="width: 150px;">
+                  <!-- <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
 
                     <div class="input-group-btn">
                       <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                     </div>
-                  </div>
+                  </div> -->
                   <a href="{!!config('app.url')!!}public/admin/product/add">
                     <button class="btn btn-box-tool"><i class="fa fa-plus"></i> <span class="hidden-xs">Add Product</span></button>
                   </a>
                   </div>
                 </div><!-- /.box-header -->
                 <div class="box-body">
+                  <div class="container">
+                      {!!Form::open(['url'=>$url,'method'=>'GET'])!!}
+                        <div class='row'>
+                            <div class="col-md-5">
+                                <input type="text" name="cari" id='cari' class="form-control" placeholder="Masukan Kata Kunci" value="{!!$cari!!}">
+                            </div>
+                            <div class="col-md-5">
+                                <button class="btn btn-box-tool" type='submit'><i class="fa fa-search"></i> <span class="hidden-xs">Search</span></button>
+                            </div>
+                        </div>
+                      
+                      {!!Form::close()!!}
+                      
+                    </div>
                   <table id="example" class="table table-bordered table-striped">
                     <thead>
                       <tr>
@@ -78,7 +92,7 @@
                   </table>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
-              {!!$list->render()!!}
+              {!!$list->appends(['cari'=>$cari])->render()!!}
             </div><!-- /.col -->
           </div><!-- /.row -->
         </section><!-- /.content -->

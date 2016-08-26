@@ -1,4 +1,4 @@
-@extends('home')
+@extends('front.home')
 @section('content')
 	<section id="mayoutfit-bighero" class="owl-carousel container">
         <div class="item">

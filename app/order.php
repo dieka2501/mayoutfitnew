@@ -15,6 +15,9 @@ class order extends Model
 	function get_page(){
 		return order::orderBy($this->primaryKey,'DESC')->paginate(20);
 	}
+	function get_search($cari){
+		return order::orderBy($this->primaryKey,'DESC')->where('order_code','like','%'.$cari.'%')->orWhere('order_name','like','%'.$cari.'%')->orWhere('order_total','like','%'.$cari.'%')->paginate(20);	
+	}
 	function add($data){
 		return order::insertGetId($data);
 	}

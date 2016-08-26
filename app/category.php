@@ -12,6 +12,9 @@ class category extends Model
     function get_page(){
     	return category::orderBy($this->primaryKey,'DESC')->where('category_status',1)->paginate(20);
     }
+    function get_search($cari){
+        return category::orderBy($this->primaryKey,'DESC')->where('category_name','like','%'.$cari.'%')->paginate(20);
+    }
     function add($data){
     	return category::insertGetId($data);
     }

@@ -26,12 +26,20 @@ class categoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-
-        $getdata            = $this->category->get_page();
+        if($request->has('cari')){
+            $cari       = $request->input('cari');
+            $getdata    = $this->category->get_search($cari);    
+        }else{
+            $cari       = "";
+            $getdata    = $this->category->get_page();
+        }
+        
         $view['list']       = $getdata;
+        $view['cari']       = $cari;
         $view['notip']      = session('notip');
+        $view['url']        = config('app.url').'public/admin/categories';
         return view('categories.index',$view);
 
     }

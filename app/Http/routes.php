@@ -59,3 +59,5 @@ Route::group(['prefix'=>'api'],function(){
 	Route::get('/product/autocomplete','apiController@get_product_auto');
 	Route::post('/product/idproduct','apiController@get_product_byid');
 });
+
+Route::get('/','homeController@index');

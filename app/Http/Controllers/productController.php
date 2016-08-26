@@ -27,11 +27,20 @@ class productController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $getdata            = $this->product->get_page();
+        if($request->has('cari')){
+            $cari       = $request->input('cari');
+            $getdata    = $this->product->get_search($cari);    
+        }else{
+            $cari       = "";
+            $getdata    = $this->product->get_page();
+        }
+        // $getdata            = $this->product->get_page();
         $view['list']       = $getdata;
         $view['notip']      = session('notip');
+        $view['cari']       = $cari;
+        $view['url']        = config('app.url').'public/admin/product';
         return view('product.index',$view);
         //
     }
