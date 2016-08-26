@@ -15,6 +15,20 @@
                   </div>
                 </div><!-- /.box-header -->
                 <div class="box-body">
+                  <div class="container">
+                      {!!Form::open(['url'=>$url,'method'=>'GET'])!!}
+                        <div class='row'>
+                            <div class="col-md-5">
+                                <input type="text" name="cari" id='cari' class="form-control" placeholder="Masukan Kata Kunci" value="{!!$cari!!}">
+                            </div>
+                            <div class="col-md-5">
+                                <button class="btn btn-box-tool" type='submit'><i class="fa fa-search"></i> <span class="hidden-xs">Search</span></button>
+                            </div>
+                        </div>
+                      
+                      {!!Form::close()!!}
+                      
+                    </div>
                   <table id="example" class="table table-bordered table-striped">
                     <thead>
                       <tr>
@@ -68,6 +82,7 @@
                   </tr>
                   </tfoot>
                   </table>
+                  <p>{!!$list->appends(['cari'=>$cari])->render()!!}</p>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col -->
