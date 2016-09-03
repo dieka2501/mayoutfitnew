@@ -1,4 +1,4 @@
-@extends('home')
+@extends('front.home')
 @section('content')
 	<!-- Listing Product -->
     <div  id="products-wrap" class="container">

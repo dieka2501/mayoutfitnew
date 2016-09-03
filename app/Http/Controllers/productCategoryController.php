@@ -8,9 +8,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\category;
 use App\product;
-class homeController extends Controller
+class productCategoryController extends Controller
 {
     function __construct(){
+        date_default_timezone_set('Asia/Jakarta');
+        $this->product      = new product;
         $this->category     = new category;
         $getcategory        = $this->category->get_all('category_name','ASC');
         $arr_cat            = [];
@@ -19,15 +21,33 @@ class homeController extends Controller
         }
         // $share['']
         view()->share('list_category',$arr_cat);
+
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request,$id)
     {
-        return view('front.home.page');
+        
+        //
+        if($request->has('sort') && $request->has('order') && $request->has('sort_name')){
+            $sort        = $request->input('sort');
+            $sort_name   = $request->input('sort_name');
+            $order       = $request->input('order');
+
+        }else{
+            $sort       = 'created_at';
+            $order      = "DESC";
+            $sort_name  = "terbaru";
+        }
+        $getdata             = $this->product->get_page_category_front($sort,$order,$id);
+        $view['list']        = $getdata;
+        $view['sort_name']   = $sort_name;
+        $view['sort']        = $sort;
+        $view['order']       = $order;
+        return view('front.newrelease.list',$view);
     }
 
     /**

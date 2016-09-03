@@ -38,7 +38,7 @@
                         <th>Total</th>
                         <th>Status</th>
                         <th>Action</th>
-                        <th>Action Second</th>
+                        
                       </tr>
                     </thead>
                   <tbody>
@@ -63,12 +63,7 @@
 
                         ?>
                       <td>{!!$stat!!}</td>
-                      <td style="width:150px;">
-                        <a href="{!!config('app.url')!!}public/admin/order/edit/{!!$lists->idorder!!}" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                        <!-- <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="config('app.url')public/admin/order/edit/$lists->idorder" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a> -->
-                        <a href="{!!config('app.url')!!}public/admin/order/print/{!!$lists->idorder!!}" target="__blank" class="btn btn-success btn-xs"><i class="fa fa-print"></i> Print</a>
-                        <a href="{!!config('app.url')!!}public/admin/order/konfirm/bayar/{!!$lists->idorder!!}" class="btn btn-default btn-xs"><i class="fa fa-print"></i>Konfirmasi</a>
-                      </td>
+                      
                       <td>
                         <div class="btn-group">
                           <button type="button" class="btn btn-default btn-flat">Action</button>
@@ -77,11 +72,11 @@
                             <span class="sr-only">Toggle Dropdown</span>
                           </button>
                           <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
+                            <li><a href="{!!config('app.url')!!}public/admin/order/edit/{!!$lists->idorder!!}">Edit</a></li>
+                            <li><a href="{!!config('app.url')!!}public/admin/order/print/{!!$lists->idorder!!}" target="__blank">Print</a></li>
+                            <li><a href="{!!config('app.url')!!}public/admin/order/konfirm/bayar/{!!$lists->idorder!!}">Konfirmasi</a></li>
+                            <!-- <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li> -->
                           </ul>
                         </div>
                       </td>
@@ -96,7 +91,7 @@
                     <th>Total</th>
                     <th>Status</th>
                     <th>Action</th>
-                    <th>Action Second</th>
+                    
                   </tr>
                   </tfoot>
                   </table>

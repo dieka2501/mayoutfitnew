@@ -34,4 +34,14 @@ class product extends Model
     function get_byname_all($name){
     	return product::orderBy('product_name','ASC')->where('product_name','like','%'.$name.'%')->get();
     }
+
+    //FRONT
+    function get_page_front($sort,$order){
+        return product::orderBy($sort,$order)->paginate(6);
+    }
+
+    function get_page_category_front($sort,$order,$idcategory){
+        return product::orderBy($sort,$order)->where('category_id',$idcategory)->paginate(6);
+    }
+
 }

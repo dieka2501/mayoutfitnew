@@ -12,6 +12,11 @@
     <!-- Mayoutfit style CSS -->
     <link rel="stylesheet" href="{{Config::get('app.url')}}assets/front/css/style.css">
     <script src="{{Config::get('app.url')}}assets/front/js/modernizr-2.6.2.min.js"></script>
+    <!-- Mayoutfit JS -->
+<script src="{{Config::get('app.url')}}assets/front/js/jquery-1.11.2.min.js"></script>
+<script src="{{Config::get('app.url')}}assets/front/js/bootstrap.min.js"></script>
+<script src="{{Config::get('app.url')}}assets/front/js/scripts.js"></script>
+<script src="{{Config::get('app.url')}}assets/front/js/owl.carousel.min.js"></script>
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -90,14 +95,13 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#new">New Arrival</a></li>
+            <li><a href="{!!config('app.url')!!}public/new">New Arrival</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catalog <span class="caret"></span></a>
               <ul class="dropdown-menu cat-menu">
-                <li><a href="#">Clothing</a></li>
-                <li><a href="#">Trousers</a></li>
-                <li><a href="#">Bags</a></li>
-                <li><a href="#">Wallets</a></li>
+                @foreach($list_category as $keylc => $valuelc)
+                <li><a href="{!!config('app.url')!!}public/product/category/{!!$keylc!!}">{!!$valuelc!!}</a></li>
+                @endforeach
               </ul>
             </li>
             <li><a href="#sale">Sale</a></li>
@@ -140,10 +144,6 @@
             </div>
         </div>
     </footer>
-<!-- Mayoutfit JS -->
-<script src="{{Config::get('app.url')}}assets/front/js/jquery-1.11.2.min.js"></script>
-<script src="{{Config::get('app.url')}}assets/front/js/bootstrap.min.js"></script>
-<script src="{{Config::get('app.url')}}assets/front/js/scripts.js"></script>
-<script src="{{Config::get('app.url')}}assets/front/js/owl.carousel.min.js"></script>
+
 </body>
 </html>

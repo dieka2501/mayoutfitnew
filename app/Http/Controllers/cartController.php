@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\category;
 use App\product;
-class homeController extends Controller
+use App\category;
+use App\cart;
+class cartController extends Controller
 {
     function __construct(){
+        date_default_timezone_set("Asia/Jakarta");
+        $this->product = new product;
         $this->category     = new category;
         $getcategory        = $this->category->get_all('category_name','ASC');
         $arr_cat            = [];
@@ -19,6 +22,7 @@ class homeController extends Controller
         }
         // $share['']
         view()->share('list_category',$arr_cat);
+        $this->cart = new cart;
     }
     /**
      * Display a listing of the resource.
@@ -26,8 +30,19 @@ class homeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-        return view('front.home.page');
+    {   
+        // var_dump($request->session()->all());
+        // var_dump(session('cart.name'));
+        // $count          = counsession('cart');
+        // $idproduct      = 
+        $view['count']          = count(session('cart.idproduct'));
+        $view['idproduct']      = session('cart.idproduct');
+        $view['name']           = session('cart.name');
+        $view['price']          = session('cart.price');
+        $view['code']           = session('cart.code');
+        $view['image']          = session('cart.image');
+        $view['qty']            = session('cart.qty');
+        return view('front.cart.page',$view);
     }
 
     /**
@@ -46,9 +61,18 @@ class homeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
         //
+        $getproduct = $this->product->get_id($id);
+        
+        $request->session()->push('cart.idproduct',$getproduct->idproduct);
+        $request->session()->push('cart.price',$getproduct->product_price);
+        $request->session()->push('cart.name',$getproduct->product_name);
+        $request->session()->push('cart.code',$getproduct->product_code);
+        $request->session()->push('cart.image',$getproduct->product_image);
+        $request->session()->push('cart.qty',1);
+        return redirect('/cart');
     }
 
     /**
@@ -91,8 +115,11 @@ class homeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         //
+        // $request->session()->forget('cart');
+        return $this->cart->hapus();
+
     }
 }
