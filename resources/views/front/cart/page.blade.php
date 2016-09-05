@@ -6,7 +6,7 @@
                 <h1>Shopping Cart</h1>
             </div>
                 <div class="content-form">
-                    <form id="cart" method="POST">
+                    <form id="frm-cart" method="POST" name='frm-cart'>
                         <div class="table-responsive">
                             <table class="table table-cart">
                                 <thead>
@@ -28,11 +28,12 @@
                                                 </td>
                                                 <td class="product-name">
                                                     {!!$name[$i]!!}
+                                                    <input type='hidden' name='idproduct[]' id='idproduct' value="{!!$idproduct[$i]!!}">
                                                 </td>
                                                 <td class="product-price"><span class="amount">Rp.{!!number_format($price[$i])!!}</span></td>
                                                 <td class="product-quantity">
-                                                    <div class="quantity buttons_added">
-                                                        <input class="minus" type="button" value="-"> <input class="input-text qty text" min="0" name="" size="4" step="1" title="Qty" value="1"> <input class="plus" type="button" value="+">
+                                                    <div class="quantity ">
+                                                         <input class="input-text qty text" min="0" name="qty_cart[{!!$idproduct[$i]!!}]" size="4" step="1" title="Qty" value="{!!$qty[$i]!!}"> 
                                                     </div>
                                                 </td>
                                                 <!-- <td class="product-subtotal"><span class="amount">Rp 200.000</span></td> -->
@@ -118,7 +119,7 @@
                     <div class="row clearfix">
 
                         <div class="col-md-6 col-xs-4">
-                            @if($count >0)<button class="btn btn-primary">Update Cart&nbsp; <i class="ion-loop"></i></button>@endif
+                            @if($count >0)<button class="btn btn-primary" id="update_cart">Update Cart&nbsp; <i class="ion-loop"></i></button>@endif
                         </div>
                         <div class="col-md-6 pull-right text-right">
                             <a href="{!!config('app.url')!!}public/new" class="btn btn-default btn-line">Continue Shoping&nbsp; <i class="ion-bag"></i></a>
@@ -130,4 +131,12 @@
             </div>
         </div>
     </section>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#update_cart').click(function(){
+                    $('#frm-cart').attr('action','{!!config("app.url")!!}public/cart/update');
+                    $('#frm-cart').submit();
+            });
+        });
+    </script>
 @stop

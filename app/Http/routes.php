@@ -66,3 +66,4 @@ Route::get('/product/category/{id}','productCategoryController@index');
 Route::get('/cart/add/{id}','cartController@store');
 Route::get('/cart','cartController@index');
 Route::get('/cart/destroy','cartController@destroy');
+Route::post('/cart/update','cartController@update');

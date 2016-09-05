@@ -92,7 +92,7 @@ class cartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
         //
     }
@@ -104,9 +104,26 @@ class cartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $this->cart->hapus();
+        $idproduct  = $request->input('idproduct');
+        $qty_cart   = $request->input('qty_cart');
+        // var_dump($idproduct);die;
+        foreach ($idproduct as $products) {
+            $getproduct    = $this->product->get_id($products);
+            $request->session()->push('cart.idproduct',$getproduct->idproduct);
+            $request->session()->push('cart.price',$getproduct->product_price);
+            $request->session()->push('cart.name',$getproduct->product_name);
+            $request->session()->push('cart.code',$getproduct->product_code);
+            $request->session()->push('cart.image',$getproduct->product_image);
+            $request->session()->push('cart.qty',$qty_cart[$products]);
+            
+            // echo $products."-".$qty_cart[$products]."<br>";
+            
+        }
+        return redirect('/cart');
+        // var_dump($request->session()->all());
     }
 
     /**
