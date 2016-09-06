@@ -18,6 +18,7 @@ class categoryController extends Controller
         view()->share('name',session('name'));
         view()->share('email',session('email'));
         view()->share('date_register',session('date_register'));
+        
         $this->category = new category;
         $this->path     = public_path().'/upload/';
     }

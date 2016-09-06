@@ -39,32 +39,38 @@
                   <a href="#" class="dropdown-toggle shop-bag" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <!--<small>My Bag</small>-->
                     <i class="ion-bag"></i>
-                    <span class="value">3</span>
+                    <span class="value">{!!$count!!}</span>
                   </a>
                   <ul class="dropdown-menu cart">
                     <li>
-                        <div class="cart-list clearfix">
-                            <div class="col-xs-4 cart-img"><a href="#"><img src="{{Config::get('app.url')}}assets/front/images/8-KATE-SPADE.jpg"></a></div>
-                            <div class="col-xs-8">
-                                <div class="flower-name"><a href="#">Aliquam Lobor Poka</a></div>
-                                <div class="qty">Qty : 2</div>
-                                <div class="price-web">Rp. 200.000</div>
-                            </div>
-                        </div>
-                        <div class="cart-list clearfix">
+                        @if($count >0)
+                            @for($jj=0; $jj < $count; $jj++)
+                                <div class="cart-list clearfix">
+                                    <div class="col-xs-4 cart-img"><a href="#"><img src="{!!config('app.url')!!}public/upload/{!!$image[$jj]!!}"></a></div>
+                                    <div class="col-xs-8">
+                                        <div class="flower-name"><a href="#">{!!$name[$jj]!!}</a></div>
+                                        <div class="qty">Qty : {!!$qty[$jj]!!}</div>
+                                        <div class="price-web">Rp. {!!number_format($price[$jj])!!}</div>
+                                    </div>
+                                </div>
+                            @endfor
+                        @else
+                            <div class="cart-list clearfix">Cart masih kosong</div>
+                        @endif
+                        <!-- <div class="cart-list clearfix">
                             <div class="col-xs-4 cart-img"><a href="#"><img src="{{Config::get('app.url')}}assets/front/images/10-PURICIA-BLOUSE.jpg"></a></div>
                             <div class="col-xs-8">
                                 <div class="flower-name"><a href="#">Aliquam Lobor Poka</a></div>
                                 <div class="qty">Qty : 2</div>
                                 <div class="price-web">Rp. 200.000</div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="cart-action">
                             <div class="cart-total row clearfix">
                                 <div class="subtotal-label col-xs-6"><strong>Total</strong></div>
                                 <div class="subtotal col-xs-6 text-right">Rp. 800.000</div>
                             </div>
-                            <button href="#" class="btn btn-default">View Cart</button>
+                            <a href="{!!config('app.url')!!}public/cart" ><button class="btn btn-default">View Cart</button></a>
                             <button href="#" class="btn btn-primary">Checkout</button>
                         </div>
                     </li>

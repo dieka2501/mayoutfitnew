@@ -13,7 +13,7 @@ class cartController extends Controller
 {
     function __construct(){
         date_default_timezone_set("Asia/Jakarta");
-        $this->product = new product;
+        $this->product      = new product;
         $this->category     = new category;
         $getcategory        = $this->category->get_all('category_name','ASC');
         $arr_cat            = [];
@@ -22,6 +22,13 @@ class cartController extends Controller
         }
         // $share['']
         view()->share('list_category',$arr_cat);
+        view()->share('count',count(session('cart.idproduct')));
+        view()->share('idproduct',session('cart.idproduct'));
+        view()->share('name',session('cart.name'));
+        view()->share('price',session('cart.price'));
+        view()->share('code',session('cart.code'));
+        view()->share('image',session('cart.image'));
+        view()->share('qty',session('cart.qty'));
         $this->cart = new cart;
     }
     /**

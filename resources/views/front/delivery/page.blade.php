@@ -1,4 +1,4 @@
-@extends('home')
+@extends('front.home')
 @section('content')
 	<section class="section section-content long-content grey-bg">
         <div class="container">
@@ -379,7 +379,8 @@
                             </table>
                           </div>
                           <div class="ch-cart-conclusion">
-                            <div style="display: none;">
+                            <!-- <div style="display: none;"> -->
+                            <div>
                               <div id="delivery-total-shipping-standard">
                                 <div id="delivery-price-text-standard">
                                   Pengiriman Standar: gratis
