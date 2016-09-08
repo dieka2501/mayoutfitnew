@@ -150,6 +150,13 @@
             </div>
         </div>
     </footer>
-
+    <script type="text/javascript">
+        $('#addNewAddress').on('click', function(){
+            $('#add-new').toggle();
+        });
+        $('.except-new').on('click', function(){
+            $('#add-new').hide();
+        });
+    </script>
 </body>
 </html>
