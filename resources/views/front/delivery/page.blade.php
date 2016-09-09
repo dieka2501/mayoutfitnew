@@ -1,4 +1,4 @@
-@extends('home')
+@extends('front.home')
 @section('content')
   <section class="section section-content long-content grey-bg">
         <div class="container">
@@ -38,7 +38,7 @@
                             <div class="clearfix add-address ch-address-type-option">
                               <div class="radio-check">
                                 <input class="is-new-address" id="inputNewAddress" name="ThreeStepShippingAddressForm[shippingAddressId]" type="radio" value="0">
-                              </div><label class="ch-label address-info" id="addNewAddress" for="inputNewAddress">Tambahkan alamat lainz</label>
+                              </div><label class="ch-label address-info" id="addNewAddress" for="inputNewAddress">Tambahkan alamat lain</label>
                             </div><input name="ThreeStepShippingAddressForm[createNewAddress]" type="hidden" value="0">
                             <div id="add-new" style="background:#f5f5f5;padding:20px;">
                               <div class="form-group">
@@ -96,17 +96,15 @@
                           <div class="order-scrollable">
                             <table class="order-scroll-table table table-cart">
                               <tbody>
+                                @for($icart=0;$icart < $count; $icart++ )
                                 <tr class="first-item">
-                                  <td width="160">Mitsubishi Pajero Sports Dakkar 4x4 - Hitam Mica</td>
-                                  <td class="qty" width="50">1</td>
-                                  <td class="right-align sel-cart-item-total-MI399OTAA42B24ANID-7914138">525.000.000</td>
+                                  <td width="160">{!!$name[$icart]!!}</td>
+                                  <td class="qty" width="50">{!!$qty[$icart]!!}</td>
+                                  <?php $subtotal = $qty[$icart] * $price[$icart]?>
+                                  <td class="right-align sel-cart-item-total-MI399OTAA42B24ANID-7914138">Rp. {!!number_format($subtotal)!!}</td>
                                 </tr>
-                                <tr class="delivery-wrap">
-                                  <td colspan="3">
-                                    <p><strong>Pengiriman Standar</strong></p>
-                                    <p class="delivery-time">01 Aug - 03 Aug</p>
-                                  </td>
-                                </tr>
+                                @endfor
+                                
                               </tbody>
                             </table>
                           </div>
@@ -129,7 +127,7 @@
                               <tbody>
                                 <tr class="first-subtotal">
                                   <td class="subtotal sel-subtotal">Subtotal</td>
-                                  <td class="right-align" colspan="2">RP 525.000.000</td>
+                                  <td class="right-align" colspan="2">Rp. {!!number_format($subtotal)!!}</td>
                                 </tr>
                                 <tr>
                                   <td class="subtotal highlight shipping-cost-free">Biaya pengiriman</td>
@@ -137,7 +135,7 @@
                                 </tr>
                                 <tr class="total">
                                   <td class="total"><strong class="total-label">Total</strong> <span class="vat-minicart">(Termasuk PPN)</span></td>
-                                  <td class="total right-align sel-total" colspan="2"><strong class="total-price">RP 525.000.000</strong></td>
+                                  <td class="total right-align sel-total" colspan="2"><strong class="total-price">Rp. {!!number_format($subtotal)!!}</strong></td>
                                 </tr>
                               </tbody>
                             </table>
