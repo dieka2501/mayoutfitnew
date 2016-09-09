@@ -36,7 +36,13 @@ class checkoutController extends Controller
     public function index()
     {
         //
-        return view('front.delivery.page');
+        $count = count(session('cart.idproduct'));
+        if($count > 0){
+            return view('front.delivery.page');    
+        }else{
+            redirect('/new');
+        }
+        
     }
 
     /**

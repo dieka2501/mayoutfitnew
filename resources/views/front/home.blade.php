@@ -44,6 +44,7 @@
                   <ul class="dropdown-menu cart">
                     <li>
                         @if($count >0)
+                            <?php $subtotal = 0;?>
                             @for($jj=0; $jj < $count; $jj++)
                                 <div class="cart-list clearfix">
                                     <div class="col-xs-4 cart-img"><a href="#"><img src="{!!config('app.url')!!}public/upload/{!!$image[$jj]!!}"></a></div>
@@ -53,6 +54,7 @@
                                         <div class="price-web">Rp. {!!number_format($price[$jj])!!}</div>
                                     </div>
                                 </div>
+                                <?php $subtotal += $qty[$jj] * $price[$jj];?>
                             @endfor
                         @else
                             <div class="cart-list clearfix">Cart masih kosong</div>
@@ -66,10 +68,12 @@
                             </div>
                         </div> -->
                         <div class="cart-action">
-                            <div class="cart-total row clearfix">
-                                <div class="subtotal-label col-xs-6"><strong>Total</strong></div>
-                                <div class="subtotal col-xs-6 text-right">Rp. 800.000</div>
-                            </div>
+                            @if($count >0)
+                                <div class="cart-total row clearfix">
+                                    <div class="subtotal-label col-xs-6"><strong>Total</strong></div>
+                                    <div class="subtotal col-xs-6 text-right">Rp. {!!number_format($subtotal)!!}</div>
+                                </div>
+                            @endif
                             <a href="{!!config('app.url')!!}public/cart" ><button class="btn btn-default">View Cart</button></a>
                             <button href="#" class="btn btn-primary">Checkout</button>
                         </div>

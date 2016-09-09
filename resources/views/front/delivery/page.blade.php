@@ -13,34 +13,14 @@
                         </div>
                         <div class="shipping-wrap-border">
                           <div class="shipping-wrap existing-address">
-                            <div class="clearfix address-wrapper ch-address-type-option ch-selected">
-                              <div class="radio-check">
-                                <input autocomplete="off" class="shipping" id="inputAddressType0" name="ThreeStepShippingAddressForm[shippingAddressId]" type="radio" value="1410697">
-                              </div>
-                              <div class="address">
-                                <p class="ch-head"><label class="address-info except-new" for="inputAddressType0">Gary Livertus</label></p>
-                                <p><label class="address-info" for="inputAddressType0">Jl. Bhayangkara Komp. Griya Serang Asri Blok R no. 9-10 RT 02/10</label></p>
-                                <p><label class="address-info" for="inputAddressType0">Banten - Kota Serang - Cipocok Jaya</label></p>
-                                <p><label class="address-info" for="inputAddressType0">Nomor Handphone: 085718456446</label></p>
-                              </div>
-                            </div>
-                            <div class="clearfix address-wrapper ch-address-type-option">
-                              <div class="radio-check">
-                                <input autocomplete="off" checked="checked" class="shipping" id="inputAddressType1" name="ThreeStepShippingAddressForm[shippingAddressId]" type="radio" value="299487">
-                              </div>
-                              <div class="address">
-                                <p class="ch-head"><label class="address-info except-new" for="inputAddressType1">Supatmo Agus Edi Cahyono</label></p>
-                                <p><label class="address-info" for="inputAddressType1">Jl. Budhi no. 8 Cilember-Cimindi RT 02/03 Kel. Sukaraja Kec. Cicendo Bandung</label></p>
-                                <p><label class="address-info" for="inputAddressType1">Jawa Barat - Kota Bandung - Cicendo</label></p>
-                                <p><label class="address-info" for="inputAddressType1">Nomor Handphone: 08818228571</label></p>
-                              </div>
-                            </div>
                             <div class="clearfix add-address ch-address-type-option">
                               <div class="radio-check">
-                                <input class="is-new-address" id="inputNewAddress" name="ThreeStepShippingAddressForm[shippingAddressId]" type="radio" value="0">
-                              </div><label class="ch-label address-info" id="addNewAddress" for="inputNewAddress">Tambahkan alamat lain</label>
+
+                                <input class="is-new-address" id="inputNewAddress" name="ThreeStepShippingAddressForm[shippingAddressId]" type="radio" value="0" checked="checked">
+                              </div><label class="ch-label address-info" id="addNewAddress" for="inputNewAddress">Tambahkan alamat left-align</label>
+
                             </div><input name="ThreeStepShippingAddressForm[createNewAddress]" type="hidden" value="0">
-                            <div id="add-new" style="background:#f5f5f5;padding:20px;">
+                            <div id="addnew" style="background:#f5f5f5;padding:20px;">
                               <div class="form-group">
                                 <label>Nama</label>
                                 <input type="text" class="form-control">

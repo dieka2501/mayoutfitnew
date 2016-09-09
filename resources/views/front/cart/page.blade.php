@@ -122,8 +122,8 @@
                             @if($count >0)<button class="btn btn-primary" id="update_cart">Update Cart&nbsp; <i class="ion-loop"></i></button>@endif
                         </div>
                         <div class="col-md-6 pull-right text-right">
-                            <a href="{!!config('app.url')!!}public/new" class="btn btn-default btn-line">Continue Shoping&nbsp; <i class="ion-bag"></i></a>
-                            @if($count >0)<button href="/shop" class="btn btn-default btn-pink mr-left">Checkout&nbsp;<i class="ion-arrow-right-c"></i></button>@endif
+                            <a href="{!!config('app.url')!!}public/new"><button class="btn btn-default btn-line">Continue Shoping&nbsp; <i class="ion-bag"></i></button></a>
+                            @if($count >0)<a href="{!!config('app.url')!!}public/checkout"><button  class="btn btn-default btn-pink mr-left">Checkout&nbsp;<i class="ion-arrow-right-c"></i></button></a>@endif
                         </div>
                     </div>
                 </div>
@@ -138,5 +138,15 @@
                     $('#frm-cart').submit();
             });
         });
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#update_cart').click(function(){
+                    $('#frm-cart').attr('action','{!!config("app.url")!!}public/cart/update');
+                    $('#frm-cart').submit();
+            });
+        });
+        
     </script>
 @stop
