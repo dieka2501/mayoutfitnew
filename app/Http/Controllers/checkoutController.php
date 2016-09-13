@@ -8,11 +8,13 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\product;
 use App\category;
+use App\provinsi;
 class checkoutController extends Controller
 {
     function __construct(){
         date_default_timezone_set('Asia/Jakarta') ;  
         $this->category     = new category;
+        $this->provinsi     = new provinsi;
         $getcategory        = $this->category->get_all('category_name','ASC');
         $arr_cat            = [];
         foreach ($getcategory as $cats) {
@@ -36,7 +38,29 @@ class checkoutController extends Controller
     public function index()
     {
         //
-        return view('front.delivery.page');
+        $count = count(session('cart.idproduct'));
+        if($count > 0){
+            $getprovinsi = $this->provinsi->get_all('nama_provinsi','ASC');
+            $arr_provinsi = [''=>'-- Pilih Provinsi --'];
+            foreach ($getprovinsi as $prov) {
+                $arr_provinsi[$prov->id] =  $prov->nama_provinsi;
+            }
+            $view['arr_provinsi'] = $arr_provinsi;
+            $view['id_provinsi']  = session('id_provinsi');
+
+            $view['arr_kota']     = [''=>'-- Pilih Kota --'];
+            $view['id_kota']      = session('id_kota');
+
+            $view['arr_kecamatan']= [''=>'-- Pilih Kecamatan --'];
+            $view['id_kecamatan'] = session('id_kecamatan');
+
+            $view['arr_type']   = [''=>'-- Pilih Pengriman --'];
+            $view['type_kirim'] = session('type_kirim');            
+            return view('front.delivery.page',$view);    
+        }else{
+            redirect('/new');
+        }
+        
     }
 
     /**

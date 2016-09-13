@@ -1,4 +1,4 @@
-@extends('home')
+@extends('front.home')
 @section('content')
   <section class="section section-content long-content grey-bg">
         <div class="container">
@@ -14,9 +14,7 @@
                         <div class="shipping-wrap-border">
                           <div class="shipping-wrap existing-address">
                             <div class="clearfix add-address ch-address-type-option">
-                              <div class="radio-check">
-                                <input class="is-new-address" id="inputNewAddress" name="ThreeStepShippingAddressForm[shippingAddressId]" type="radio" value="0" checked="checked">
-                              </div><label class="ch-label address-info" id="addNewAddress" for="inputNewAddress">Tambahkan alamat lainz</label>
+
                             </div><input name="ThreeStepShippingAddressForm[createNewAddress]" type="hidden" value="0">
                             <div id="addnew" style="background:#f5f5f5;padding:20px;">
                               <div class="form-group">
@@ -24,9 +22,11 @@
                                 <input type="text" class="form-control">
                               </div>
                               <div class="form-group">
-                                <label>Alamat</label>
+                                <label>Alamat Pengirim</label>
                                 <textarea class="form-contro" rows="5"></textarea>
                               </div>
+                              
+                              
                               <div class="form-group">
                                 <label>No. Tlp</label>
                                 <input type="text" class="form-control">
@@ -35,21 +35,26 @@
                               <div class="col-md-4">
                               <div class="form-group">
                                 <label>Provinsi</label>
-                                <input type="text" class="form-control">
+                                {!!Form::select('id_provinsi',$arr_provinsi,$id_provinsi,['class'=>'form-group','id'=>'id_provinsi'])!!}
                               </div>
                               </div>
                               <div class="col-md-4">
                               <div class="form-group">
                                 <label>Kota</label>
-                                <input type="text" class="form-control">
+                                {!!Form::select('id_kota',$arr_kota,$id_kota,['class'=>'form-group','id'=>'id_kota'])!!}
                               </div>
                               </div>
                               <div class="col-md-4">
                               <div class="form-group">
                                 <label>Kecamatan</label>
-                                <input type="text" class="form-control">
+                                {!!Form::select('id_kecamatan',$arr_kecamatan,$id_kecamatan,['class'=>'form-group','id'=>'id_kecamatan'])!!}
                               </div>
                               </div>
+                              </div>
+                              <div class="radio-check form-group">
+
+                                <input class="is-new-address" id="beda_alamat" name="beda_alamat" type="checkbox" value="0" >
+                                <label class="ch-label address-info" id="addNewAddress" for="inputNewAddress">Kirim ke alamat berbeda</label>
                               </div>
                             </div>
                           </div>
@@ -74,17 +79,15 @@
                           <div class="order-scrollable">
                             <table class="order-scroll-table table table-cart">
                               <tbody>
+                                @for($icart=0;$icart < $count; $icart++ )
                                 <tr class="first-item">
-                                  <td width="160">Mitsubishi Pajero Sports Dakkar 4x4 - Hitam Mica</td>
-                                  <td class="qty" width="50">1</td>
-                                  <td class="right-align sel-cart-item-total-MI399OTAA42B24ANID-7914138">525.000.000</td>
+                                  <td width="160">{!!$name[$icart]!!}</td>
+                                  <td class="qty" width="50">{!!$qty[$icart]!!}</td>
+                                  <?php $subtotal = $qty[$icart] * $price[$icart]?>
+                                  <td class="right-align sel-cart-item-total-MI399OTAA42B24ANID-7914138">Rp. {!!number_format($subtotal)!!}</td>
                                 </tr>
-                                <tr class="delivery-wrap">
-                                  <td colspan="3">
-                                    <p><strong>Pengiriman Standar</strong></p>
-                                    <p class="delivery-time">01 Aug - 03 Aug</p>
-                                  </td>
-                                </tr>
+                                @endfor
+                                
                               </tbody>
                             </table>
                           </div>
@@ -107,15 +110,21 @@
                               <tbody>
                                 <tr class="first-subtotal">
                                   <td class="subtotal sel-subtotal">Subtotal</td>
-                                  <td class="right-align" colspan="2">RP 525.000.000</td>
+                                  <td class="right-align" colspan="2">Rp. {!!number_format($subtotal)!!}
+                                  <input type="hidden" name="hidsubtotal" id="hidsubtotal" value="{!!$subtotal!!}">
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="subtotal highlight shipping-cost-free">Tipe Pengiriman</td>
+                                  <td class="right-align highlight shipping-cost-free" colspan="2">{!!Form::select('type_kirim',$arr_type,$type_kirim,['class'=>'form-control','id'=>'type_kirim'])!!}</td>
                                 </tr>
                                 <tr>
                                   <td class="subtotal highlight shipping-cost-free">Biaya pengiriman</td>
-                                  <td class="right-align highlight shipping-cost-free" colspan="2">Gratis</td>
+                                  <td class="right-align highlight shipping-cost-free" colspan="2">Rp. <p id='ongkir'>0</p></td>
                                 </tr>
                                 <tr class="total">
                                   <td class="total"><strong class="total-label">Total</strong> <span class="vat-minicart">(Termasuk PPN)</span></td>
-                                  <td class="total right-align sel-total" colspan="2"><strong class="total-price">RP 525.000.000</strong></td>
+                                  <td class="total right-align sel-total" colspan="2"><strong class="total-price">Rp. <p id="grandtotal">{!!number_format($subtotal)!!}</p></strong></td>
                                 </tr>
                               </tbody>
                             </table>
@@ -127,4 +136,79 @@
             </div>
         </div>
     </section>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#id_provinsi').change(function(){
+              
+        // alert('asas');
+           var idprovinsi = $(this).val();
+           $.post('{!!config("app.url")!!}public/api/kota/getidprovinsi',{
+              'idprovinsi':idprovinsi
+           },function(data){
+              // console.log(data);
+              // var count = data.length;
+              var html = '<option value="">-- Pilih Kota --</option>';
+              for (var i = data.length - 1; i >= 0; i--) {
+                html +="<option value='"+data[i].id+"'>"+data[i].nama_kota+"</option>";
+                  
+              }
+              $('#id_kota').html(html);
+           });
+        });
+        $('#id_kota').change(function(){
+              
+         // alert('asas');
+           var idkota     = $(this).val();
+           var idprovinsi = $("#id_provinsi").val();
+           $.post('{!!config("app.url")!!}public/api/kecamatan/getidprovinsiidkota',{
+              'idprovinsi':idprovinsi,
+              'idkota':idkota
+           },function(data){
+              console.log(data);
+              // var count = data.length;
+              var html = '<option value="">-- Pilih Kecamatan --</option>';
+              for (var i = data.length - 1; i >= 0; i--) {
+                html +="<option value='"+data[i].id+"'>"+data[i].nama_kecamatan+"</option>";
+                  
+              }
+              $('#id_kecamatan').html(html);
+           });
+        });
+
+        $('#id_kecamatan').change(function(){
+              
+           // alert('asas');
+           var idkota       = $("#id_kota").val();
+           var idprovinsi   = $("#id_provinsi").val();
+           var idkecamatan  = $("#id_kecamatan").val();
+           $.post('{!!config("app.url")!!}public/api/ongkir',{
+              'idprovinsi':idprovinsi,
+              'idkota':idkota,
+              "idkecamatan":idkecamatan
+           },function(data){
+              console.log(data);
+              var htmlkirim = '<option value="">-- Pilih Tipe Pengiriman --</option>';
+              if(data.oke > 0){
+                htmlkirim += '<option value="'+data.oke+'">OKE</option>';  
+              }
+              if(data.reg > 0){
+                htmlkirim += '<option value="'+data.reg+'">REGULER</option>';  
+              }
+              if(data.yes > 0){
+                htmlkirim += '<option value="'+data.yes+'">YES</option>';  
+              }
+              $('#type_kirim').html(htmlkirim);
+              
+           });
+        });
+
+        $('#type_kirim').change(function(){
+          var valkirim = $(this).val();
+          var subtotal = $('#hidsubtotal').val();
+          var total    = parseInt(valkirim)  + parseInt(subtotal);
+          $('#ongkir').html(valkirim);
+          $('#grandtotal').html(total);
+        });
+      });
+    </script>
 @stop
