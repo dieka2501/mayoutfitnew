@@ -74,7 +74,7 @@
                             <span class="listing-item-price-web">Rp {!!number_format($lists->product_price)!!}</span>
                             
                         </a>
-                        <a href="{!!config('app.url')!!}public/cart/add/{!!$lists->idproduct!!}" class="btn btn-warning btn-xs">Add To Cart</a>
+                        <a href="{!!config('app.url')!!}public/cart/add/{!!$lists->idproduct!!}" class="btn btn-warning btn-xs" style="height: 30px;line-height: 25px;">Add To Cart</a>
                     </article>
 
                     @endforeach
