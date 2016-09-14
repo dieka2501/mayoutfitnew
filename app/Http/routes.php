@@ -68,3 +68,4 @@ Route::get('/cart','cartController@index');
 Route::get('/cart/destroy','cartController@destroy');
 Route::post('/cart/update','cartController@update');
 Route::get('/checkout','checkoutController@index');
+Route::post('/checkout','checkoutController@store');

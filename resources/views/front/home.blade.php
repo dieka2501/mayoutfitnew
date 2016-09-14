@@ -75,7 +75,7 @@
                                 </div>
                             @endif
                             <a href="{!!config('app.url')!!}public/cart" ><button class="btn btn-default">View Cart</button></a>
-                            <button href="#" class="btn btn-primary">Checkout</button>
+                            <a href="{!!config('app.url')!!}public/checkout"><button  class="btn btn-primary">Checkout</button></a>
                         </div>
                     </li>
                   </ul>
