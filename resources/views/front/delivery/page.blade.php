@@ -32,7 +32,7 @@
                               </div> 
                               <div class="form-group">
                                 <label>No. Tlp</label>
-                                <input type="text" class="form-control" nama="order_phone" id='order_phone' required="required">
+                                <input type="text" class="form-control" name="order_phone" id='order_phone' required="required">
                               </div>
                               <div class="radio-check form-group">
 

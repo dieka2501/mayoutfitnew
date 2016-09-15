@@ -26,7 +26,7 @@
     <div class="topbar">
         <div class="container">
             <ul class="nav navbar-nav">
-                <li><a href="#">Log In</a><span>/</span><a href="#">Register</a></li>
+                <li><a href="{!!config('app.url')!!}public/login">Log In</a><span>/</span><a href="{!!config('app.url')!!}public/login">Register</a></li>
                 <li><a href="#">Confirm Payment</a></li>
                 <li class="hidden-xs"><a href="#">How to Order</a></li>
             </ul>

@@ -77,6 +77,7 @@ class checkoutController extends Controller
     public function create()
     {
         //
+        return view('mail.checkout');
     }
 
     /**
@@ -140,9 +141,12 @@ class checkoutController extends Controller
                 $detail['order_detail_subtotal']= $subtot;
                 $detail['created_at']           = date('Y-m-d H:i:s');
                 $this->od->add($detail);
-                $request->session()->forget('cart');
+                
 
             }
+            $request->session()->forget('cart');
+            $view['idorder'] = $uniqid;
+            return view('front.checkout.final',$view);
         }
 
     }
