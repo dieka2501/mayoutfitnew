@@ -1,4 +1,4 @@
-@extends('home')
+@extends('front.home')
 @section('content')
 	<section class="section section-content">
         <div class="container">

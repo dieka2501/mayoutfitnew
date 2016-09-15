@@ -6,6 +6,7 @@
                 <h1>Delivery</h1>
             </div>
             <div class="row clearfix">
+              {!!Form::open(['url'=>config('app.url').'public/checkout','method'=>'POST','id'=>'frm-checkout'])!!}
                 <div class="col-md-8 col-xs-12">
                     <div class="content-form">
                         <div class="section-title">
@@ -19,49 +20,71 @@
                             <div id="addnew" style="background:#f5f5f5;padding:20px;">
                               <div class="form-group">
                                 <label>Nama</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="order_name" id="order_name" required="required">
                               </div>
                               <div class="form-group">
-                                <label>Alamat Pengirim</label>
-                                <textarea class="form-contro" rows="5"></textarea>
+                                <label>Email</label>
+                                <input type="text" class="form-control" name="order_email" id="order_email" required="required">
                               </div>
-                              
-                              
+                              <div class="form-group">
+                                <label>Alamat</label>
+                                <textarea class="form-contro" rows="5" name="order_address" id="order_address" required="required"></textarea>
+                              </div> 
                               <div class="form-group">
                                 <label>No. Tlp</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="order_phone" id='order_phone' required="required">
+                              </div>
+                              <div class="radio-check form-group">
+
+                                <input class="is-new-address" id="beda_alamat" name="beda_alamat" type="checkbox" value="1" >
+                                <label class="ch-label address-info" id="" for="inputNewAddress">Kirim ke alamat berbeda</label>
+                              </div>
+                              <div class="form-group penerima">
+                                <label>Nama Penerima</label>
+                                <input type="text" class="form-control" name="order_shipment_name" id="order_shipment_name">
+                              </div>
+                              <div class="form-group penerima">
+                                <label>Alamat Penerima</label>
+                                <textarea class="form-contro" rows="5" name="order_shipment_address" id="order_shipment_address"></textarea>
+                              </div> 
+                              <div class="form-group penerima">
+                                <label>No. Tlp Penerima</label>
+                                <input type="text" class="form-control" name="order_shipment_phone" id="order_shipment_phone">
+                              </div>
+                              <div class="form-group">
+                                <label>Kodepos Penerima</label>
+                                <input type="text" class="form-control" name="order_shipment_zip" id="order_shipment_zip">
                               </div>
                               <div class="row">
                               <div class="col-md-4">
                               <div class="form-group">
-                                <label>Provinsi</label>
+                                <label>Provinsi Penerima</label>
                                 {!!Form::select('id_provinsi',$arr_provinsi,$id_provinsi,['class'=>'form-group','id'=>'id_provinsi'])!!}
                               </div>
                               </div>
                               <div class="col-md-4">
                               <div class="form-group">
-                                <label>Kota</label>
+                                <label>Kota Penerima</label>
                                 {!!Form::select('id_kota',$arr_kota,$id_kota,['class'=>'form-group','id'=>'id_kota'])!!}
                               </div>
                               </div>
                               <div class="col-md-4">
                               <div class="form-group">
-                                <label>Kecamatan</label>
+                                <label>Kecamatan Penerima</label>
                                 {!!Form::select('id_kecamatan',$arr_kecamatan,$id_kecamatan,['class'=>'form-group','id'=>'id_kecamatan'])!!}
                               </div>
                               </div>
                               </div>
-                              <div class="radio-check form-group">
-
-                                <input class="is-new-address" id="beda_alamat" name="beda_alamat" type="checkbox" value="0" >
-                                <label class="ch-label address-info" id="addNewAddress" for="inputNewAddress">Kirim ke alamat berbeda</label>
-                              </div>
+                              <div class="form-group">
+                                <label>Catatan Pembelian</label>
+                                <textarea class="form-contro" rows="5" name="order_note" id="order_note"></textarea>
+                              </div> 
                             </div>
                           </div>
                           
                         </div>
                         <!-- End of shipping -->
-                        <button type="submit" class="btn btn-default btn-pink">Continue &nbsp;<i class="ion-arrow-right-c"></i></button>
+                        <button type="button" class="btn btn-default btn-pink" id='btn-checkout'>Checkout &nbsp;<i class="ion-arrow-right-c"></i></button>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-12">
@@ -79,12 +102,13 @@
                           <div class="order-scrollable">
                             <table class="order-scroll-table table table-cart">
                               <tbody>
+                                <?php $subtotal=0;?>
                                 @for($icart=0;$icart < $count; $icart++ )
                                 <tr class="first-item">
                                   <td width="160">{!!$name[$icart]!!}</td>
                                   <td class="qty" width="50">{!!$qty[$icart]!!}</td>
-                                  <?php $subtotal = $qty[$icart] * $price[$icart]?>
-                                  <td class="right-align sel-cart-item-total-MI399OTAA42B24ANID-7914138">Rp. {!!number_format($subtotal)!!}</td>
+                                  <?php $subtotal += $qty[$icart] * $price[$icart]?>
+                                  <td class="right-align sel-cart-item-total-MI399OTAA42B24ANID-7914138">Rp. {!!number_format($price[$icart])!!}</td>
                                 </tr>
                                 @endfor
                                 
@@ -120,11 +144,14 @@
                                 </tr>
                                 <tr>
                                   <td class="subtotal highlight shipping-cost-free">Biaya pengiriman</td>
-                                  <td class="right-align highlight shipping-cost-free" colspan="2">Rp. <p id='ongkir'>0</p></td>
+                                  <td class="right-align highlight shipping-cost-free" colspan="2">Rp. <p id='ongkir'>0</p>
+                                  </td>
                                 </tr>
                                 <tr class="total">
                                   <td class="total"><strong class="total-label">Total</strong> <span class="vat-minicart">(Termasuk PPN)</span></td>
-                                  <td class="total right-align sel-total" colspan="2"><strong class="total-price">Rp. <p id="grandtotal">{!!number_format($subtotal)!!}</p></strong></td>
+                                  <td class="total right-align sel-total" colspan="2"><strong class="total-price">Rp. <p id="grandtotal">{!!number_format($subtotal)!!}</p></strong>
+                                  <input type='hidden' name="grandtotal" id='input-grandtotal'> 
+                                  </td>
                                 </tr>
                               </tbody>
                             </table>
@@ -133,6 +160,7 @@
                         <div class="clearfix"></div>
                     </div>
                 </div>
+                {!!Form::close()!!}
             </div>
         </div>
     </section>
@@ -208,6 +236,33 @@
           var total    = parseInt(valkirim)  + parseInt(subtotal);
           $('#ongkir').html(valkirim);
           $('#grandtotal').html(total);
+          $('#input-grandtotal').val(total);
+        });
+
+        $('#btn-checkout').click(function(){
+            var provinsi = $('#id_provinsi').val();
+            var kota     = $('#id_kota').val();
+            var kecamatan= $('#id_kecamatan').val();
+            var ongkir   = $('#type_kirim').val();
+            var nama     = $('#order_name').val();
+            var email    = $('#order_email').val();
+            var alamat   = $('#order_address').val();
+            var telepon  = $('#order_phone').val();
+            if(provinsi != "" && kota != "" && kecamatan != "" && ongkir != "" && nama != "" && email != "" && alamat != "" && telepon != "" ){
+              $('#frm-checkout').submit();
+            }else{
+              alert('Semua field dan tipe pengiriman harus diisi');
+            }
+        });
+
+        $('.penerima').hide();
+        $('#beda_alamat').change(function(){
+            var beda_alamat = $(this).prop('checked');
+            if(beda_alamat){
+              $('.penerima').fadeIn(1000);
+            }else{
+              $('.penerima').fadeOut(500);
+            }
         });
       });
     </script>

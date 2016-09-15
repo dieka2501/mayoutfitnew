@@ -9,12 +9,16 @@ use App\Http\Controllers\Controller;
 use App\product;
 use App\category;
 use App\provinsi;
+use App\order;
+use App\orderDetail;
 class checkoutController extends Controller
 {
     function __construct(){
         date_default_timezone_set('Asia/Jakarta') ;  
         $this->category     = new category;
         $this->provinsi     = new provinsi;
+        $this->order        = new order;
+        $this->od           = new orderDetail;
         $getcategory        = $this->category->get_all('category_name','ASC');
         $arr_cat            = [];
         foreach ($getcategory as $cats) {
@@ -38,7 +42,9 @@ class checkoutController extends Controller
     public function index()
     {
         //
+        
         $count = count(session('cart.idproduct'));
+        // var_dump($count);
         if($count > 0){
             $getprovinsi = $this->provinsi->get_all('nama_provinsi','ASC');
             $arr_provinsi = [''=>'-- Pilih Provinsi --'];
@@ -58,7 +64,7 @@ class checkoutController extends Controller
             $view['type_kirim'] = session('type_kirim');            
             return view('front.delivery.page',$view);    
         }else{
-            redirect('/new');
+            return redirect('/new');
         }
         
     }
@@ -71,6 +77,7 @@ class checkoutController extends Controller
     public function create()
     {
         //
+        return view('mail.checkout');
     }
 
     /**
@@ -82,6 +89,66 @@ class checkoutController extends Controller
     public function store(Request $request)
     {
         //
+        $cart                   = session('cart');
+        $order_name             = $request->input('order_name');
+        $order_address          = $request->input('order_address');
+        $order_phone            = $request->input('order_phone');
+        $order_email            = $request->input('order_email');
+        $beda_alamat            = $request->input('beda_alamat');
+        $order_shipment_name    = $request->input('order_shipment_name');
+        $order_shipment_address = $request->input('order_shipment_address');
+        $order_shipment_phone   = $request->input('order_shipment_phone');
+        $order_shipment_zip     = $request->input('order_shipment_zip');
+        $id_provinsi            = $request->input('id_provinsi');
+        $id_kota                = $request->input('id_kota');
+        $id_kecamatan           = $request->input('id_kecamatan');
+        $subtotal               = $request->input('hidsubtotal');
+        $ongkir                 = $request->input('type_kirim');
+        $grandtotal             = $request->input('grandtotal');
+        $order_note             = $request->input('order_note');
+        $uniqid                 = substr(strtoupper(md5($order_name.date('YmdHis'))), -7);
+        $insert['order_code']               = $uniqid;
+        $insert['order_name']               = $order_name;
+        $insert['order_phone']              = $order_phone;
+        $insert['order_address']            = $order_address;
+        $insert['order_email']              = $order_email;
+        $insert['province_id']              = $id_provinsi;
+        $insert['city_id']                  = $id_kota;
+        $insert['district_id']              = $id_kecamatan;
+        $insert['order_total']              = $grandtotal;
+        $insert['order_shipment_name']      = $order_shipment_name;
+        $insert['order_shipment_phone']     = $order_shipment_phone;
+        $insert['order_shipment_address']   = $order_shipment_address;
+        $insert['order_shipment_zip']       = $order_shipment_zip;
+        $insert['order_shipment_price']     = $ongkir;
+        $insert['order_note']               = $order_note;        
+        $insert['created_at']               = date('Y-m-d H:i:s');
+        $ids = $this->order->add($insert);
+        if($ids > 0){
+            $count          = count(session('cart.idproduct'));
+            $idproduct      = session('cart.idproduct');
+            $productname    = session('cart.name');
+            $productprice   = session('cart.price');
+            $productcode    = session('cart.code');
+            $productimage   = session('cart.image');
+            $productqty     = session('cart.qty');
+            for($dd = 0;$dd < $count ; $dd++){
+                $subtot                         = $productprice[$dd] * $productqty[$dd];
+                $detail['order_id']             = $ids;
+                $detail['product_id']           = $idproduct[$dd];
+                $detail['order_detail_price']   = $productprice[$dd];
+                $detail['order_detail_qty']     = $productqty[$dd];
+                $detail['order_detail_subtotal']= $subtot;
+                $detail['created_at']           = date('Y-m-d H:i:s');
+                $this->od->add($detail);
+                
+
+            }
+            $request->session()->forget('cart');
+            $view['idorder'] = $uniqid;
+            return view('front.checkout.final',$view);
+        }
+
     }
 
     /**
