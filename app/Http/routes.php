@@ -58,6 +58,7 @@ Route::group(['prefix'=>'api'],function(){
 	Route::post('/ongkir','apiController@get_ongkir');
 	Route::get('/product/autocomplete','apiController@get_product_auto');
 	Route::post('/product/idproduct','apiController@get_product_byid');
+	Route::post('/order/code','apiController@get_idoroder');
 });
 
 Route::get('/','homeController@index');
@@ -71,3 +72,5 @@ Route::get('/checkout','checkoutController@index');
 Route::post('/checkout','checkoutController@store');
 Route::get('/login','loginFrontController@index');
 Route::get('/mail/cek','checkoutController@create');
+Route::post('/payment/do','paymentController@store');
+Route::get('/payment','paymentController@index');

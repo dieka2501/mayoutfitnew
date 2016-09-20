@@ -106,6 +106,12 @@
                         <input type="file" class="form-control" name="product_image" id="product_image">
                       </div>
                     </div>
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label">Product Weight</label>
+                      <div class="col-sm-8">
+                        <input type="number" class="form-control" name='product_weight' value="{!!$product_weight!!}" required="required" placeholder="Dalam KG">
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

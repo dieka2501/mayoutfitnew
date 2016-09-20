@@ -67,7 +67,7 @@
                       <td>{!!$nums!!}</td>
                       <td>{!!$lists->product_name!!}</td>
                       <td>{!!$lists->product_code!!}</td>
-                      <td>{!!$lists->category_id!!}</td>
+                      <td>{!!$lists->category_name!!}</td>
                       <td>{!!$lists->product_price!!}</td>
                       <td>{!!$lists->product_price!!}</td>
                       <td style="width:150px;">

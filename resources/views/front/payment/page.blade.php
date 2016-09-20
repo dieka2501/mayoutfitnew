@@ -1,22 +1,23 @@
-@extends('home')
+@extends('front.home')
 @section('content')
 	<section class="section section-content long-content grey-bg">
         <div class="container">
             <div class="section-title no-border">
-                <h1>Payment Method</h1>
+                <h1>Konfirmasi Pembayaran</h1>
             </div>
+            {!!Form::open(['url'=>$url,'method'=>'POST','files'=>true,'class'=>'form-horizontal'])!!}
             <div class="row clearfix">
-                <div class="col-md-8 col-xs-12">
+                <div class="col-md-10 col-xs-12">
                     <div class="content-form">
                         <div class="section-title">
-                            <h2>Pilih Opsi Pembayaran</h2>
+                            <h2>Konfirmasi Pembayaran</h2>
                         </div>
                         <div>
 
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
                           <li role="presentation" class="active"><a href="#bank-transfer" aria-controls="home" role="tab" data-toggle="tab">Bank Transfer</a></li>
-                          <li role="presentation"><a href="#cod" aria-controls="cod" role="tab" data-toggle="tab">Bayar di Tempat</a></li>
+                         <!--  <li role="presentation"><a href="#cod" aria-controls="cod" role="tab" data-toggle="tab">Bayar di Tempat</a></li> -->
                         </ul>
 
                         <!-- Tab panes -->
@@ -24,36 +25,50 @@
                           <div role="tabpanel" class="tab-pane active" id="bank-transfer">
                             <h5>Pemesanan dengan Bank Transfer akan otomatis dibatalkan oleh sistem kami jika pembayaran tidak diterima dalam waktu 24 jam :</h5>
                             <div class="form-group">
-                              <div class="bank_label">
-                                <label for="PaymentMethodForm_parameter_senderName">Pilih Bank Yang Anda Gunakan :</label>
+                              <div class="sender_label"><label for="">Nomor Order</label></div>
+                              <div class="sender_input">
+                                <input  class="input_field short_input" id="order_code"  name="order_code" placeholder="Masukan nomor/ kode order" type="text" value="">
+                                <input  class="input_field short_input" id="order_id"  name="order_id" type="hidden" value="">
                               </div>
-                              <select class="mainBanks" id="PaymentMethodForm_parameter_bankNamePrimary" name="PaymentMethodForm[parameter][bankNamePrimary]">
+                            </div>
+                            <div class="form-group">
+                              <div class="sender_label"><label for="">Nama Transfer</label></div>
+                              <div class="sender_input">
+                                <input  class="input_field short_input" id="payment_name"  name="payment_name" placeholder="Nama Pemilik Rekening" type="text" value="">
+                               
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="sender_label"><label for="">Nominal Transfer</label></div>
+                              <div class="sender_input">
+                                <input  class="input_field short_input" id="payment_nominal"  name="payment_nominal" placeholder="Nominal Transfer" type="text" value="">
+                               
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="bank_label">
+                                <label for="PaymentMethodForm_parameter_senderName">Pilih Bank Tujuan Transfer :</label>
+                              </div>
+                              <select class="mainBanks" id="payment_bank_transfer" name="payment_bank_transfer">
                               <option value="">
                                 Pilih
                               </option>
-                              <option value="BCA ATM">
+                              <option value="bca">
                                 BCA
                               </option>
-                              <option value="Mandiri Virtual Payment">
-                                Mandiri
+                              <option value="mandiri">
+                                Bank Mandiri
                               </option>
-                              <option value="CIMB Niaga">
-                                CIMB Niaga
-                              </option>
-                              <option value="BNI Virtual Account">
-                                BNI
-                              </option>
-                              <option value="ATM Bersama">
-                                ATM Bersama
-                              </option>
+                              
                             </select>
                             </div>
                             <div class="form-group">
-                              <div class="sender_label"><label for="PaymentMethodForm_parameter_senderName">Nama Pengirim</label></div>
+                              <div class="sender_label"><label for="">Bukti Transfer</label></div>
                               <div class="sender_input">
-                              <input autocomplete="off" class="input_field short_input" id="PaymentMethodForm_parameter_senderName" maxlength="30" name="PaymentMethodForm[parameter][senderName]" placeholder="Nama di rekening pengirim" size="80" type="text" value="">
-                            </div>
-                            </div>
+                                <input type="file" class="form-control" value="" name="payment_image">
+                               
+                              </div>
+                            </div>                            
                           </div>
                           <div role="tabpanel" class="tab-pane" id="cod">
                             <p>Bayar di Tempat tidak tersedia untuk produk ini dalam troli Anda</p>
@@ -62,10 +77,10 @@
 
                       </div>
                         <!-- End of shipping -->
-                        <button type="submit" class="btn btn-default btn-pink">Confirm Order &nbsp;<i class="ion-locked"></i></button>
+                        <button type="button" class="btn btn-default btn-pink" id='btn-bayar'>Bayar! &nbsp;<i class="ion-locked"></i></button>
                     </div>
                 </div>
-                <div class="col-md-4 col-xs-12">
+                <!-- <div class="col-md-4 col-xs-12">
                     <div class="content-form table-sm">
                         <div class="order-sum">
                           <table class="order-scroll-table-header table table-cart">
@@ -129,8 +144,40 @@
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                </div>
+                </div> -->
             </div>
+            {!!Form::close()!!}
         </div>
     </section>
+    <script type="text/javascript">
+      $(document).ready(function(){
+          // alert('asjkhj');
+          // $('.sembunyi').hide();
+          $('#order_code').change(function(){
+              var code = $(this).val();
+              $.post("{!!config('app.url')!!}public/api/order/code",{
+                  'code':code
+              },function(data){
+                  console.log(JSON.stringify(data).length);
+                  if(JSON.stringify(data).length > 2){
+                      if(data.order_status >0){
+                        alert('Pembayaran order kamu sudah dikonfirmasi, silakan tunggu proses kirimnya.');
+                      $('#order_code').val("");
+                      $('#btn-bayar').attr('type','button');
+                      $("#order_code").focus();
+                      }else{
+                        $('#order_id').val(data.idorder);
+                        $('#btn-bayar').attr('type','submit');  
+                      }
+                      
+                  }else{
+                    alert('Nomor order kamu tidak diketemukan, coba periksa lagi.');
+                    $('#order_code').val("");
+                    $('#btn-bayar').attr('type','button');
+                    $("#order_code").focus();
+                  }
+              });
+          });
+      });
+    </script>
 @stop

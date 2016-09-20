@@ -61,6 +61,7 @@ class productController extends Controller
         $product_code        = session('product_code');
         $product_description = session('product_description');
         $category_id         = session('category_id');
+        $product_weight      = session('product_weight');
         $arr_category['']    =  "-- Select category --";
         foreach ($getcategory as $categories) {
            $arr_category[$categories->idcategory] = $categories->category_name;
@@ -72,7 +73,8 @@ class productController extends Controller
         $view['product_hpp']           = $product_hpp;
         $view['product_margin']        = $product_margin;
         $view['product_stock']         = $product_stock;
-        $view['product_code']         = $product_code;
+        $view['product_code']          = $product_code;
+        $view['product_weight']        = $product_weight;
         $view['product_description']   = $product_description;
         $view['category_id']           = $category_id;
         $view['arr_category']          = $arr_category;
@@ -92,6 +94,7 @@ class productController extends Controller
         $product_hpp         = $request->input('product_hpp');
         $product_margin      = $request->input('product_margin');
         $product_stock       = $request->input('product_stock');
+        $product_weight      = $request->input('product_weight');
         $product_description = $request->input('product_description');
         $product_code = $request->input('product_code');
         $category_id         = $request->input('category_id');
@@ -108,6 +111,7 @@ class productController extends Controller
         $insert['product_hpp']              = $product_hpp;
         $insert['product_margin']           = $product_margin;
         $insert['product_stock']            = $product_stock;
+        $insert['product_weight']           = $product_weight;
         $insert['product_description']      = $product_description;
         $insert['category_id']              = $category_id;
         $insert['created_at']               = date('Y-m-d H:i:s');
@@ -120,6 +124,7 @@ class productController extends Controller
             $request->session()->flash('product_price',$product_price);
             $request->session()->flash('product_hpp',$product_hpp);
             $request->session()->flash('product_code',$product_code);
+            $request->session()->flash('product_weight',$product_weight);
             $request->session()->flash('product_margin',$product_margin);
             $request->session()->flash('product_stock',$product_stock);
             $request->session()->flash('product_description',$product_description);
@@ -159,6 +164,7 @@ class productController extends Controller
         $product_margin      = $getdata->product_margin;
         $product_stock       = $getdata->product_stock;
         $product_code        = $getdata->product_code;
+        $product_weight      = $getdata->product_weight;
         $product_description = $getdata->product_description;
         $category_id         = $getdata->category_id;
         $arr_category['']    =  "-- Select category --";
@@ -173,7 +179,8 @@ class productController extends Controller
         $view['product_hpp']           = $product_hpp;
         $view['product_margin']        = $product_margin;
         $view['product_stock']         = $product_stock;
-        $view['product_code']         = $product_code;
+        $view['product_code']          = $product_code;
+        $view['product_weight']        = $product_weight;
         $view['product_description']   = $product_description;
         $view['category_id']           = $category_id;
         $view['arr_category']          = $arr_category;
@@ -196,6 +203,7 @@ class productController extends Controller
         $product_hpp         = $request->input('product_hpp');
         $product_margin      = $request->input('product_margin');
         $product_stock       = $request->input('product_stock');
+        $product_weight      = $request->input('product_weight');
         $product_description = $request->input('product_description');
         $product_code = $request->input('product_code');
         $category_id         = $request->input('category_id');
@@ -212,6 +220,7 @@ class productController extends Controller
         $insert['product_hpp']              = $product_hpp;
         $insert['product_margin']           = $product_margin;
         $insert['product_stock']            = $product_stock;
+        $insert['product_weight']           = $product_weight;
         $insert['product_description']      = $product_description;
         $insert['category_id']              = $category_id;
         $insert['created_at']               = date('Y-m-d H:i:s');
@@ -226,6 +235,7 @@ class productController extends Controller
             $request->session()->flash('product_code',$product_code);
             $request->session()->flash('product_margin',$product_margin);
             $request->session()->flash('product_stock',$product_stock);
+            $request->session()->flash('product_weight',$product_weight);
             $request->session()->flash('product_description',$product_description);
             $request->session()->flash('category_id',$category_id);
             $request->session()->flash('notip','<div class="alert alert-danger">Update data failed, please try again</div>');

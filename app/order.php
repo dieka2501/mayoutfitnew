@@ -39,5 +39,9 @@ class order extends Model
 	function edit($id,$data){
 		return order::where('idorder',$id)->update($data);
 	}
+
+	function get_codeorder($code){
+		return order::where('order_code',$code)->first();
+	}
     //
 }

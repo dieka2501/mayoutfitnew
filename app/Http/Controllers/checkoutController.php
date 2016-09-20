@@ -145,8 +145,11 @@ class checkoutController extends Controller
 
             }
             $request->session()->forget('cart');
-            $view['idorder'] = $uniqid;
-            return view('front.checkout.final',$view);
+            $view['idorder']    = $ids;
+            $view['order_code'] = $uniqid;
+            $view['grandtotal'] = $grandtotal;
+            $view['url']        = config('app.url')."public/payment/do";
+            return view('front.checkout.success',$view);
         }
 
     }

@@ -10,6 +10,7 @@ use App\kota;
 use App\kecamatan;
 use App\ongkir;
 use App\product;
+use App\order;
 class apiController extends Controller
 {
     function __construct(){
@@ -18,6 +19,7 @@ class apiController extends Controller
         $this->kecamatan    = new kecamatan;
         $this->ongkir       = new ongkir;
         $this->product      = new product;
+        $this->order        = new order;
     }
     /**
      * Display a listing of the resource.
@@ -62,6 +64,11 @@ class apiController extends Controller
         return response()->json($getdata);
     }
 
+    function get_idoroder(Request $request){
+        $code       = $request->input('code');
+        $getdata    = $this->order->get_codeorder($code);
+        return response()->json($getdata);
+    }
     public function index()
     {
         //
