@@ -21,27 +21,28 @@
                                 </thead>
                                 <tbody>
                                     @if($count > 0)
-                                        @for($i =0;$i < $count; $i++)
+                                        
+                                        @foreach($idproduct as $keyproduct => $valproduct)
                                             <tr class="cart-item">
                                                 <td class="product-thumbnail">
-                                                    <img src="{!!config('app.url')!!}public/upload/{!!$image[$i]!!}" width="150" alt="Classic Red">
+                                                    <img src="{!!config('app.url')!!}public/upload/{!!$image[$keyproduct]!!}" width="150" alt="Classic Red">
                                                 </td>
                                                 <td class="product-name">
-                                                    {!!$name[$i]!!}
-                                                    <input type='hidden' name='idproduct[]' id='idproduct' value="{!!$idproduct[$i]!!}">
+                                                    {!!$name[$keyproduct]!!}
+                                                    <input type='hidden' name='idproduct[]' id='idproduct' value="{!!$valproduct!!}">
                                                 </td>
-                                                <td class="product-price"><span class="amount">Rp.{!!number_format($price[$i])!!}</span></td>
+                                                <td class="product-price"><span class="amount">Rp.{!!number_format($price[$keyproduct])!!}</span></td>
                                                 <td class="product-quantity">
                                                     <div class="quantity ">
-                                                         <input class="input-text qty text" min="0" name="qty_cart[{!!$idproduct[$i]!!}]" size="4" step="1" title="Qty" value="{!!$qty[$i]!!}"> 
+                                                         <input class="input-text qty text" min="0" name="qty_cart[{!!$idproduct[$keyproduct]!!}]" size="4" step="1" title="Qty" value="{!!$qty[$keyproduct]!!}"> 
                                                     </div>
                                                 </td>
                                                 <!-- <td class="product-subtotal"><span class="amount">Rp 200.000</span></td> -->
                                                 <td class="product-remove">
-                                                    <a class="remove" href="#" title="Remove this item"><i class="ion-backspace-outline"></i></a>
+                                                    <a class="remove" href="{!!config('app.url')!!}public/cart/hapus/{!!$keyproduct!!}" title="Remove this item" onclick="if(!confirm('Yakin gak jadi beli ini, Sist?')) return false; "><i class="ion-backspace-outline"></i></a>
                                                 </td>
                                             </tr>
-                                        @endfor
+                                        @endforeach
                                     @else
                                         <tr>
                                             <td colspan="6">Belum ada barang yang dipilih</td>

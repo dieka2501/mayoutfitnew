@@ -8,7 +8,7 @@
             <div class="row clearfix">
                 <div class="col-md-8 col-md-offset-2 col-xs-12">
                       <div class="content-form">
-                        <p>ID Pesanan : <strong>{!!$idorder!!}</strong></p>
+                        <p>ID Pesanan : <strong>{!!$order_code!!}</strong></p>
                         <p>Total Belanja : <strong>Rp {!!$grandtotal!!}</strong></p>
                         <br/>
                         <p>Terima kasih telah berbelanja di mayoutfit.com.</p><br>

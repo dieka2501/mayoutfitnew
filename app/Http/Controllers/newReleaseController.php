@@ -57,6 +57,11 @@ class newReleaseController extends Controller
         return view('front.newrelease.list',$view);
     }
 
+    function detail($id){
+        $getproduct         = $this->product->get_id($id);
+        $view['product']    = $getproduct;
+        return view('front.newrelease.detail',$view);
+    }
     /**
      * Show the form for creating a new resource.
      *

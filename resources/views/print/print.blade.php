@@ -87,7 +87,7 @@
     <div class="wrapper2">
       <div class="row">
         <div class="left">
-          <img src="<?php echo Config::get('app.url');?>aset/images/crop.png" width="120">
+          <img src="<?php echo config('app.url');?>resources/assets/crop.png" width="120">
         </div>
         <div class="right">
           <h2>MAYOUTFIT</h2>

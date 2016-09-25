@@ -61,15 +61,16 @@
                 @foreach($list as $lists)
                     <article class="listing-item">
                         <div class="listing-item-image">
-                            <a href="product-detail.html">
+                            <a href="{!!config('app.url')!!}public/product/detail/{!!$lists->idproduct!!}">
                                 <img src="{{Config::get('app.url')}}public/upload/{!!$lists->product_image!!}" alt="Mayoutfit">
                             </a>
                         </div>
-                        <a href="product-detail.html">
+                        <a href="{!!config('app.url')!!}public/product/detail/{!!$lists->idproduct!!}">
                             <h5 class="listing-item-content-brand">{!!$lists->product_code!!}</h5>
                             <!-- <span class="listing-item-price-discount">70% OFF</span> -->
                             <div class="clearfix"></div>
                             <p class="listing-item-content-description">{!!$lists->product_name!!}</p>
+                            <!-- <p class="listing-item-content-description">Stock {!!$lists->product_stock!!} pcs.</p> -->
                             <!-- <span class="listing-item-price-old">Rp 349.000</span> -->
                             <span class="listing-item-price-web">Rp {!!number_format($lists->product_price)!!}</span>
                             

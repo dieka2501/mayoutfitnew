@@ -72,13 +72,30 @@ class cartController extends Controller
     {
         //
         $getproduct = $this->product->get_id($id);
+        if(count(session('cart.idproduct')) >0){
+            if(in_array($id, session('cart.idproduct'))){
+                $key = array_search($id, session('cart.idproduct'));
+                $qtylama = session('cart.qty.'.$key);
+                $qtybaru = $qtylama +1;
+                $request->session()->put('cart.qty.'.$key,$qtybaru); 
+            }else{
+                $request->session()->push('cart.idproduct',$getproduct->idproduct);
+                $request->session()->push('cart.price',$getproduct->product_price);
+                $request->session()->push('cart.name',$getproduct->product_name);
+                $request->session()->push('cart.code',$getproduct->product_code);
+                $request->session()->push('cart.image',$getproduct->product_image);
+                $request->session()->push('cart.qty',1);    
+            }
+        }else{
+            $request->session()->push('cart.idproduct',$getproduct->idproduct);
+            $request->session()->push('cart.price',$getproduct->product_price);
+            $request->session()->push('cart.name',$getproduct->product_name);
+            $request->session()->push('cart.code',$getproduct->product_code);
+            $request->session()->push('cart.image',$getproduct->product_image);
+            $request->session()->push('cart.qty',1);    
+        }
         
-        $request->session()->push('cart.idproduct',$getproduct->idproduct);
-        $request->session()->push('cart.price',$getproduct->product_price);
-        $request->session()->push('cart.name',$getproduct->product_name);
-        $request->session()->push('cart.code',$getproduct->product_code);
-        $request->session()->push('cart.image',$getproduct->product_image);
-        $request->session()->push('cart.qty',1);
+        
         return redirect('/cart');
     }
 
@@ -145,5 +162,10 @@ class cartController extends Controller
         // $request->session()->forget('cart');
         return $this->cart->hapus();
 
+    }
+
+    function delete_single($id){
+        $this->cart->hapus_item($id);
+        return redirect('/cart');
     }
 }

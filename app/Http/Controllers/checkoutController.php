@@ -19,6 +19,7 @@ class checkoutController extends Controller
         $this->provinsi     = new provinsi;
         $this->order        = new order;
         $this->od           = new orderDetail;
+        $this->product      = new product;
         $getcategory        = $this->category->get_all('category_name','ASC');
         $arr_cat            = [];
         foreach ($getcategory as $cats) {
@@ -132,16 +133,20 @@ class checkoutController extends Controller
             $productcode    = session('cart.code');
             $productimage   = session('cart.image');
             $productqty     = session('cart.qty');
-            for($dd = 0;$dd < $count ; $dd++){
-                $subtot                         = $productprice[$dd] * $productqty[$dd];
+            // for($dd = 0;$dd < $count ; $dd++){
+            foreach ($idproduct as $keyproduct => $valproduct){ 
+                $subtot                         = $productprice[$keyproduct] * $productqty[$keyproduct];
                 $detail['order_id']             = $ids;
-                $detail['product_id']           = $idproduct[$dd];
-                $detail['order_detail_price']   = $productprice[$dd];
-                $detail['order_detail_qty']     = $productqty[$dd];
+                $detail['product_id']           = $valproduct;
+                $detail['order_detail_price']   = $productprice[$keyproduct];
+                $detail['order_detail_qty']     = $productqty[$keyproduct];
                 $detail['order_detail_subtotal']= $subtot;
                 $detail['created_at']           = date('Y-m-d H:i:s');
                 $this->od->add($detail);
-                
+                $getproduct = $this->product->get_id($valproduct);
+                $qtylama    = $getproduct->product_stock;
+                $qtybaru    = $qtylama - $productqty[$keyproduct];
+                $this->product->edit($valproduct,['product_stock'=>$qtybaru]);
 
             }
             $request->session()->forget('cart');

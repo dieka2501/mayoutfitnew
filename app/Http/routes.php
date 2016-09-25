@@ -63,6 +63,7 @@ Route::group(['prefix'=>'api'],function(){
 
 Route::get('/','homeController@index');
 Route::get('/new','newReleaseController@index');
+Route::get('/product/detail/{id}','newReleaseController@detail');
 Route::get('/product/category/{id}','productCategoryController@index');
 Route::get('/cart/add/{id}','cartController@store');
 Route::get('/cart','cartController@index');
@@ -74,3 +75,4 @@ Route::get('/login','loginFrontController@index');
 Route::get('/mail/cek','checkoutController@create');
 Route::post('/payment/do','paymentController@store');
 Route::get('/payment','paymentController@index');
+Route::get('/cart/hapus/{id}','cartController@delete_single');
