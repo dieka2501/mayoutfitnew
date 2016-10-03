@@ -76,3 +76,4 @@ Route::get('/mail/cek','checkoutController@create');
 Route::post('/payment/do','paymentController@store');
 Route::get('/payment','paymentController@index');
 Route::get('/cart/hapus/{id}','cartController@delete_single');
+Route::get('/checkout/mail','checkoutController@mail');

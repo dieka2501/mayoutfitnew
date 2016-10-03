@@ -62,11 +62,11 @@
 <body>
 	<div class="wrapper">
 		<div class="header">
-			<h1>Thank you for your order</h1>
+			<h1>Terima kasih sudah order</h1>
 		</div>
 		<div class="content">
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-			<h1>Order: #293</h1>
+			<p>Hai {!!$billing['order_name']!!}.	</p>
+			<h1>Order: {!!$billing['order_code']!!}</h1>
 			<table>
 				<tbody>
 				<tr>
@@ -74,38 +74,41 @@
 				<th>Quantity</th>
 				<th>Price</th>
 				</tr>
+				@for($jj=0; $jj < $count; $jj++)
 				<tr>
-					<td>Lorem Ipsum Product Sample</td>
-					<td>2</td>
-					<td>Rp. 200.000</td>
+					<td>{!!$product_name[$jj]!!}</td>
+					<td>{!!number_format($qty[$jj])!!}</td>
+					<td>Rp. {!!number_format($price[$jj])!!}</td>
 				</tr>
-				<tr>
+				@endfor
+				<!-- <tr>
 					<td colspan="2"><strong>Cart Subtotal :</strong></td>
 					<td>Rp. 200.000</td>
-				</tr>
-				<tr>
+				</tr> -->
+				<!-- <tr>
 					<td colspan="2"><strong>Shipping :</strong></td>
 					<td>Free Shipping</td>
-				</tr>
+				</tr> -->
 				<tr>
 					<td colspan="2"><strong>Order Total :</strong></td>
-					<td><strong>Rp. 200.000</strong></td>
+					<td><strong>Rp. {!!number_format($grandtotal)!!}</strong></td>
 				</tr>
 				</tbody>
 			</table>
 			<h1>Customer details</h1>
-			<p class="margin-5">Email : darana.blog@gmail.com</p>
+			<p class="margin-5">Nama : {!!$billing['order_name']!!}</p>
+			<p class="margin-5">Email : {!!$billing['order_email']!!}</p>
 			<p>Tel : 082121-77-0707</p>
 			<br/>
 			<div class="content-half">
 				<h1>Billing address</h1>
-				<p class="margin-5">Perum Cibatu Indah Blok A No.4</p>
-				<p>Tel : 082121-77-0707</p>
+				<p class="margin-5">{!!$billing['order_address']!!}</p>
+				<p>Tel : {!!$billing['order_phone']!!}</p>
 			</div>
 			<div class="content-half">
 				<h1>Shipping address</h1>
-				<p class="margin-5">Perum Cibatu Indah Blok A No.4</p>
-				<p>Tel : 082121-77-0707</p>
+				<p class="margin-5"><?php echo ($billing['order_shipment_address'] == "")?$billing['order_address']:$billing['order_shipment_address']  ?></p>
+				<p>Tel : <?php echo ($billing['order_shipment_phone'] == "")?$billing['order_phone']:$billing['order_shipment_phone']  ?></p>
 			</div>
 			<div style="clear:both"></div>
 		</div>

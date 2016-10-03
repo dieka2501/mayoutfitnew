@@ -108,10 +108,11 @@
                                   <td width="160">{!!$name[$icart]!!}</td>
                                   <td class="qty" width="50">{!!$qty[$icart]!!}</td>
                                   <?php $subtotal += $qty[$icart] * $price[$icart]?>
+
                                   <td class="right-align sel-cart-item-total-MI399OTAA42B24ANID-7914138">Rp. {!!number_format($price[$icart])!!}</td>
                                 </tr>
                                 @endfor
-                                
+                                <?php $subtotal += $uniqid?>
                               </tbody>
                             </table>
                           </div>
@@ -151,6 +152,7 @@
                                   <td class="total"><strong class="total-label">Total</strong> <span class="vat-minicart">(Termasuk PPN)</span></td>
                                   <td class="total right-align sel-total" colspan="2"><strong class="total-price">Rp. <p id="grandtotal">{!!number_format($subtotal)!!}</p></strong>
                                   <input type='hidden' name="grandtotal" id='input-grandtotal'> 
+                                  <input type="hidden" name="nextid" id='nextid' value="{!!$uniqid!!}">
                                   </td>
                                 </tr>
                               </tbody>
@@ -233,7 +235,8 @@
         $('#type_kirim').change(function(){
           var valkirim = $(this).val();
           var subtotal = $('#hidsubtotal').val();
-          var total    = parseInt(valkirim)  + parseInt(subtotal);
+          // console.log(parseInt(nextid));
+          var total    = parseInt(valkirim)  + parseInt(subtotal) ;
           $('#ongkir').html(valkirim);
           $('#grandtotal').html(total);
           $('#input-grandtotal').val(total);

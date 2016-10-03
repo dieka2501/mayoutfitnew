@@ -25,6 +25,12 @@ class order extends Model
 	function get_order_today(){
 		return order::orderBy('idorder')->whereBetween('created_at',[date('Y-m-d 00:00:00'),date('Y-m-d 23:59:59')])->get();
 	}
+	function get_order_today_admin(){
+		return order::orderBy('idorder')->where('order_system','admin')->whereBetween('created_at',[date('Y-m-d 00:00:00'),date('Y-m-d 23:59:59')])->get();
+	}
+	function get_order_today_web(){
+		return order::orderBy('idorder')->where('order_system','web')->whereBetween('created_at',[date('Y-m-d 00:00:00'),date('Y-m-d 23:59:59')])->get();
+	}
 	function get_id($id){
 		return order::find($id);
 	}

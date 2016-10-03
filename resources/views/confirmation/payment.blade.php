@@ -66,14 +66,15 @@
                 </div>
                 <div class="box-body">
                   <div class="box-body">
-                    {!!Form::open(['url'=>$url,'method'=>'POST'])!!}
+                    {!!Form::open(['url'=>$url,'method'=>'POST','files'=>true])!!}
                     <div class="row">
                       <div class="form-horizontal">
                         <div class="col-md-7">
                           <div class="form-group">
                             <label class="col-sm-3 control-label">No Order</label>
                             <div class="col-sm-9">
-                              <input type="text" name="order_id" class="form-control" id='order_id' value='{!!$order->idorder!!}' readonly="readonly">
+                              <input type="hidden" name="order_id" class="form-control" id='order_id' value='{!!$order->idorder!!}' readonly="readonly">
+                              <input type="text" name="order_code" class="form-control" id='order_code' value='{!!$order->order_code!!}' readonly="readonly">
                             </div>
                           </div>
 
@@ -103,6 +104,12 @@
                             <label class="col-sm-3 control-label">Nominal Pembayaran</label>
                             <div class="col-sm-9">
                               <input type="text" name="payment_nominal" class="form-control" id='payment_nominal' value="{!!$payment_nominal!!}">
+                            </div>
+                          </div>   
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label">Bukti Pembayaran</label>
+                            <div class="col-sm-9">
+                              <input type="file" name="payment_image" class="form-control" id='payment_image' >
                             </div>
                           </div>   
 
