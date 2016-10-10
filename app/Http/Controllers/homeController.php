@@ -42,8 +42,12 @@ class homeController extends Controller
         $order               = "DESC";
         $getdatagalery       = $this->galery->get_page_front($sort,$order);
         $getdatacategory     = $this->category->get_page_front($sort,$order);
+        $getrandomproduct1   = $this->product->get_page_front_random1();
+        $getrandomproduct2   = $this->product->get_page_front_random2();
         $view['listgalery']  = $getdatagalery;
         $view['listcategory']= $getdatacategory;
+        $view['listproduct1'] = $getrandomproduct1;
+        $view['listproduct2'] = $getrandomproduct2;
         return view('front.home.page',$view);
     }
 

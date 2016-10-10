@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class product extends Model
 {
@@ -46,6 +47,18 @@ class product extends Model
 
     function get_page_category_front($sort,$order,$idcategory){
         return product::orderBy($sort,$order)->where('category_id',$idcategory)->paginate(6);
+    }
+
+    function get_page_front_random1(){
+        return product::orderBy(DB::raw('RAND()'))
+                    ->where($this->table.'.product_status',1)
+                    ->take(2)->get();
+    }
+
+    function get_page_front_random2(){
+        return product::orderBy(DB::raw('RAND()'))
+                    ->where($this->table.'.product_status',1)
+                    ->take(2)->get();
     }
 
 }
