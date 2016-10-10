@@ -1,12 +1,13 @@
 @extends('front.home')
 @section('content')
 	<section id="mayoutfit-bighero" class="owl-carousel container">
-        <div class="item">
-            <a href="#"><img src="{{Config::get('app.url')}}assets/front/images/slider-home2.jpg" alt="Mayoutfit"></a>
-        </div>
-        <div class="item">
-            <a href="#"><img src="{{Config::get('app.url')}}assets/front/images/slider-home1.jpg" alt="Mayoutfit"></a>
-        </div>
+        @foreach($list as $lists)
+            <div class="item">
+                <a href="{!!config('app.url')!!}public/product/detail/{!!$lists->product_id!!}">
+                    <img src="{{Config::get('app.url')}}public/upload/{!!$lists->galery_image!!}" alt="Mayoutfit">
+                </a>
+            </div>
+        @endforeach        
     </section>
     <section id="featured-products">
         <div class="container">
