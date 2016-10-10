@@ -46,10 +46,9 @@ class galery extends Model
     }
 
     //front 
-    function get_page_category_front($sort,$order,$idcategory){
+    function get_page_category_front($sort,$order){
         return galery::orderBy('galery.created_at',$order)
                 ->join('product',$this->table.'.product_id','=','product.idproduct')
-                ->where('product.category_id',$idcategory)
                 ->where($this->table.'.galery_status',1)
                 ->paginate(6);
     }

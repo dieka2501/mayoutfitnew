@@ -8,10 +8,14 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\category;
 use App\product;
+use App\galery;
 class homeController extends Controller
 {
     function __construct(){
         $this->category     = new category;
+        $this->product      = new product;
+        $this->category     = new category;
+        $this->galery       = new galery;
         $getcategory        = $this->category->get_all('category_name','ASC');
         $arr_cat            = [];
         foreach ($getcategory as $cats) {
@@ -34,7 +38,11 @@ class homeController extends Controller
      */
     public function index(Request $request)
     {
-        return view('front.home.page');
+        $sort       = 'created_at';
+        $order      = "DESC";
+        $getdata             = $this->galery->get_page_category_front($sort,$order);
+        $view['list']        = $getdata;
+        return view('front.home.page',$view);
     }
 
     /**
