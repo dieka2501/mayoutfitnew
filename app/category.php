@@ -28,4 +28,11 @@ class category extends Model
     function get_all($orderby,$ordering){
     	return category::orderBy($orderby,$ordering)->where('category_status',1)->get();
     }
+
+    //FRONT 
+    function get_page_front($sort,$order){
+        return category::orderBy($sort,$order)
+                        ->where($this->table.'.category_status',1)
+                        ->paginate(4);
+    }
 }

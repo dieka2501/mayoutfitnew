@@ -1,7 +1,7 @@
 @extends('front.home')
 @section('content')
 	<section id="mayoutfit-bighero" class="owl-carousel container">
-        @foreach($list as $lists)
+        @foreach($listgalery as $lists)
             <div class="item">
                 <a href="{!!config('app.url')!!}public/product/detail/{!!$lists->product_id!!}">
                     <img src="{{Config::get('app.url')}}public/upload/{!!$lists->galery_image!!}" alt="Mayoutfit">
@@ -18,21 +18,16 @@
                 <div class="col-md-6 col-xs-6">
                     <a href="#" class="top-banner"><img src="{{Config::get('app.url')}}assets/front/images/international-brands.jpg" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
                 </div>
-                
+                @foreach($listcategory as $lists)
+                    <div class="col-md-3 col-xs-6">
+                        <a href="{!!config('app.url')!!}public/product/category/{!!$lists->idcategory!!}"><span>{!!$lists->category_name!!}</span>
+                            <img src="{{Config::get('app.url')}}public/upload/{!!$lists->category_image!!}" alt="Mayoutfit" width="100%" class="img-responsive center-block">
+                        </a>
+                    </div>
+                @endforeach
             </div>
             <div class="row clearfix">
-                <div class="col-md-3 col-xs-6">
-                    <a href="#"><span>Clothings</span><img src="{{Config::get('app.url')}}assets/front/images/1-Clothing-res.jpg" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
-                </div>
-                <div class="col-md-3 col-xs-6">
-                    <a href="#"><span>Trousers</span><img src="{{Config::get('app.url')}}assets/front/images/2-Trousers-res.jpg" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
-                </div>
-                <div class="col-md-3 col-xs-6">
-                    <a href="#"><span>Bags</span><img src="{{Config::get('app.url')}}assets/front/images/3-Bags-res.jpg" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
-                </div>
-                <div class="col-md-3 col-xs-6">
-                    <a href="#"><span>Wallets</span><img src="{{Config::get('app.url')}}assets/front/images/4-Wallets-res.jpg" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
-                </div>
+                
             </div>
         </div>
     </section>

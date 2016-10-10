@@ -42,8 +42,6 @@ class product extends Model
     //FRONT 
     function get_page_front($sort,$order){
         return product::orderBy($sort,$order)->paginate(6);
-        //return product::orderBy('product.created_at',$order)
-        //        ->leftjoin('galery',$this->table.'.idproduct','=','galery.product_id');
     }
 
     function get_page_category_front($sort,$order,$idcategory){

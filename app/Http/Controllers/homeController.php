@@ -38,10 +38,12 @@ class homeController extends Controller
      */
     public function index(Request $request)
     {
-        $sort       = 'created_at';
-        $order      = "DESC";
-        $getdata             = $this->galery->get_page_category_front($sort,$order);
-        $view['list']        = $getdata;
+        $sort                = 'created_at';
+        $order               = "DESC";
+        $getdatagalery       = $this->galery->get_page_front($sort,$order);
+        $getdatacategory     = $this->category->get_page_front($sort,$order);
+        $view['listgalery']  = $getdatagalery;
+        $view['listcategory']= $getdatacategory;
         return view('front.home.page',$view);
     }
 
