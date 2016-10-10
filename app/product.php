@@ -35,9 +35,15 @@ class product extends Model
     	return product::orderBy('product_name','ASC')->where('product_name','like','%'.$name.'%')->get();
     }
 
-    //FRONT
+    function get_all($orderby,$ordering){
+        return product::orderBy($orderby,$ordering)->where('product_status',1)->get();
+    }
+
+    //FRONT 
     function get_page_front($sort,$order){
         return product::orderBy($sort,$order)->paginate(6);
+        //return product::orderBy('product.created_at',$order)
+        //        ->leftjoin('galery',$this->table.'.idproduct','=','galery.product_id');
     }
 
     function get_page_category_front($sort,$order,$idcategory){

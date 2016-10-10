@@ -119,6 +119,14 @@
             <li><a href="#event">Event</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Galery <span class="caret"></span></a>
+              <ul class="dropdown-menu cat-menu">
+                @foreach($list_category as $keylc => $valuelc)
+                <li><a href="{!!config('app.url')!!}public/galery/category/{!!$keylc!!}">{!!$valuelc!!}</a></li>
+                @endforeach
+              </ul>
+            </li>
             <li>
                 <form id="search-now">
                     <input type="search" placeholder="Search">

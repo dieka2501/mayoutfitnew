@@ -11,6 +11,7 @@ use App\category;
 use App\provinsi;
 use App\order;
 use App\orderDetail;
+use Mail;
 class checkoutController extends Controller
 {
     function __construct(){
@@ -47,6 +48,8 @@ class checkoutController extends Controller
         $count = count(session('cart.idproduct'));
         // var_dump($count);
         if($count > 0){
+            $getuniqueid        = $this->order->get_order_today_web();
+            $cuniqueid          = count($getuniqueid);
             $getprovinsi = $this->provinsi->get_all('nama_provinsi','ASC');
             $arr_provinsi = [''=>'-- Pilih Provinsi --'];
             foreach ($getprovinsi as $prov) {
@@ -62,7 +65,10 @@ class checkoutController extends Controller
             $view['id_kecamatan'] = session('id_kecamatan');
 
             $view['arr_type']   = [''=>'-- Pilih Pengriman --'];
-            $view['type_kirim'] = session('type_kirim');            
+            $view['type_kirim'] = session('type_kirim');       
+
+            $nextid                     = $cuniqueid+1;
+            $view['uniqid']             = sprintf("%1$03d",$nextid);     
             return view('front.delivery.page',$view);    
         }else{
             return redirect('/new');
@@ -90,6 +96,11 @@ class checkoutController extends Controller
     public function store(Request $request)
     {
         //
+        // $getdataorder           = $this->order->get_order_today_web();
+        // $countorder             = count($getdataorder);
+        // $nextid                 = $countorder+1;
+        // $unik                   = sprintf("%1$03d",$nextid);
+        $unik                   = $request->input('nextid');
         $cart                   = session('cart');
         $order_name             = $request->input('order_name');
         $order_address          = $request->input('order_address');
@@ -107,8 +118,8 @@ class checkoutController extends Controller
         $ongkir                 = $request->input('type_kirim');
         $grandtotal             = $request->input('grandtotal');
         $order_note             = $request->input('order_note');
-        $uniqid                 = substr(strtoupper(md5($order_name.date('YmdHis'))), -7);
-        $insert['order_code']               = $uniqid;
+        // $uniqid                 = substr(strtoupper(md5($order_name.date('YmdHis'))), -7);
+        $insert['order_code']               = "MO-02".date('Ymd').$unik; 
         $insert['order_name']               = $order_name;
         $insert['order_phone']              = $order_phone;
         $insert['order_address']            = $order_address;
@@ -122,7 +133,8 @@ class checkoutController extends Controller
         $insert['order_shipment_address']   = $order_shipment_address;
         $insert['order_shipment_zip']       = $order_shipment_zip;
         $insert['order_shipment_price']     = $ongkir;
-        $insert['order_note']               = $order_note;        
+        $insert['order_note']               = $order_note;
+        $insert['order_system']             = "web";        
         $insert['created_at']               = date('Y-m-d H:i:s');
         $ids = $this->order->add($insert);
         if($ids > 0){
@@ -148,10 +160,26 @@ class checkoutController extends Controller
                 $qtybaru    = $qtylama - $productqty[$keyproduct];
                 $this->product->edit($valproduct,['product_stock'=>$qtybaru]);
 
+                $arr_mail['product_name'][] = $getproduct->product_name;
+                $arr_mail['price'][]        = $productprice[$keyproduct];
+                $arr_mail['qty'][]          = $productqty[$keyproduct];
+
             }
+            $arr_mail['grandtotal'] = $grandtotal;
+            $arr_mail['billing']    = $insert;
+            $arr_mail['count']      = count($arr_mail['product_name']);
+            $user['email']          = $order_email;
+            $user['name']           = $order_name;
+            $user['no_order']       = $insert['order_code'];
+            
+            Mail::send('front.checkout.mailOrder',$arr_mail,function($m) use ($user){
+                $m->from('no-reply-admin@mayoutfit.com','Admin Mayoutfit');
+                $m->to($user['email'], $user['name'])->subject("Konfirmasi Order No ".$user['no_order']);
+            });  
+
             $request->session()->forget('cart');
             $view['idorder']    = $ids;
-            $view['order_code'] = $uniqid;
+            $view['order_code'] = $insert['order_code'];
             $view['grandtotal'] = $grandtotal;
             $view['url']        = config('app.url')."public/payment/do";
             return view('front.checkout.success',$view);
@@ -202,5 +230,9 @@ class checkoutController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    function mail(){
+        return view('front.checkout.mailOrder');
     }
 }

@@ -30,6 +30,12 @@
       <span>Product</span>
     </a>
   </li>
+  <li {{ (Request::is('*galeries') ? 'class="active"' : '') }}>
+    <a href="{!!config('app.url')!!}public/admin/galeries">
+      <i class="fa fa-image"></i>
+      <span>Galery</span>
+    </a>
+  </li>
   
   <!-- <li {{ (Request::is('*sales-offline') ? 'class="active"' : '') }}>
     <a href="{!!config('app.url')!!}public/sales-offline">

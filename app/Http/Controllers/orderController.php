@@ -34,6 +34,7 @@ class orderController extends Controller
         $this->kecamatan    = new kecamatan;
         $this->ongkir       = new ongkir;
         $this->payment      = new payment;
+        $this->path         = public_path().'/upload/payment/';
     }
     /**
      * Display a listing of the resource.
@@ -65,7 +66,7 @@ class orderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        $getuniqueid        = $this->order->get_order_today();
+        $getuniqueid        = $this->order->get_order_today_admin();
         $cuniqueid          = count($getuniqueid);
         $get_provinsi       = $this->provinsi->get_all('nama_provinsi','ASC');
         $arr_provinsi[]     = "-- Select Province -- "; 
@@ -123,7 +124,7 @@ class orderController extends Controller
         $diskon_total           = $request->input('diskon_total');
         $grand_total            = $request->input('grand_total');
         if($grand_total > 0 && $provinsi != 0 && $kota != 0 && $kecamatan != 0){
-            $insert['order_code']               = date('Ymd').$uniqid;
+            $insert['order_code']               = "MO-01".date('Ymd').$uniqid;
             $insert['order_name']               = $order_name;
             $insert['order_phone']              = $order_phone;
             $insert['province_id']              = $provinsi;
@@ -136,6 +137,7 @@ class orderController extends Controller
             $insert['order_shipment_zip']       = $order_shipment_zip;
             $insert['order_shipment_price']     = $order_shipment_price;
             $insert['order_note']               = $order_note;
+            $insert['order_system']             = "admin";
             $insert['order_weight']             = $order_weight;
             $insert['order_discount']           = $diskon_total;
             $insert['order_admin']              = session('username');
@@ -275,7 +277,7 @@ class orderController extends Controller
         $subtotal               = $request->input('subtotal');
         $qtybefore              = session('qty');
         if($grand_total > 0 && $provinsi != 0 && $kota != 0 && $kecamatan != 0){
-            $insert['order_code']               = date('Ymd').$uniqid;
+            // $insert['order_code']               = date('Ymd').$uniqid;
             $insert['order_name']               = $order_name;
             $insert['order_phone']              = $order_phone;
             $insert['province_id']              = $provinsi;
@@ -348,7 +350,7 @@ class orderController extends Controller
         $data['biaya_kirim']    = $getintern->order_shipment_price;
         $data['no_order']       = $getintern->order_code;
         $data['admin']          = $getintern->order_admin;
-        $data['order_unik']     = substr($getintern->order_code, '-3');
+        $data['order_unik']     = $getintern->order_code;
         $data['detail']         = $getdetail;
         // }
         $namapengirim = ($getintern->order_shipment_name != "" )? $getintern->order_shipment_name : "Mayoutfit";
@@ -376,7 +378,13 @@ class orderController extends Controller
         $payment_bank_transfer   = $request->input('payment_bank_transfer');
         $payment_nominal         = $request->input('payment_nominal');
 
-
+        if($request->hasFile('payment_image')){
+            $payment_image  = $request->file('payment_image');
+            $ext            = $payment_image->getClientOriginalExtension();
+            $filename       = date('YmdHis').'.'.$ext;
+            $payment_image->move($this->path,$filename);
+            $insert['payment_image'] = $filename;
+        }
         $insert['order_id']               = $idorder;
         $insert['payment_name']           = $payment_name;
         $insert['payment_bank_transfer']  = $payment_bank_transfer;
