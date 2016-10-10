@@ -50,6 +50,14 @@ Route::group(['prefix'=>'admin'],function(){
 	//Report Order
 	Route::get('/report/order', 'reportOrderController@index');	
 	Route::get('/report/order/print', 'reportOrderController@create');	
+
+	//Galery
+	Route::get('/galeries', 'galeryController@index');	
+	Route::get('/galeries/add', 'galeryController@create');	
+	Route::post('/galeries/add', 'galeryController@store');
+	Route::get('/galeries/edit/{id}', 'galeryController@edit');	
+	Route::post('/galeries/edit', 'galeryController@update');	
+	Route::get('/galeries/delete/{id}', 'galeryController@destroy');
 });
 
 Route::group(['prefix'=>'api'],function(){
@@ -77,3 +85,5 @@ Route::post('/payment/do','paymentController@store');
 Route::get('/payment','paymentController@index');
 Route::get('/cart/hapus/{id}','cartController@delete_single');
 Route::get('/checkout/mail','checkoutController@mail');
+Route::get('/galery/category/{id}','galeryCategoryController@index');
+

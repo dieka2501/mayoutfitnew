@@ -8,12 +8,14 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\product;
 use App\category;
+use App\galery;
 class newReleaseController extends Controller
 {
     function __construct(){
         date_default_timezone_set('Asia/Jakarta');
         $this->product      = new product;
         $this->category     = new category;
+        $this->galery       = new galery;
         $getcategory        = $this->category->get_all('category_name','ASC');
         $arr_cat            = [];
         foreach ($getcategory as $cats) {
