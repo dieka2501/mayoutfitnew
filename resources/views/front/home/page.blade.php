@@ -12,12 +12,11 @@
     <section id="featured-products">
         <div class="container">
             <div class="row clearfix">
-                <div class="col-md-6 col-xs-6">
-                    <a href="#" class="top-banner"><img src="{{Config::get('app.url')}}assets/front/images/new-collections.jpg" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
-                </div>
-                <div class="col-md-6 col-xs-6">
-                    <a href="#" class="top-banner"><img src="{{Config::get('app.url')}}assets/front/images/international-brands.jpg" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
-                </div>
+                @foreach($listproduct1 as $lists)
+                    <div class="col-md-6 col-xs-6">
+                        <a href="{!!config('app.url')!!}public/product/detail/{!!$lists->idproduct!!}" class="top-banner"><img src="{{Config::get('app.url')}}public/upload/{!!$lists->product_image!!}" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
+                    </div>
+                @endforeach
                 @foreach($listcategory as $lists)
                     <div class="col-md-3 col-xs-6">
                         <a href="{!!config('app.url')!!}public/product/category/{!!$lists->idcategory!!}"><span>{!!$lists->category_name!!}</span>
@@ -40,8 +39,11 @@
         <div class="container">
             <div class="section-title"><h2>Highlight</h2></div>
             <div class="row clearfix">
-                <div class="col-md-6"><a href="#"><img src="{{Config::get('app.url')}}assets/front/images/banner_home_image_4.jpg" class="img-responsive center-block"></a></div>
-                <div class="col-md-6"><a href="#"><img src="{{Config::get('app.url')}}assets/front/images/banner_home_image_5.jpg" class="img-responsive center-block"></a></div>
+                @foreach($listproduct2 as $lists)
+                    <div class="col-md-6">
+                        <a href="{!!config('app.url')!!}public/product/detail/{!!$lists->idproduct!!}"><img src="{{Config::get('app.url')}}public/upload/{!!$lists->product_image!!}" class="img-responsive center-block"></a>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
