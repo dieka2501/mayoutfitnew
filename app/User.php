@@ -41,4 +41,32 @@ class User extends Model implements AuthenticatableContract,
     function get_username($username){
     	return User::where('username',$username)->first();
     }
+
+    function get_page(){
+        return User::orderBy($this->primaryKey,'DESC')->where('deleted_at',NULL)->paginate(20);
+    }
+
+    function get_search($cari){
+        return User::orderBy($this->primaryKey,'DESC')->where('username','like','%'.$cari.'%')->paginate(20);
+    }
+
+    function add($data){
+        return User::insert($data);
+    }
+
+    function get_id($id){
+        return User::find($id);
+    }
+
+    function edit($id,$data){
+        return User::where($this->primaryKey,$id)->update($data);
+    }
+
+    function get_ids(){
+        return User::orderBy($this->primaryKey,'DESC')->first();
+    }
+
+    function get_byname_all($name){
+        return User::orderBy('name','ASC')->where('name','like','%'.$name.'%')->get();
+    }
 }
