@@ -58,6 +58,14 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('/galeries/edit/{id}', 'galeryController@edit');	
 	Route::post('/galeries/edit', 'galeryController@update');	
 	Route::get('/galeries/delete/{id}', 'galeryController@destroy');
+
+	//Categories
+	Route::get('/user', 'usersController@index');	
+	Route::get('/user/add', 'usersController@create');	
+	Route::post('/user/add', 'usersController@store');
+	Route::get('/user/edit/{id}', 'usersController@edit');	
+	Route::post('/user/edit', 'usersController@update');	
+	Route::get('/user/delete/{id}', 'usersController@destroy');
 });
 
 Route::group(['prefix'=>'api'],function(){

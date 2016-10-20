@@ -13,13 +13,13 @@
     </a>
   </li>
   <li {{ (Request::is('*categories') ? 'class="active"' : '') }}>
-    <a href="{!!config('app.url')!!}public/categories">
+    <a href="{!!config('app.url')!!}public/admin/categories">
       <i class="fa fa-tag"></i>
       <span>Categories</span>
     </a>
   </li>
   <li {{ (Request::is('*product') ? 'class="active"' : '') }}>
-    <a href="{!!config('app.url')!!}public/product">
+    <a href="{!!config('app.url')!!}public/admin/product">
       <i class="fa fa-list"></i>
       <span>Product</span>
     </a>
@@ -73,7 +73,7 @@
     </a>
   </li>
   <li {{ (Request::is('*user') ? 'class="active"' : '') }}>
-    <a href="{!!config('app.url')!!}public/user">
+    <a href="{!!config('app.url')!!}public/admin/user">
       <i class="fa fa-user"></i>
       <span>User</span>
     </a>
