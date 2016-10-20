@@ -79,11 +79,11 @@
       <span>Configuration</span>
     </a>
   </li> -->
-  <!-- <li {{ (Request::is('*user') ? 'class="active"' : '') }}>
+  <li {{ (Request::is('*user') ? 'class="active"' : '') }}>
     <a href="{!!config('app.url')!!}public/admin/user">
       <i class="fa fa-user"></i>
       <span>User</span>
     </a>
-  </li> -->
+  </li>
   
 </ul>
