@@ -353,12 +353,12 @@
                    },function(data){
                       // console.log(data);
                       // var count = data.length;
-                      var html = '';
+                      var html = '<option value="">-- Select City --</option>';
                       for (var i = data.length - 1; i >= 0; i--) {
                         html +="<option value='"+data[i].id+"'>"+data[i].nama_kota+"</option>";
                           
                       }
-                      $('#kota').append(html);
+                      $('#kota').html(html);
                    });
                 });
             });
@@ -376,12 +376,12 @@
                    },function(data){
                       console.log(data);
                       // var count = data.length;
-                      var html = '';
+                      var html = '<option value="">-- Select District --</option>';
                       for (var i = data.length - 1; i >= 0; i--) {
                         html +="<option value='"+data[i].id+"'>"+data[i].nama_kecamatan+"</option>";
                           
                       }
-                      $('#kecamatan').append(html);
+                      $('#kecamatan').html(html);
                    });
                 });
             });

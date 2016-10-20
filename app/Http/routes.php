@@ -45,7 +45,9 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('/order/delete/{id}', 'orderController@destroy');		
 	Route::get('/order/print/{id}', 'orderController@print_out');
 	Route::get('/order/konfirm/bayar/{id}', 'orderController@konfirm_bayar');	
-	Route::post('/order/konfirm/bayar', 'orderController@do_payment');	
+	Route::post('/order/konfirm/bayar', 'orderController@do_payment');
+	Route::get('/order/konfirm/kirim/{id}', 'orderController@konfirm_kirim');		
+	Route::post('/order/konfirm/kirim', 'shipmentController@add_shipment');		
 
 	//Report Order
 	Route::get('/report/order', 'reportOrderController@index');	
@@ -67,6 +69,8 @@ Route::group(['prefix'=>'api'],function(){
 	Route::get('/product/autocomplete','apiController@get_product_auto');
 	Route::post('/product/idproduct','apiController@get_product_byid');
 	Route::post('/order/code','apiController@get_idoroder');
+	Route::post('/sicepat/orderid','sicepatController@sicepat_get_waybill');
+	Route::post('/sicepat/orderid','sicepatController@sicepat_get_resi');
 });
 
 Route::get('/','homeController@index');

@@ -14,6 +14,7 @@ use App\kota;
 use App\kecamatan;
 use App\ongkir;
 use App\payment;
+use App\curl;
 class orderController extends Controller
 {
     function __construct(){
@@ -35,6 +36,7 @@ class orderController extends Controller
         $this->ongkir       = new ongkir;
         $this->payment      = new payment;
         $this->path         = public_path().'/upload/payment/';
+        $this->curl         = new curl;
     }
     /**
      * Display a listing of the resource.
@@ -144,18 +146,27 @@ class orderController extends Controller
             $insert['created_at']               = date('Y-m-d H:i:s');
             $order_id   = $this->order->add($insert);
             for($i = 0; $i < $cdetail; $i++){
-                $detail['order_id']                        = $order_id;
-                $detail['product_id']                      = $product_id[$i];
-                $detail['order_detail_price']              = $order_detail_price[$i];
-                $detail['order_detail_discount_nominal']   = $order_detail_diskon[$i];
-                $detail['order_detail_qty']                = $order_detail_qty[$i];
-                $detail['order_detail_subtotal']           = $subtotal[$i];
-                $detail['created_at']                      = date('Y-m-d H:i:s');
-                $this->od->add($detail);
-                $getstock = $this->product->get_id($product_id[$i]);
-                $newstock = $getstock->product_stock - $order_detail_qty[$i];
-                $this->product->edit($product_id[$i],['product_stock'=>$newstock]);
+                if($product_id[$i] != ""){
+                    $detail['order_id']                        = $order_id;
+                    $detail['product_id']                      = $product_id[$i];
+                    $detail['order_detail_price']              = $order_detail_price[$i];
+                    $detail['order_detail_discount_nominal']   = $order_detail_diskon[$i];
+                    $detail['order_detail_qty']                = $order_detail_qty[$i];
+                    $detail['order_detail_subtotal']           = $subtotal[$i];
+                    $detail['created_at']                      = date('Y-m-d H:i:s');
+                    $this->od->add($detail);
+                    $getstock = $this->product->get_id($product_id[$i]);
+                    $newstock = $getstock->product_stock - $order_detail_qty[$i];
+                    $this->product->edit($product_id[$i],['product_stock'=>$newstock]);    
+                }
+                
             }
+            $smscontent = "mayoutfit.com%20~%20Hai%20Sist%20".$order_name.",%20thx%20sudah%20belanja%20di%20mayoutfit.com%20(Order%20ID%20".$insert['order_code']."),%20total%20Rp.".number_format($grand_total).".%20Yuk%20buruan%20trf%20ke%20BCA%20/%20Mandiri%20";
+            $urlsms     =  config('app.urlsms').'?userkey='.config('app.smsuserkey').'&passkey='.config('app.smspasskey').'&nohp='.$order_phone.'&pesan='.$smscontent."";
+            // echo $smscontent.'<br>'.$urlsms;
+
+            $res = $this->curl->get($urlsms);
+            // var_dump($res);die;
             $request->session()->flash('notip',"<div class='alert alert-success'>Order telah dibuat</div>");
             return redirect('/admin/order');
 
@@ -357,6 +368,12 @@ class orderController extends Controller
         $string = 'MO~^~'.$getintern->order_code."~^~".$getintern->order_name."~^~".$getintern->order_shipment_address." ".$getintern->nama_kecamatan." ".$getintern->nama_kota." ".$getintern->nama_provinsi."~^~".$getintern->order_shipment_phone."~^~".$namapengirim.'~^~'.$getintern->order_phone.'~^~03SM';
         $data['qr'] = $string;
         // $print['print'] = 1;
+        $this->order->edit($id,['order_is_printed'=>1]);
+        $smscontent = "mayoutfit.com%20~%20Hai%20Sist%20".$getintern->order_name.",%20order%20kamu%20(Order%20ID%20".$getintern->order_code."),%20akan%20segera%20dikirim";
+        $urlsms     =  config('app.urlsms').'?userkey='.config('app.smsuserkey').'&passkey='.config('app.smspasskey').'&nohp='.$order_phone.'&pesan='.$smscontent."";
+        // echo $smscontent.'<br>'.$urlsms;
+
+        $res = $this->curl->get($urlsms);
         return view('print.print',$data);
     }
 
@@ -401,5 +418,12 @@ class orderController extends Controller
             return redirect('/admin/order/konfirm/bayar/'.$idorder);
         }
 
+    }
+
+    function konfirm_kirim($id){
+        $getorder           = $this->order->get_id($id);
+        $view['order']      = $getorder;
+        $view['url']        = config('app.url').'public/admin/order/konfirm/kirim';
+        return view('confirmation.delivery',$view);
     }
 }
