@@ -12,7 +12,7 @@
           <div class="box-body">
               <div class="form-group">
                 <label>Username</label>
-                <input type="text" class="form-control" name='username' id='username' value='{!!$username!!}' required="required">
+                <input type="text" class="form-control" name='username' id='username' value='{!!$username!!}' required="required"  readonly='readonly>
                 <input type='hidden' name='iduser' value='{!!$iduser!!}'/>
               </div>
               <div class="form-group">

@@ -43,8 +43,8 @@
     </a>
   </li>
   <li {{ (Request::is('*voucher') ? 'class="active"' : '') }}>
-    <a href="{!!config('app.url')!!}public/voucher">
-      <i class="fa fa-files-o"></i>
+    <a href="{!!config('app.url')!!}public/admin/voucher">
+      <i class="fa fa-money"></i>
       <span>Voucher</span>
     </a>
   </li>
@@ -76,6 +76,12 @@
     <a href="{!!config('app.url')!!}public/admin/user">
       <i class="fa fa-user"></i>
       <span>User</span>
+    </a>
+  </li>
+  <li {{ (Request::is('*membertype') ? 'class="active"' : '') }}>
+    <a href="{!!config('app.url')!!}public/admin/membertype">
+      <i class="fa fa-child"></i>
+      <span>Member Type</span>
     </a>
   </li>
   <li class="header">FORM PRIORITY</li>

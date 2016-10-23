@@ -68,6 +68,22 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('/user/edit/{id}', 'usersController@edit');	
 	Route::post('/user/edit', 'usersController@update');	
 	Route::get('/user/delete/{id}', 'usersController@destroy');
+
+	//Voucher
+	Route::get('/voucher', 'voucherController@index');	
+	Route::get('/voucher/add', 'voucherController@create');	
+	Route::post('/voucher/add', 'voucherController@store');
+	Route::get('/voucher/edit/{id}', 'voucherController@edit');	
+	Route::post('/voucher/edit', 'voucherController@update');	
+	Route::get('/voucher/delete/{id}', 'voucherController@destroy');
+
+	//Member Type
+	Route::get('/membertype', 'membertypeController@index');	
+	Route::get('/membertype/add', 'membertypeController@create');	
+	Route::post('/membertype/add', 'membertypeController@store');
+	Route::get('/membertype/edit/{id}', 'membertypeController@edit');	
+	Route::post('/membertype/edit', 'membertypeController@update');	
+	Route::get('/membertype/delete/{id}', 'membertypeController@destroy');
 });
 
 Route::group(['prefix'=>'api'],function(){

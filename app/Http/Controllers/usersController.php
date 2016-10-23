@@ -124,7 +124,7 @@ class usersController extends Controller
         $insert['email']                    = $email;
         $insert['name']                     = $name;
         $insert['role']                     = $role;
-        $insert['created_at']               = date('Y-m-d H:i:s');
+        $insert['updated_at']               = date('Y-m-d H:i:s');
 
         $cekUsername  = $this->User->get_username($username);
         if($cekUsername == NULL){

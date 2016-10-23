@@ -33,7 +33,7 @@
                    'owner' => 'Owner',
                    'order' => 'Order',
                    'confirm' => 'Confirm'],
-                   null,
+                   $role,
                    ['class'=>'form-control','required'=>'required']
                 ) !!}
               </div>
