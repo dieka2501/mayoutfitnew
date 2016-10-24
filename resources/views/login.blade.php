@@ -7,13 +7,13 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
-    <link rel="stylesheet" href="{!!config('app.url')!!}public/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{!!config('app.url')!!}assets/dashboard/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{!!config('app.url')!!}public/assets/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="{!!config('app.url')!!}assets/dashboard/plugins/font-awesome/css/font-awesome.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{!!config('app.url')!!}public/assets/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="{!!config('app.url')!!}assets/dashboard/dist/css/AdminLTE.min.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href="{!!config('app.url')!!}public/assets/plugins/iCheck/square/blue.css">
+    <link rel="stylesheet" href="{!!config('app.url')!!}assets/dashboard/plugins/iCheck/square/blue.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,7 +25,7 @@
   <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href=""><img src="{!!config('app.url')!!}public/assets/dist/img/logo_full.png"></a>
+        <a href=""><img src="{!!config('app.url')!!}assets/dashboard/dist/img/logo_full.png"></a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
@@ -67,11 +67,11 @@
     </div><!-- /.login-box -->
 
     <!-- jQuery 2.1.4 -->
-    <script src="{!!config('app.url')!!}public/assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="{!!config('app.url')!!}assets/dashboard/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
-    <script src="{!!config('app.url')!!}public/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{!!config('app.url')!!}assets/dashboard/bootstrap/js/bootstrap.min.js"></script>
     <!-- iCheck -->
-    <script src="{!!config('app.url')!!}public/assets/plugins/iCheck/icheck.min.js"></script>
+    <script src="{!!config('app.url')!!}assets/dashboard/plugins/iCheck/icheck.min.js"></script>
     <script>
       $(function () {
         $('input').iCheck({
