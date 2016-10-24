@@ -41,7 +41,7 @@
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="row">
-            <div class="col-xs-8">
+            <div class="col-xs-7 col-md-offset-1">
               <div class="checkbox icheck">
                 <label>
                   <input type="checkbox" name='remember' value='1'> Remember Me
@@ -67,7 +67,7 @@
     </div><!-- /.login-box -->
 
     <!-- jQuery 2.1.4 -->
-    <script src="{!!config('app.url')!!}assets/dashboard/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="{!!config('app.url')!!}assets/dashboard/plugins/jquery-libs/jquery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="{!!config('app.url')!!}assets/dashboard/bootstrap/js/bootstrap.min.js"></script>
     <!-- iCheck -->

@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{!!config('app.url')!!}assets/dashboard/dist/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
     <!-- jQuery 2.1.4 -->
-    <script src="{!!config('app.url')!!}assets/dashboard/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="{!!config('app.url')!!}assets/dashboard/plugins/jquery-libs/jquery-2.1.4.min.js"></script>
     <script   src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="{!!config('app.url')!!}assets/dashboard/bootstrap/js/bootstrap.min.js"></script>
