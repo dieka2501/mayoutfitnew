@@ -5,13 +5,8 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">Data Member Type</h3>
+          <h3 class="box-title">Data Customer</h3>
           {!!session('notip')!!}
-          <div class="box-tools pull-right">
-            <a href="{!!config('app.url')!!}public/admin/membertype/add">
-              <button class="btn btn-box-tool"><i class="fa fa-plus"></i> <span class="hidden-xs">Add Member Type<span></button>
-            </a>
-          </div>
         </div>
         <div class="box-body">
           <div class="container">
@@ -31,7 +26,8 @@
               <tr>
                 <th>No</th>
                 <th>Name</th>
-                <th>Status</th>
+                <th>Address</th>
+                <th>Member Type</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -52,18 +48,22 @@
                 ?>
                 <tr>
                   <td>{!!$nums!!}</td>
+                  <td>{!!$lists->customer_name!!}</td>
+                  <td>{!!$lists->customer_address!!}</td>
                   <td>{!!$lists->membertype_name!!}</td>
-                    <?php
-                      if($lists->membertype_status == 0){
-                          $stat = "Non Active";
-                      }else{
-                          $stat = "Active";
-                      }
-                    ?>
-                  <td>{!!$stat!!}</td>
-                  <td style="width:150px;">
-                    <a href="{!!config('app.url')!!}public/admin/membertype/edit/{!!$lists->idmembertype!!}" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                    <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="{!!config('app.url')!!}public/admin/membertype/delete/{!!$lists->idmembertype!!}" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
+                  <td>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default btn-flat">Action</button>
+                      <button type="button" class="btn btn-warning btn-flat dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="{!!config('app.url')!!}public/admin/customer/historypayment/{!!$lists->idcustomer!!}">History Pembelian</a></li>
+                        <li><a href="{!!config('app.url')!!}public/admin/customer/changemember/{!!$lists->idcustomer!!}">Change Member Type</a></li>
+                        <li><a onclick="return confirm('Apakah anda yakin reset password customer ini ?')" href="{!!config('app.url')!!}public/admin/customer/resetpassword/{!!$lists->idcustomer!!}">Reset Password</a></li>
+                      </ul>
+                    </div>
                   </td>
                 </tr>
               @endforeach
@@ -72,7 +72,8 @@
               <tr>
                 <th>No</th>
                 <th>Name</th>
-                <th>Status</th>
+                <th>Address</th>
+                <th>Member Type</th>
                 <th>Action</th>
               </tr>
             </tfoot>

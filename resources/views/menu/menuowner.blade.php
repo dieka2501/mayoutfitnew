@@ -91,5 +91,10 @@
       <span>Member Type</span>
     </a>
   </li>
-  
+  <li {{ (Request::is('*customer') ? 'class="active"' : '') }}>
+    <a href="{!!config('app.url')!!}public/admin/customer">
+      <i class="fa fa-users"></i>
+      <span>Customer</span>
+    </a>
+  </li>
 </ul>

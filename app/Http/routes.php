@@ -51,7 +51,7 @@ Route::group(['prefix'=>'admin'],function(){
 
 	//Report Order
 	Route::get('/report/order', 'reportOrderController@index');	
-	Route::get('/report/order/print', 'reportOrderController@create');	
+	//Route::get('/report/order/print', 'reportOrderController@create');	
 
 	//Galery
 	Route::get('/galeries', 'galeryController@index');	
@@ -84,6 +84,13 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('/membertype/edit/{id}', 'membertypeController@edit');	
 	Route::post('/membertype/edit', 'membertypeController@update');	
 	Route::get('/membertype/delete/{id}', 'membertypeController@destroy');
+
+	//Customers
+	Route::get('/customer', 'customerController@index');
+	Route::get('/customer/historypayment/{id}', 'customerController@historypayment');
+	Route::get('/customer/changemember/{id}', 'customerController@edit');
+	Route::post('/customer/changemember', 'customerController@updatemember');
+	Route::get('/customer/resetpassword/{id}', 'customerController@resetpassword');
 });
 
 Route::group(['prefix'=>'api'],function(){

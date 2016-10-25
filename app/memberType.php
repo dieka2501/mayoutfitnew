@@ -41,4 +41,8 @@ class memberType extends Model
     function get_byname_all($name){
         return memberType::orderBy('membertype_name','ASC')->where('membertype_name','like','%'.$name.'%')->get();
     }
+
+    function get_all($orderby,$ordering){
+        return memberType::orderBy($orderby,$ordering)->where('membertype_status',1)->get();
+    }
 }

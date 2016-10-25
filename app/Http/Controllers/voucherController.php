@@ -25,7 +25,7 @@ class voucherController extends Controller
     {
         if($request->has('cari')){
             $cari       = $request->input('cari');
-            $getdata    = $this->voucher->get_search($cari);    
+            $getdata    = $this->voucher->get_search($cari);
         }else{
             $cari       = "";
             $getdata    = $this->voucher->get_page();

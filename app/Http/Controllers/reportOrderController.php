@@ -8,7 +8,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Auth;
 use App\orderDetail;
+use App\order;
 use PDF;
+use Excel;
+
 class reportOrderController extends Controller
 {
     function __construct(){
@@ -19,109 +22,95 @@ class reportOrderController extends Controller
         view()->share('name',session('name'));
         view()->share('email',session('email'));
         view()->share('date_register',session('date_register'));  
-        $this->od = new orderDetail;
+        $this->od       = new orderDetail;
+        $this->order    = new order;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index(Request $request)
     {
         if($request->has('date_start') && $request->has('date_end')){
-            $date_start = $request->input('date_start');
-            $date_end   = $request->input('date_end');
+            $date_start         = $request->input('date_start');
+            $date_end           = $request->input('date_end');
+            $getdata            = $this->order->get_search_report($date_start,$date_end);
+            $getall             = $this->order->get_report_search($date_start,$date_end);
         }else{
-            $date_start = date('Y-m-01');
-            $date_end   = date('Y-m-31');
+            $date_start         = "";
+            $date_end           = "";
+            $getdata            = $this->order->get_page_report();
+            $getall             = $this->order->get_report_all();
         }
-        $getdata            = $this->od->get_page($date_start,$date_end);
-        $view['order']      = $getdata;
-        $view['url']        = config('app.url').'public/admin/report/order/print';
-        $view['date_start'] = $date_start;
-        $view['date_end']   = $date_end;
-        return view('report_order.index',$view);
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function create(Request $request)
-    {
-        if($request->has('date_start') && $request->has('date_end')){
-            $date_start = $request->input('date_start');
-            $date_end   = $request->input('date_end');
-        }else{
-            $date_start = date('Y-m-01');
-            $date_end   = date('Y-m-31');
+        if ($request->has('search'))
+        {
+            $view['order']      = $getdata;
+            $view['url']        = config('app.url').'public/admin/report/order';
+            $view['date_start'] = $date_start;
+            $view['date_end']   = $date_end;
+            return view('report_order.index',$view);
         }
-        $getdata            = $this->od->get_all($date_start,$date_end);
-        $view['report']     = $getdata;
-        $view['date_start'] = $date_start;
-        $view['date_end']   = $date_end;
-        // return view('pdf.reportOrder',$view);
-        $pdf = PDF::loadView('pdf.reportOrder', $view);
-        return $pdf->stream('report_order.pdf');
+        elseif ($request->has('pdf')) 
+        {
+            $view['report']     = $getall;
+            $view['url']        = config('app.url').'public/admin/report/order';
+            $view['date_start'] = $date_start;
+            $view['date_end']   = $date_end;
+            $pdf = PDF::loadView('pdf.reportOrder', $view);
+            return $pdf->download('report_order.pdf');
+        }
+        elseif ($request->has('excel')) 
+        {
+            $orderArray[] = ['Nama Barang', 'Qty','Penjualan','Diskon','HPP','Profit'];
+            foreach ($getall as $datas) {
+                $profit = ($datas->order_detail_price - $datas->order_detail_discount_nominal) - $datas->product_hpp;
+                $orderArray[] = [
+                                'Nama Barang'   => $datas->product_name, 
+                                'Qty'           => $datas->order_detail_qty, 
+                                'Penjualan'     => "Rp " . number_format($datas->order_detail_price,0,',','.'),
+                                'Diskon'        => "Rp " . number_format($datas->order_detail_discount_nominal,0,',','.'),
+                                'HPP'           => "Rp " . number_format($datas->product_hpp,0,',','.'),
+                                'Profit'        => "Rp " . number_format($profit,0,',','.'),
+                               ];
+            }
+            
+            if($request->has('date_start') && $request->has('date_end')){
+                $tgl = 'Tgl_'.$request->input('date_start').' - '.$request->input('date_end');
+            }else{
+                $tgl = 'All';
+            }
 
+            Excel::create('Report_Order_'.$tgl, function($excel) use ($orderArray) {
+                $excel->sheet('sheet1', function($sheet) use ($orderArray) {
+                    $sheet->fromArray($orderArray, null, 'A1', false, false);
+                });
 
+            })->download('xlsx');
+        }
+        else
+        {
+            $view['order']      = $getdata;
+            $view['url']        = config('app.url').'public/admin/report/order';
+            $view['date_start'] = $date_start;
+            $view['date_end']   = $date_end;
+            return view('report_order.index',$view);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    // public function create(Request $request)
+    // {
+    //     if($request->has('date_start') && $request->has('date_end')){
+    //         $date_start = $request->input('date_start');
+    //         $date_end   = $request->input('date_end');
+    //     }else{
+    //         $date_start = date('Y-m-01');
+    //         $date_end   = date('Y-m-31');
+    //     }
+    //     $getdata            = $this->od->get_all($date_start,$date_end);
+    //     $view['report']     = $getdata;
+    //     $view['date_start'] = $date_start;
+    //     $view['date_end']   = $date_end;
+    //     // return view('pdf.reportOrder',$view);
+    //     $pdf = PDF::loadView('pdf.reportOrder', $view);
+    //     return $pdf->stream('report_order.pdf');
+    // }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

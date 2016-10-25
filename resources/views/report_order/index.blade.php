@@ -1,34 +1,35 @@
 @extends('template')
 @section('content')
-        <!-- Main content -->
         <section class="content">
           <div class="row">
             <div class="col-xs-12">
               <div class="box">
                 <div class="box-header">
                   <h3 class="box-title">Report Order</h3>
-                  <div class="box-tools pull-right">
-                    
+                  <div class="box-tools pull-right">                    
                   </div>
-                </div><!-- /.box-header -->
+                </div>
                 <div class="box-body">
                   <div class="container">
                       {!!Form::open(['url'=>$url,'method'=>'GET'])!!}
                         <div class='row'>
-                            <div class="col-md-5">
-                                <input type="text" name="start_date" id='start_date' class="form-control tanggal" placeholder="Tanggal Mulai" value="{!!$date_start!!}">
+                            <div class="col-md-4">
+                                <input type="text" name="date_start" id='date_start' class="form-control tanggal" placeholder="Tanggal Mulai" value="{!!$date_start!!}">
                             </div>
-                            <div class="col-md-5">
-                                <input type="text" name="end_date" id='end_date' class="form-control tanggal" placeholder="Tanggal Selesai" value="{!!$date_end!!}">
+                            <div class="col-md-4">
+                                <input type="text" name="date_end" id='date_end' class="form-control tanggal" placeholder="Tanggal Selesai" value="{!!$date_end!!}">
+                            </div>
+                            <div class="col-md-1">
+                              <input class="btn btn-box-tool" type='submit' name="search" value="Show"><i class="fa fa-search"></i>
+                            </div>
+                            <div class="col-md-1">
+                              <input class="btn btn-box-tool" type='submit' name="pdf" value="To PDF"><i class="fa fa-file-pdf-o"></i>
+                            </div>
+                            <div class="col-md-1">
+                              <input class="btn btn-box-tool" type='submit' name="excel" value="To Excell"><i class="fa fa-file-excel-o"></i>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-10 text-right">
-                                <button class="btn btn-box-tool" type='submit'><i class="fa fa-print"></i> <span class="hidden-xs">Print</span></button>           
-                            </div>
-                        </div>
-                      {!!Form::close()!!}
-                      
+                      {!!Form::close()!!}                      
                     </div>
                   <table id="example" class="table table-bordered table-striped table-hover">
                     <thead>
@@ -42,11 +43,9 @@
                       </tr>
                     </thead>
                   <tbody>
-
                     @foreach($order as $orders)
                     <?php 
                       $profit = ($orders->order_detail_price - $orders->order_detail_discount_nominal) -$orders->product_hpp;
-
                     ?>
                     <tr>
                       <td>{!!$orders->product_name!!}</td>
@@ -55,10 +54,8 @@
                       <td>Rp. {!!number_format($orders->order_detail_discount_nominal)!!}</td>
                       <td>Rp. {!!number_format($orders->product_hpp)!!}</td>
                       <td>Rp. {!!number_format($profit)!!}</td>
-
                     </tr>
                     @endforeach
-
                   </tbody>
                   <tfoot>
                   <tr>
@@ -71,17 +68,16 @@
                   </tr>
                   </tfoot>
                   </table>
-                  <p>{!!$order->appends(['date_start'=>$date_start,'date_end'=>$date_end])->render()!!}</p>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-        </section><!-- /.content -->
+                </div>
+              </div>
+              {!!$order->appends(['date_start'=>$date_start,'date_end'=>$date_end])->render()!!}
+            </div>
+          </div>
+        </section>
         <script type="text/javascript">
             $(document).ready(function(){
                 $('.tanggal').datepicker({
-                    dateFormat : "yy-mm-dd"
-                    
+                    dateFormat : "yy-mm-dd"                    
                 });
             });
         </script>

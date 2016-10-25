@@ -49,5 +49,33 @@ class order extends Model
 	function get_codeorder($code){
 		return order::where('order_code',$code)->first();
 	}
-    //
+
+    //report
+    function get_page_report(){
+		return order::join('order_detail',$this->table.'.idorder','=','order_detail.order_id')
+						->join('product','order_detail.product_id','=','product.idproduct')
+						->orderBy('product.product_name','asc')->paginate(20);
+	}
+
+	function get_search_report($date_start,$date_end){
+		return order::join('order_detail',$this->table.'.idorder','=','order_detail.order_id')
+						->join('product','order_detail.product_id','=','product.idproduct')
+						->whereBetween($this->table.'.created_at',[$date_start.'%',$date_end."%"])
+						->orderBy('product.product_name','asc')->paginate(20);
+	}
+
+	function get_report_all(){
+		return order::join('order_detail',$this->table.'.idorder','=','order_detail.order_id')
+						->join('product','order_detail.product_id','=','product.idproduct')
+						->orderBy('product.product_name','asc')->get();
+	}
+
+	function get_report_search($date_start,$date_end){
+		return order::join('order_detail',$this->table.'.idorder','=','order_detail.order_id')
+						->join('product','order_detail.product_id','=','product.idproduct')
+						->whereBetween($this->table.'.created_at',[$date_start.'%',$date_end."%"])
+						->orderBy('product.product_name','asc')->get();
+	}
+
+
 }
