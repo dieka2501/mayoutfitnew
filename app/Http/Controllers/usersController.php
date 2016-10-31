@@ -120,14 +120,17 @@ class usersController extends Controller
         $name                               = $request->input('name');
         $role                               = $request->input('role');
         $insert['username']                 = $username;
-        $insert['password']                 = \Hash::make($password);
+        if($request->has('password')){
+            $insert['password']                 = \Hash::make($password);    
+        }
+        
         $insert['email']                    = $email;
         $insert['name']                     = $name;
         $insert['role']                     = $role;
         $insert['updated_at']               = date('Y-m-d H:i:s');
 
-        $cekUsername  = $this->User->get_username($username);
-        if($cekUsername == NULL){
+        // $cekUsername  = $this->User->get_username($username);
+        if(true){
             if($this->User->edit($ids,$insert)){
                 $request->session()->flash('notip','<div class="alert alert-success">Data added successful</div>');
                 return redirect('/admin/user');

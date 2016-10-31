@@ -11,6 +11,7 @@ use App\kecamatan;
 use App\ongkir;
 use App\product;
 use App\order;
+use App\voucher;
 class apiController extends Controller
 {
     function __construct(){
@@ -20,6 +21,7 @@ class apiController extends Controller
         $this->ongkir       = new ongkir;
         $this->product      = new product;
         $this->order        = new order;
+        $this->voucher      = new voucher;
     }
     /**
      * Display a listing of the resource.
@@ -69,6 +71,13 @@ class apiController extends Controller
         $getdata    = $this->order->get_codeorder($code);
         return response()->json($getdata);
     }
+
+    function get_codevoucher(Request $request){
+        $voucher = $request->input('voucher');
+        $getdata = $this->voucher->get_vouchercode_stat($voucher);
+        return response()->json($getdata);
+    }
+
     public function index()
     {
         //

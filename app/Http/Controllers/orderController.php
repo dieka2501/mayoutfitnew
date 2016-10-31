@@ -54,7 +54,7 @@ class orderController extends Controller
             $cari       = "";
             $get_data   = $this->order->get_page();    
         }
-        
+        // var_dump(session()->all());
         $view['url']        = config('app.url').'public/admin/order';
         $view['list']       = $get_data;
         $view['cari']       = $cari;

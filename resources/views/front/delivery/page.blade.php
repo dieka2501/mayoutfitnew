@@ -16,7 +16,7 @@
                           <div class="shipping-wrap existing-address">
                             <div class="clearfix add-address ch-address-type-option">
 
-                            </div><input name="ThreeStepShippingAddressForm[createNewAddress]" type="hidden" value="0">
+                            </div>
                             <div id="addnew" style="background:#f5f5f5;padding:20px;">
                               <div class="form-group">
                                 <label>Nama</label>
@@ -82,6 +82,20 @@
                             </div>
                           </div>
                           
+                        </div>
+                        <div class="shipping-wrap-border">
+                          <div class="shipping-wrap existing-address">
+                            <div class="clearfix add-address ch-address-type-option">
+
+                            </div>
+                            <div id="addnew" style="background:#f5f5f5;padding:20px;">
+                              <div class="form-group">
+                                <label>Masukan Voucher</label>
+                                  <input type="text" name="voucher" class="form-control" id='input-voucher'>
+                                  <button type="button" id='voucher'>Cek Voucher</button>
+                              </div> 
+                            </div>
+                          </div>
                         </div>
                         <!-- End of shipping -->
                         <button type="button" class="btn btn-default btn-pink" id='btn-checkout'>Checkout &nbsp;<i class="ion-arrow-right-c"></i></button>
@@ -268,5 +282,25 @@
             }
         });
       });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+          // alert('adsdsd');
+            $('#voucher').click(function(){
+                var codevoucher = $('#input-voucher').val();
+                $.post("{!!config('app.url')!!}public/api/voucher/cek",{
+                    'voucher' : codevoucher
+                },function(data){
+                    var count = data.length;
+                    console.log(data);
+                    console.log(data.length);
+                    if(data.idvoucher != 'undefined'){
+                        alert("Selamat kamu dapat potongan harga Rp."+data.voucher_discount);
+                    }else{
+                      alert('Maaf voucher salah, atau sudah tidak berlaku');
+                    }
+                });
+            });
+        });
     </script>
 @stop

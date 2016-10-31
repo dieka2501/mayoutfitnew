@@ -12,12 +12,12 @@
           <div class="box-body">
               <div class="form-group">
                 <label>Username</label>
-                <input type="text" class="form-control" name='username' id='username' value='{!!$username!!}' required="required"  readonly='readonly>
+                <input type="text" class="form-control" name='username' id='username' value='{!!$username!!}' required="required"  readonly='readonly'>
                 <input type='hidden' name='iduser' value='{!!$iduser!!}'/>
               </div>
               <div class="form-group">
                 <label>Password</label>
-                <input type="password" class="form-control" name='password' id='password' value='{!!$password!!}' required="required">
+                <input type="password" class="form-control" name='password' id='password' value='{!!$password!!}' >
               </div>
               <div class="form-group">
                 <label>Email</label>

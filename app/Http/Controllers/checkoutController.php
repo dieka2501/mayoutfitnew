@@ -13,6 +13,7 @@ use App\order;
 use App\orderDetail;
 use Mail;
 use App\curl;
+use App\voucher;
 class checkoutController extends Controller
 {
     function __construct(){
@@ -23,6 +24,7 @@ class checkoutController extends Controller
         $this->od           = new orderDetail;
         $this->product      = new product;
         $this->curl         = new curl;
+        $this->voucher      = new voucher;
         $getcategory        = $this->category->get_all('category_name','ASC');
         $arr_cat            = [];
         foreach ($getcategory as $cats) {
@@ -118,8 +120,23 @@ class checkoutController extends Controller
         $id_kecamatan           = $request->input('id_kecamatan');
         $subtotal               = $request->input('hidsubtotal');
         $ongkir                 = $request->input('type_kirim');
-        $grandtotal             = $request->input('grandtotal');
+        $tempgrandtotal         = $request->input('grandtotal');
         $order_note             = $request->input('order_note');
+        $voucher                = $request->input('voucher');
+        $getvoucher             = $this->voucher->get_vouchercode_stat($voucher);
+        if(count($getvoucher) > 0){
+            $vpotongan = $getvoucher->voucher_discount;
+        }else{
+            $vpotongan = 0;
+        }    
+
+        $grandtotal = $tempgrandtotal - $vpotongan;
+        // if($request->has('voucher')){
+            
+        // }else{
+        //     $voucher                = $request->input('voucher');    
+        // }
+        
         // $uniqid                 = substr(strtoupper(md5($order_name.date('YmdHis'))), -7);
         $insert['order_code']               = "MO-02".date('Ymd').$unik; 
         $insert['order_name']               = $order_name;
@@ -178,7 +195,7 @@ class checkoutController extends Controller
                 $m->from('no-reply-admin@mayoutfit.com','Admin Mayoutfit');
                 $m->to($user['email'], $user['name'])->subject("Konfirmasi Order No ".$user['no_order']);
             });  
-            $smscontent = "mayoutfit.com%20~%20Hai%20Sist%20".$order_name.",%20thx%20sudah%20belanja%20di%20mayoutfit.com%20(Order%20ID%20".$insert['order_code']."),%20total%20Rp.".number_format($$grandtotal).".%20Yuk%20buruan%20trf%20ke%20BCA%20/%20Mandiri%20";
+            $smscontent = "mayoutfit.com%20~%20Hai%20Sist%20".$order_name.",%20thx%20sudah%20belanja%20di%20mayoutfit.com%20(Order%20ID%20".$insert['order_code']."),%20total%20Rp.".number_format($grandtotal).".%20Yuk%20buruan%20trf%20ke%20BCA%20/%20Mandiri%20";
             $urlsms     =  config('app.urlsms').'?userkey='.config('app.smsuserkey').'&passkey='.config('app.smspasskey').'&nohp='.$order_phone.'&pesan='.$smscontent."";
             // echo $smscontent.'<br>'.$urlsms;
             $res = $this->curl->get($urlsms);

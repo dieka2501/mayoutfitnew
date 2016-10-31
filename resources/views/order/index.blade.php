@@ -9,9 +9,11 @@
                   <h3 class="box-title">Data Order</h3>
                   {!!session('notip')!!}
                   <div class="box-tools pull-right">
+                  @if($role != "confirm")
                   <a href="{{Request::url()}}/add">
                     <button class="btn btn-box-tool"><i class="fa fa-plus"></i> <span class="hidden-xs">Create Order</span></button>
                   </a>
+                  @endif
                   </div>
                 </div><!-- /.box-header -->
                 <div class="box-body">
@@ -78,17 +80,24 @@
                             <span class="sr-only">Toggle Dropdown</span>
                           </button>
                           <ul class="dropdown-menu" role="menu">
-                            <li><a href="{!!config('app.url')!!}public/admin/order/edit/{!!$lists->idorder!!}">Edit</a></li>
+                            @if($role == 'owner' || $role== 'order')
+                              <li><a href="{!!config('app.url')!!}public/admin/order/edit/{!!$lists->idorder!!}">Edit</a></li>
+                            @endif
                             @if($lists->order_status != 5)
-                              <li><a href="{!!config('app.url')!!}public/admin/order/konfirm/bayar/{!!$lists->idorder!!}">Konfirmasi Bayar</a></li>
-
+                              @if($role == 'owner' || $role == 'confirm')
+                                <li><a href="{!!config('app.url')!!}public/admin/order/konfirm/bayar/{!!$lists->idorder!!}">Konfirmasi Bayar</a></li>
+                              @endif
                               
                               @if($lists->order_status != 0)
-                                <li><a href="{!!config('app.url')!!}public/admin/order/print/{!!$lists->idorder!!}" target="__blank">Print</a></li>
-                                <li><a onclick="modal('{!!$lists->order_code!!}')"  href="#">Cek Status Pengiriman</a></li>
+                                @if($role == 'owner' || $role == 'confirm')
+                                  <li><a href="{!!config('app.url')!!}public/admin/order/print/{!!$lists->idorder!!}" target="__blank">Print</a></li>
+                                  <li><a onclick="modal('{!!$lists->order_code!!}')"  href="#">Cek Status Pengiriman</a></li>
+                                @endif
                               @else
-                                <li><a href="#" onclick="if(!confirm('Order ini belum dibayar')) return false;">Print</a></li>
-                                <li><a href="#" onclick="if(!confirm('Order ini belum dibayar')) return false;">Cek Status Pengiriman</a></li>
+                                @if($role == 'owner' || $role == 'confirm')
+                                  <li><a href="#" onclick="if(!confirm('Order ini belum dibayar')) return false;">Print</a></li>
+                                  <li><a href="#" onclick="if(!confirm('Order ini belum dibayar')) return false;">Cek Status Pengiriman</a></li>
+                                @endif
 
                               @endif
                             @endif

@@ -14,6 +14,10 @@ class voucher extends Model
         return voucher::where('voucher_code',$voucher_code)->first();
     }
 
+    function get_vouchercode_stat($voucher_code){
+        return voucher::where('voucher_code',$voucher_code)->where('voucher_status',1)->first();
+    }
+
     function get_page(){
         return voucher::orderBy($this->primaryKey,'DESC')->where('deleted_at',NULL)->paginate(20);
     }

@@ -102,6 +102,7 @@ Route::group(['prefix'=>'api'],function(){
 	Route::post('/order/code','apiController@get_idoroder');
 	Route::post('/sicepat/orderid','sicepatController@sicepat_get_waybill');
 	Route::post('/sicepat/orderid','sicepatController@sicepat_get_resi');
+	Route::post('/voucher/cek','apiController@get_codevoucher');
 });
 
 Route::get('/','homeController@index');

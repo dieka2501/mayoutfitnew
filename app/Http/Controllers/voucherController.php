@@ -109,23 +109,23 @@ class voucherController extends Controller
         $insert['voucher_status']           = $voucher_status;
         $insert['updated_at']               = date('Y-m-d H:i:s');
 
-        $cekvouchercode  = $this->voucher->get_vouchercode($voucher_code);
-        if($cekvouchercode == NULL){
+        // $cekvouchercode  = $this->voucher->get_vouchercode($voucher_code);
+        if(true){
             if($this->voucher->edit($ids,$insert)){
-                $request->session()->flash('notip','<div class="alert alert-success">Data added successful</div>');
-                return redirect('/voucher/user');
+                $request->session()->flash('notip','<div class="alert alert-success">Data updated successful</div>');
+                return redirect('admin/voucher');
             }else{
                 $request->session()->flash('voucher_code',$voucher_code);
                 $request->session()->flash('voucher_discount',$voucher_discount);
                 $request->session()->flash('voucher_status',$voucher_status);
-                $request->session()->flash('notip','<div class="alert alert-danger">Add data failed, please try again</div>');
+                $request->session()->flash('notip','<div class="alert alert-danger">Update data failed, please try again</div>');
                 return redirect('/admin/voucher/edit/'.$ids);            
             }
         }else{
             $request->session()->flash('voucher_code',$voucher_code);
             $request->session()->flash('voucher_discount',$voucher_discount);
             $request->session()->flash('voucher_status',$voucher_status);
-            $request->session()->flash('notip','<div class="alert alert-danger">Add data failed, voucher code is already</div>');
+            $request->session()->flash('notip','<div class="alert alert-danger">Update data failed, voucher code is already</div>');
             return redirect('/admin/voucher/edit/'.$ids);
         }
     }
