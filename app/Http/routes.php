@@ -125,6 +125,6 @@ Route::get('/payment','paymentController@index');
 Route::get('/cart/hapus/{id}','cartController@delete_single');
 Route::get('/checkout/mail','checkoutController@mail');
 Route::get('/galery/category/{id}','galeryCategoryController@index');
-Route::get('/verify','loginFrontController@verify');
+Route::get('/registrasi/verify','loginFrontController@verify');
 Route::get('/logout','loginFrontController@destroy');
 
