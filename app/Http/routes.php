@@ -103,7 +103,9 @@ Route::group(['prefix'=>'api'],function(){
 	Route::post('/sicepat/orderid','sicepatController@sicepat_get_waybill');
 	Route::post('/sicepat/orderid','sicepatController@sicepat_get_resi');
 	Route::post('/voucher/cek','apiController@get_codevoucher');
+	Route::post('/register/post','loginFrontController@store');
 });
+
 
 Route::get('/','homeController@index');
 Route::get('/new','newReleaseController@index');
@@ -116,10 +118,13 @@ Route::post('/cart/update','cartController@update');
 Route::get('/checkout','checkoutController@index');
 Route::post('/checkout','checkoutController@store');
 Route::get('/login','loginFrontController@index');
+Route::post('/login','loginFrontController@login');
 Route::get('/mail/cek','checkoutController@create');
 Route::post('/payment/do','paymentController@store');
 Route::get('/payment','paymentController@index');
 Route::get('/cart/hapus/{id}','cartController@delete_single');
 Route::get('/checkout/mail','checkoutController@mail');
 Route::get('/galery/category/{id}','galeryCategoryController@index');
+Route::get('/verify','loginFrontController@verify');
+Route::get('/logout','loginFrontController@destroy');
 

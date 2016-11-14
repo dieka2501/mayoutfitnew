@@ -39,4 +39,16 @@ class customer extends Model
 					  	->paginate(20);
     }
 
+    function add($data){
+        return customer::insertGetId($data);
+    }
+
+    function get_login($email,$password){
+        return customer::where('customer_email',$email)->where('customer_password',$password)->where('customer_status',1)->first();
+    }
+
+    function verify($key){
+        return customer::where('customer_key',$key)->first();
+    }
+
 }
