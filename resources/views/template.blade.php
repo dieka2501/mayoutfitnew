@@ -19,10 +19,10 @@
     <link rel="stylesheet" href="{!!config('app.url')!!}assets/dashboard/dist/css/AdminLTE.css">
     <link rel="stylesheet" href="{!!config('app.url')!!}assets/dashboard/dist/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
-    <!-- <script   src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script> -->
+    
     <!-- jQuery 2.1.4 -->
     <script src="{!!config('app.url')!!}assets/dashboard/plugins/jQuery/jquery-2.1.4.min.js"></script>
-    
+    <script   src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="{!!config('app.url')!!}assets/dashboard/bootstrap/js/bootstrap.min.js"></script>
     <!-- Select 2 -->
@@ -126,7 +126,7 @@
           showInputs: false
         });
 
-        CKEDITOR.replace('editor1');
+        //CKEDITOR.replace('editor1');
       });
       // $(document).ready(function(){
 

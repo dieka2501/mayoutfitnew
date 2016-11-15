@@ -229,7 +229,7 @@
                           <div class="form-group">
                             <label class="col-sm-4 control-label">Berat Barang</label>
                             <div class="col-sm-3">
-                              <input type="text" name="weight" class="form-control" id="weight" value='1'>
+                              <input type="text" name="weight" class="form-control" id="weight" value='1000'>
                             </div>
                           </div>
 
@@ -273,10 +273,7 @@
           // });
           // console.log($('#product_name_1').exists());
           function autokomplit(id){
-            
-            // $('body').on('autocomplete','#product_name_'+id,function);
-            // $('#product_name_'+id).autocomplete({
-              // console.log($('#product_name_'+id));
+            // alert('sdsdd');
             $('#product_name_'+id).autocomplete({
               source:"{!!config('app.url')!!}public/api/product/autocomplete",
               minLength:2,
@@ -433,7 +430,7 @@
               $('#weight').keyup(function(){
                   var shipment_price = $('.type_paket:checked').val();
                   var berat          = $(this).val();
-                  var ongkir          = shipment_price * berat;
+                  var ongkir          = shipment_price * (berat/1000);
                   $('#order_shipment_price').val(ongkir); 
                   calc_subtotal();
               });
