@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 use App\product;
 use App\category;
 use App\provinsi;
+use App\kota;
+use App\kecamatan;
+use App\ongkir;
 use App\order;
 use App\orderDetail;
 use Mail;
@@ -25,6 +28,9 @@ class checkoutController extends Controller
         $this->product      = new product;
         $this->curl         = new curl;
         $this->voucher      = new voucher;
+        $this->kota         = new kota;
+        $this->kecamatan    = new kecamatan;
+        $this->ongkir       = new ongkir;
         $getcategory        = $this->category->get_all('category_name','ASC');
         $arr_cat            = [];
         foreach ($getcategory as $cats) {
@@ -60,19 +66,54 @@ class checkoutController extends Controller
                 $arr_provinsi[$prov->id] =  $prov->nama_provinsi;
             }
             $view['arr_provinsi'] = $arr_provinsi;
-            $view['id_provinsi']  = session('id_provinsi');
+            $view['id_provinsi']  = session('customer_province');
+            if(session('login')){
+                $getkota    = $this->kota->get_idprovinsi_all(session('customer_province'));
+                $arr_kota   = [''=>'-- Pilih Kota --'];
+                foreach($getkota as $kotas){
+                    $arr_kota[$kotas->id] = $kotas->nama_kota;
+                }
+                $view['arr_kota']     = $arr_kota;
 
-            $view['arr_kota']     = [''=>'-- Pilih Kota --'];
-            $view['id_kota']      = session('id_kota');
+                $getkecamatan    = $this->kecamatan->get_idprovinsi_idkota_all(session('customer_province'),session('customer_city'));
+                $arr_kecamatan   = [''=>'-- Pilih Kecamatan --'];
+                foreach($getkecamatan as $kecamatans){
+                    $arr_kecamatan[$kecamatans->id] = $kecamatans->nama_kecamatan;
+                }
+                $view['arr_kecamatan'] = $arr_kecamatan;
 
-            $view['arr_kecamatan']= [''=>'-- Pilih Kecamatan --'];
-            $view['id_kecamatan'] = session('id_kecamatan');
+                $getongkir      = $this->ongkir->get_ongkir(session('customer_province'),session('customer_city'),session('customer_district'));
+                $arr_ongkir['']  = "-- Pilih Pengiriman --";
+                if($getongkir->oke > 0){
+                    $arr_ongkir[$getongkir->oke]  = "OKE";
+                }
+                if($getongkir->reg > 0){
+                    $arr_ongkir[$getongkir->reg]  = "REG";
+                }
+                if($getongkir->yes > 0){
+                    $arr_ongkir[$getongkir->yes]  = "YES";
+                }
+                $view['arr_type']       = $arr_ongkir;
 
-            $view['arr_type']   = [''=>'-- Pilih Pengriman --'];
-            $view['type_kirim'] = session('type_kirim');       
+            }else{
+                $view['arr_kota']       = [''=>'-- Pilih Kota --'];    
+                $view['arr_kecamatan']  = [''=>'-- Pilih Kecamatan --'];
+                $view['arr_type']       = [''=>'-- Pilih Pengiriman --'];
+            } 
+            $view['id_kota']        = session('customer_city');
+            $view['id_kecamatan']   = session('customer_district');
+            $view['type_kirim']     = session('type_kirim');       
+            
+            
+            
 
             $nextid                     = $cuniqueid+1;
             $view['uniqid']             = sprintf("%1$03d",$nextid);     
+            $view['customer_name']      = session('customer_name');     
+            $view['customer_email']     = session('customer_email');
+            $view['customer_address']   = session('customer_address');
+            $view['customer_phone']     = session('customer_phone');
+            $view['customer_zip']       = session('customer_zip');
             return view('front.delivery.page',$view);    
         }else{
             return redirect('/new');
@@ -119,7 +160,7 @@ class checkoutController extends Controller
         $id_kota                = $request->input('id_kota');
         $id_kecamatan           = $request->input('id_kecamatan');
         $subtotal               = $request->input('hidsubtotal');
-        $ongkir                 = $request->input('type_kirim');
+        $ongkir                 = $request->input('totkirim');
         $tempgrandtotal         = $request->input('grandtotal');
         $order_note             = $request->input('order_note');
         $voucher                = $request->input('voucher');
@@ -140,6 +181,7 @@ class checkoutController extends Controller
         // $uniqid                 = substr(strtoupper(md5($order_name.date('YmdHis'))), -7);
         $insert['order_code']               = "MO-02".date('Ymd').$unik; 
         $insert['order_name']               = $order_name;
+        $insert['customer_id']              = session('idcustomer');
         $insert['order_phone']              = $order_phone;
         $insert['order_address']            = $order_address;
         $insert['order_email']              = $order_email;

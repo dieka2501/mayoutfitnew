@@ -20,19 +20,19 @@
                             <div id="addnew" style="background:#f5f5f5;padding:20px;">
                               <div class="form-group">
                                 <label>Nama</label>
-                                <input type="text" class="form-control" name="order_name" id="order_name" required="required">
+                                <input type="text" class="form-control" name="order_name" id="order_name" required="required" value="{!!$customer_name!!}">
                               </div>
                               <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" class="form-control" name="order_email" id="order_email" required="required">
+                                <input type="email" class="form-control" name="order_email" id="order_email" required="required" value="{!!$customer_email!!}">
                               </div>
                               <div class="form-group">
                                 <label>Alamat</label>
-                                <textarea class="form-contro" rows="5" name="order_address" id="order_address" required="required"></textarea>
+                                <textarea class="form-contro" rows="5" name="order_address" id="order_address" required="required">{!!$customer_address!!}</textarea>
                               </div> 
                               <div class="form-group">
                                 <label>No. Tlp</label>
-                                <input type="text" class="form-control" name="order_phone" id='order_phone' required="required">
+                                <input type="text" class="form-control" name="order_phone" id='order_phone' required="required" value="{!!$customer_phone!!}">
                               </div>
                               <div class="radio-check form-group">
 
@@ -53,7 +53,7 @@
                               </div>
                               <div class="form-group">
                                 <label>Kodepos Penerima</label>
-                                <input type="text" class="form-control" name="order_shipment_zip" id="order_shipment_zip">
+                                <input type="text" class="form-control" name="order_shipment_zip" id="order_shipment_zip" value="{!!$customer_zip!!}">
                               </div>
                               <div class="row">
                               <div class="col-md-4">
@@ -159,7 +159,13 @@
                                 </tr>
                                 <tr>
                                   <td class="subtotal highlight shipping-cost-free">Biaya pengiriman</td>
-                                  <td class="right-align highlight shipping-cost-free" colspan="2">Rp. <p id='ongkir'>0</p>
+                                  <td class="right-align highlight shipping-cost-free" colspan="2">Rp. <p id='ongkir'>0 </p>
+                                    <?php 
+                                      $berat    = session('cart.weight');
+                                      $jmlberat = array_sum($berat);
+                                    ?>
+                                    <input type='hidden' id='inberat' name='inberat' value='{!!$jmlberat!!}'>
+                                    <input type='hidden' id='totkirim' name='totkirim' >
                                   </td>
                                 </tr>
                                 <tr class="total">
@@ -248,10 +254,13 @@
 
         $('#type_kirim').change(function(){
           var valkirim = $(this).val();
+          var jmlberat = Math.round($('#inberat').val()/1000);
           var subtotal = $('#hidsubtotal').val();
           // console.log(parseInt(nextid));
-          var total    = parseInt(valkirim)  + parseInt(subtotal) ;
-          $('#ongkir').html(valkirim);
+          var jmlkirim = valkirim * jmlberat;
+          var total    = parseInt(jmlkirim)  + parseInt(subtotal) ;
+          $('#ongkir').html(jmlkirim);
+          $('#totkirim').val(jmlkirim);
           $('#grandtotal').html(total);
           $('#input-grandtotal').val(total);
         });

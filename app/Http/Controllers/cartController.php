@@ -84,6 +84,7 @@ class cartController extends Controller
                 $request->session()->push('cart.name',$getproduct->product_name);
                 $request->session()->push('cart.code',$getproduct->product_code);
                 $request->session()->push('cart.image',$getproduct->product_image);
+                $request->session()->push('cart.weight',$getproduct->product_weight);
                 $request->session()->push('cart.qty',1);    
             }
         }else{
@@ -92,6 +93,7 @@ class cartController extends Controller
             $request->session()->push('cart.name',$getproduct->product_name);
             $request->session()->push('cart.code',$getproduct->product_code);
             $request->session()->push('cart.image',$getproduct->product_image);
+            $request->session()->push('cart.weight',$getproduct->product_weight);
             $request->session()->push('cart.qty',1);    
         }
         

@@ -104,6 +104,7 @@ Route::group(['prefix'=>'api'],function(){
 	Route::post('/sicepat/orderid','sicepatController@sicepat_get_resi');
 	Route::post('/voucher/cek','apiController@get_codevoucher');
 	Route::post('/register/post','loginFrontController@store');
+	Route::get('/cancel/auto','apiController@autocancel');
 });
 
 

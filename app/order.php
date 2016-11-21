@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class order extends Model
 {
@@ -75,6 +76,11 @@ class order extends Model
 						->join('product','order_detail.product_id','=','product.idproduct')
 						->whereBetween($this->table.'.created_at',[$date_start.'%',$date_end."%"])
 						->orderBy('product.product_name','asc')->get();
+	}
+
+	function get_diff_pending(){
+		return order::select(DB::raw('idorder,TIMESTAMPDIFF(HOUR,created_at,"'.date('Y-m-d H:i:s').'") as selisih'))->where('order_status',0)->get();
+			
 	}
 
 

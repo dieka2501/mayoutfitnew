@@ -78,6 +78,17 @@ class apiController extends Controller
         return response()->json($getdata);
     }
 
+    function autocancel(){
+        $getdata = $this->order->get_diff_pending();
+        foreach ($getdata as $key => $value) {
+               echo $value."<br>";
+               if($value->selisih >= 24){
+                    $this->order->edit($value->idorder,['order_status'=>5]);
+               }
+           }   
+    }
+
+
     public function index()
     {
         //

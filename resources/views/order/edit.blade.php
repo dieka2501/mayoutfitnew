@@ -452,7 +452,7 @@
               $('#weight').keyup(function(){
                   var shipment_price = $('.type_paket:checked').val();
                   var berat          = $(this).val();
-                  var ongkir          = shipment_price * berat;
+                  var ongkir          = shipment_price * Math.round((berat/1000));
                   $('#order_shipment_price').val(ongkir); 
                   calc_subtotal();
               });

@@ -141,10 +141,12 @@ class loginFrontController extends Controller
         $data       = $this->customer->get_login($email,md5($password));
         if(count($data) > 0){
             $request->session()->put('login',true);
+            $request->session()->put('idcustomer',$data->idcustomer);
             $request->session()->put('customer_name',$data->customer_name);
             $request->session()->put('customer_email',$data->customer_email);
             $request->session()->put('customer_address',$data->customer_address);
             $request->session()->put('customer_province',$data->customer_province);
+            $request->session()->put('customer_phone',$data->customer_phone);
             $request->session()->put('customer_city',$data->customer_city);
             $request->session()->put('customer_district',$data->customer_district);
             $request->session()->put('customer_zip',$data->customer_zip);
