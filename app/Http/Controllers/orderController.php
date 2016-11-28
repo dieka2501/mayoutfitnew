@@ -161,7 +161,7 @@ class orderController extends Controller
                 }
                 
             }
-            $smscontent = "mayoutfit.com%20~%20Hai%20Sist%20".$order_name.",%20thx%20sudah%20belanja%20di%20mayoutfit.com%20(Order%20ID%20".$insert['order_code']."),%20total%20Rp.".number_format($grand_total).".%20Yuk%20buruan%20trf%20ke%20BCA%20/%20Mandiri%20";
+            $smscontent = "mayoutfit.com%20~%20Hai%20Sist%20".str_replace(" ",'%20',$order_name).",%20thx%20sudah%20belanja%20di%20mayoutfit.com%20(Order%20ID%20".$insert['order_code']."),%20total%20Rp.".number_format($grand_total).".%20Yuk%20buruan%20trf%20ke%20BCA%20/%20Mandiri%20";
             $urlsms     =  config('app.urlsms').'?userkey='.config('app.smsuserkey').'&passkey='.config('app.smspasskey').'&nohp='.$order_phone.'&pesan='.$smscontent."";
             // echo $smscontent.'<br>'.$urlsms;
 
@@ -369,8 +369,8 @@ class orderController extends Controller
         $data['qr'] = $string;
         // $print['print'] = 1;
         $this->order->edit($id,['order_is_printed'=>1]);
-        $smscontent = "mayoutfit.com%20~%20Hai%20Sist%20".$getintern->order_name.",%20order%20kamu%20(Order%20ID%20".$getintern->order_code."),%20akan%20segera%20dikirim";
-        $urlsms     =  config('app.urlsms').'?userkey='.config('app.smsuserkey').'&passkey='.config('app.smspasskey').'&nohp='.$order_phone.'&pesan='.$smscontent."";
+        $smscontent = "mayoutfit.com%20~%20Hai%20Sist%20".str_replace(" ",'%20',$getintern->order_name).",%20order%20kamu%20(Order%20ID%20".$getintern->order_code."),%20akan%20segera%20dikirim";
+        $urlsms     =  config('app.urlsms').'?userkey='.config('app.smsuserkey').'&passkey='.config('app.smspasskey').'&nohp='.$getintern->order_phone.'&pesan='.$smscontent."";
         // echo $smscontent.'<br>'.$urlsms;
 
         $res = $this->curl->get($urlsms);

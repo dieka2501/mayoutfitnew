@@ -32,6 +32,7 @@
                 <th>No</th>
                 <th>Voucher Code</th>
                 <th>Discount</th>
+                <th>Discount Type</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -54,6 +55,7 @@
                   <td>{!!$nums!!}</td>
                   <td>{!!$lists->voucher_code!!}</td>
                   <td>{!!$lists->voucher_discount!!}</td> 
+                  <td>{!!ucfirst($lists->voucher_type)!!}</td> 
                   <td style="width:150px;">
                     <a href="{!!config('app.url')!!}public/admin/voucher/edit/{!!$lists->idvoucher!!}" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
                     <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="{!!config('app.url')!!}public/admin/voucher/delete/{!!$lists->idvoucher!!}" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
@@ -66,6 +68,7 @@
                 <th>No</th>
                 <th>Voucher Code</th>
                 <th>Discount</th>
+                <th>Discount Type</th>
                 <th>Action</th>
               </tr>
             </tfoot>

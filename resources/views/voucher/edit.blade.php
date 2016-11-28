@@ -31,6 +31,16 @@ function isDecimal(evt) {
                 <input type="text" class="form-control" name='voucher_discount' id='voucher_discount' value='{!!$voucher_discount!!}' required="required" onkeypress="return isDecimal(event)">
               </div>
               <div class="form-group">
+                <label>Type</label>
+                {!! Form::select('voucher_type', [
+                   '' => '-- Select Type --',
+                   'nominal' => 'Nominal',
+                   'persen' => 'Persen'],
+                   $voucher_type,
+                   ['class'=>'form-control','required'=>'required']
+                ) !!}
+              </div>
+              <div class="form-group">
                 <label>Status</label>
                 {!! Form::select('voucher_status', [
                    '' => '-- Select Status --',

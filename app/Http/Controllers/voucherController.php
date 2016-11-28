@@ -41,6 +41,7 @@ class voucherController extends Controller
     public function create()
     {
         $voucher_code                   = session('voucher_code');
+        $voucher_type                   = session('voucher_type');
         $voucher_discount               = (session('voucher_discount') != NULL ) ? session('voucher_discount'): 0;
         $voucher_status                 = session('voucher_status');
         $view['url']                    = config('app.url')."public/admin/voucher/add";
@@ -48,6 +49,7 @@ class voucherController extends Controller
         $view['voucher_code']           = $voucher_code;
         $view['voucher_discount']       = $voucher_discount;
         $view['voucher_status']         = $voucher_status;
+        $view['voucher_type']           = $voucher_type;
         return view('voucher.add',$view);
     }
 
@@ -56,9 +58,11 @@ class voucherController extends Controller
         $voucher_code                       = $request->input('voucher_code');
         $voucher_discount                   = $request->input('voucher_discount');
         $voucher_status                     = $request->input('voucher_status');
+        $voucher_type                       = $request->input('voucher_type');
         $insert['voucher_code']             = $voucher_code;
         $insert['voucher_discount']         = $voucher_discount;
         $insert['voucher_status']           = $voucher_status;
+        $insert['voucher_type']             = $voucher_type;
         $insert['created_at']               = date('Y-m-d H:i:s');
 
         $cekvouchercode  = $this->voucher->get_vouchercode($voucher_code);
@@ -71,6 +75,7 @@ class voucherController extends Controller
                 $request->session()->flash('voucher_code',$voucher_code);
                 $request->session()->flash('voucher_discount',$voucher_discount);
                 $request->session()->flash('voucher_status',$voucher_status);
+                $request->session()->flash('voucher_type',$voucher_stype);
                 $request->session()->flash('notip','<div class="alert alert-danger">Add data failed, please try again</div>');
                 return redirect('/admin/voucher/add');            
             }
@@ -78,6 +83,7 @@ class voucherController extends Controller
             $request->session()->flash('voucher_code',$voucher_code);
             $request->session()->flash('voucher_discount',$voucher_discount);
             $request->session()->flash('voucher_status',$voucher_status);
+            $request->session()->flash('voucher_type',$voucher_type);
             $request->session()->flash('notip','<div class="alert alert-danger">Add data failed, voucher code is already</div>');
             return redirect('/admin/voucher/add');
         }
@@ -89,10 +95,12 @@ class voucherController extends Controller
         $voucher_code                   = $getdata->voucher_code;
         $voucher_discount               = $getdata->voucher_discount;
         $voucher_status                 = $getdata->voucher_status;
+        $voucher_type                   = $getdata->voucher_type;
         $view['idvoucher']              = $id;
         $view['voucher_code']           = $voucher_code;
         $view['voucher_discount']       = $voucher_discount;
         $view['voucher_status']         = $voucher_status;
+        $view['voucher_type']           = $voucher_type;
         $view['url']                    = config('app.url')."public/admin/voucher/edit";
         $view['notip']                  = session('notip');
         return view('voucher.edit',$view);
@@ -104,9 +112,11 @@ class voucherController extends Controller
         $voucher_code                       = $request->input('voucher_code');
         $voucher_discount                   = $request->input('voucher_discount');
         $voucher_status                     = $request->input('voucher_status');
+        $voucher_type                       = $request->input('voucher_type');
         $insert['voucher_code']             = $voucher_code;
         $insert['voucher_discount']         = $voucher_discount;
         $insert['voucher_status']           = $voucher_status;
+        $insert['voucher_type']             = $voucher_type;
         $insert['updated_at']               = date('Y-m-d H:i:s');
 
         // $cekvouchercode  = $this->voucher->get_vouchercode($voucher_code);
@@ -118,6 +128,7 @@ class voucherController extends Controller
                 $request->session()->flash('voucher_code',$voucher_code);
                 $request->session()->flash('voucher_discount',$voucher_discount);
                 $request->session()->flash('voucher_status',$voucher_status);
+                $request->session()->flash('voucher_type',$voucher_type);
                 $request->session()->flash('notip','<div class="alert alert-danger">Update data failed, please try again</div>');
                 return redirect('/admin/voucher/edit/'.$ids);            
             }
@@ -125,6 +136,7 @@ class voucherController extends Controller
             $request->session()->flash('voucher_code',$voucher_code);
             $request->session()->flash('voucher_discount',$voucher_discount);
             $request->session()->flash('voucher_status',$voucher_status);
+            $request->session()->flash('voucher_type',$voucher_type);
             $request->session()->flash('notip','<div class="alert alert-danger">Update data failed, voucher code is already</div>');
             return redirect('/admin/voucher/edit/'.$ids);
         }

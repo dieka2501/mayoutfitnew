@@ -17,6 +17,7 @@ use App\orderDetail;
 use Mail;
 use App\curl;
 use App\voucher;
+use App\usedVoucher;
 class checkoutController extends Controller
 {
     function __construct(){
@@ -31,6 +32,7 @@ class checkoutController extends Controller
         $this->kota         = new kota;
         $this->kecamatan    = new kecamatan;
         $this->ongkir       = new ongkir;
+        $this->usedVoucher  = new usedVoucher;
         $getcategory        = $this->category->get_all('category_name','ASC');
         $arr_cat            = [];
         foreach ($getcategory as $cats) {
@@ -163,15 +165,10 @@ class checkoutController extends Controller
         $ongkir                 = $request->input('totkirim');
         $tempgrandtotal         = $request->input('grandtotal');
         $order_note             = $request->input('order_note');
-        $voucher                = $request->input('voucher');
+        $voucher                = $request->input('out-voucher');
+        $kodevoucher            = $request->input('voucher');
         $getvoucher             = $this->voucher->get_vouchercode_stat($voucher);
-        if(count($getvoucher) > 0){
-            $vpotongan = $getvoucher->voucher_discount;
-        }else{
-            $vpotongan = 0;
-        }    
-
-        $grandtotal = $tempgrandtotal - $vpotongan;
+        $grandtotal             = $tempgrandtotal - $voucher;
         // if($request->has('voucher')){
             
         // }else{
@@ -189,6 +186,7 @@ class checkoutController extends Controller
         $insert['city_id']                  = $id_kota;
         $insert['district_id']              = $id_kecamatan;
         $insert['order_total']              = $grandtotal;
+        $insert['order_discount']           = $voucher;
         $insert['order_shipment_name']      = $order_shipment_name;
         $insert['order_shipment_phone']     = $order_shipment_phone;
         $insert['order_shipment_address']   = $order_shipment_address;
@@ -226,6 +224,7 @@ class checkoutController extends Controller
                 $arr_mail['qty'][]          = $productqty[$keyproduct];
 
             }
+            $this->usedVoucher->add(['used_email'=>$order_email,'used_code'=>$kodevoucher,'created_at'=>date('Y-m-d H:i:s')]);
             $arr_mail['grandtotal'] = $grandtotal;
             $arr_mail['billing']    = $insert;
             $arr_mail['count']      = count($arr_mail['product_name']);
@@ -237,7 +236,7 @@ class checkoutController extends Controller
                 $m->from('no-reply-admin@mayoutfit.com','Admin Mayoutfit');
                 $m->to($user['email'], $user['name'])->subject("Konfirmasi Order No ".$user['no_order']);
             });  
-            $smscontent = "mayoutfit.com%20~%20Hai%20Sist%20".$order_name.",%20thx%20sudah%20belanja%20di%20mayoutfit.com%20(Order%20ID%20".$insert['order_code']."),%20total%20Rp.".number_format($grandtotal).".%20Yuk%20buruan%20trf%20ke%20BCA%20/%20Mandiri%20";
+            $smscontent = "mayoutfit.com%20~%20Hai%20Sist%20".str_replace(" ",'%20', $order_name).",%20thx%20sudah%20belanja%20di%20mayoutfit.com%20(Order%20ID%20".$insert['order_code']."),%20total%20Rp.".number_format($grandtotal).".%20Yuk%20buruan%20trf%20ke%20BCA%20/%20Mandiri%20";
             $urlsms     =  config('app.urlsms').'?userkey='.config('app.smsuserkey').'&passkey='.config('app.smspasskey').'&nohp='.$order_phone.'&pesan='.$smscontent."";
             // echo $smscontent.'<br>'.$urlsms;
             $res = $this->curl->get($urlsms);

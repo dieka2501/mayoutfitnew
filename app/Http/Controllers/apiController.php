@@ -12,6 +12,7 @@ use App\ongkir;
 use App\product;
 use App\order;
 use App\voucher;
+use App\usedVoucher;
 class apiController extends Controller
 {
     function __construct(){
@@ -22,6 +23,7 @@ class apiController extends Controller
         $this->product      = new product;
         $this->order        = new order;
         $this->voucher      = new voucher;
+        $this->usedVoucher  = new usedVoucher;
     }
     /**
      * Display a listing of the resource.
@@ -74,8 +76,23 @@ class apiController extends Controller
 
     function get_codevoucher(Request $request){
         $voucher = $request->input('voucher');
-        $getdata = $this->voucher->get_vouchercode_stat($voucher);
-        return response()->json($getdata);
+        $email   = $request->input('email');
+
+        $getdata    = $this->voucher->get_vouchercode_stat($voucher);
+        $countdata  = count($getdata);
+        if($countdata > 0){
+            $getused    = $this->usedVoucher->get_used($email,$voucher);
+            $countused  = count($getused);
+            if($countused == 0){
+                
+                $json = ['status'=>true,'alert'=>'Selamat kamu dapat potongan harga Rp.','data'=>$getdata];
+            }else{
+                $json = ['status'=>false,'alert'=>'Maaf voucher sudah digunakan'];    
+            }
+        }else{
+            $json = ['status'=>false,'alert'=>'Maaf voucher salah, atau sudah tidak berlaku'];
+        }
+        return response()->json($json);
     }
 
     function autocancel(){

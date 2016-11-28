@@ -166,12 +166,19 @@
                                     ?>
                                     <input type='hidden' id='inberat' name='inberat' value='{!!$jmlberat!!}'>
                                     <input type='hidden' id='totkirim' name='totkirim' >
+                                    
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="subtotal highlight shipping-cost-free">Voucher</td>
+                                  <td class="right-align highlight shipping-cost-free" colspan="2">Rp. <p id='htmlvoucher'>0 </p>
+                                    <input type='hidden' id='out-voucher' name='out-voucher'  value="0">
                                   </td>
                                 </tr>
                                 <tr class="total">
                                   <td class="total"><strong class="total-label">Total</strong> <span class="vat-minicart">(Termasuk PPN)</span></td>
                                   <td class="total right-align sel-total" colspan="2"><strong class="total-price">Rp. <p id="grandtotal">{!!number_format($subtotal)!!}</p></strong>
-                                  <input type='hidden' name="grandtotal" id='input-grandtotal'> 
+                                  <input type='hidden' name="grandtotal" id='input-grandtotal' value="{!!$subtotal!!}"> 
                                   <input type="hidden" name="nextid" id='nextid' value="{!!$uniqid!!}">
                                   </td>
                                 </tr>
@@ -256,9 +263,10 @@
           var valkirim = $(this).val();
           var jmlberat = Math.round($('#inberat').val()/1000);
           var subtotal = $('#hidsubtotal').val();
+          var voucher  = $('#out-voucher').val();
           // console.log(parseInt(nextid));
           var jmlkirim = valkirim * jmlberat;
-          var total    = parseInt(jmlkirim)  + parseInt(subtotal) ;
+          var total    = parseInt(jmlkirim)  + parseInt(subtotal) - parseInt(voucher);
           $('#ongkir').html(jmlkirim);
           $('#totkirim').val(jmlkirim);
           $('#grandtotal').html(total);
@@ -300,13 +308,30 @@
                 $.post("{!!config('app.url')!!}public/api/voucher/cek",{
                     'voucher' : codevoucher
                 },function(data){
-                    var count = data.length;
-                    console.log(data);
-                    console.log(data.length);
-                    if(data.idvoucher != 'undefined'){
-                        alert("Selamat kamu dapat potongan harga Rp."+data.voucher_discount);
+                    // var count = data.length;
+                    // console.log(data);
+                    // console.log(data.length);
+                    var total         = $('#input-grandtotal').val();
+                    var realdiskon    = 0;
+                    var newtotal      = 0;
+                    if(data.status){
+                        if(data.data.voucher_type == "nominal"){
+                          realdiskon = data.data.voucher_discount;
+                          
+                        }else{
+                          var discount      = data.data.voucher_discount;
+                          realdiskon        = Math.round((discount/100)*total);
+                          
+                        }
+                        alert("Selamat kamu dapat potongan harga Rp."+realdiskon);
+                        newtotal = total-realdiskon;
+                        $('#input-grandtotal').val(newtotal);
+                        $('#grandtotal').html(newtotal);
+                        $('#out-voucher').val(realdiskon);
+                        $('#htmlvoucher').html(realdiskon);
+
                     }else{
-                      alert('Maaf voucher salah, atau sudah tidak berlaku');
+                      alert(data.alert);
                     }
                 });
             });
