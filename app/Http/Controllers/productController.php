@@ -61,6 +61,9 @@ class productController extends Controller
         $product_code        = session('product_code');
         $product_description = session('product_description');
         $category_id         = session('category_id');
+        $product_price_sale  = (session('product_price_sale') != NULL ) ? session('product_price'): 0;
+        $product_sale        = session('product_sale');
+        $product_status      = session('product_status');
         $product_weight      = session('product_weight');
         $arr_category['']    =  "-- Select category --";
         foreach ($getcategory as $categories) {
@@ -78,6 +81,9 @@ class productController extends Controller
         $view['product_description']   = $product_description;
         $view['category_id']           = $category_id;
         $view['arr_category']          = $arr_category;
+        $view['product_sale']          = $product_sale;
+        $view['product_price_sale']    = $product_price_sale;
+        $view['product_status']        = $product_status;
         return view('product.add',$view);
     }
 
@@ -95,8 +101,11 @@ class productController extends Controller
         $product_margin      = $request->input('product_margin');
         $product_stock       = $request->input('product_stock');
         $product_weight      = $request->input('product_weight');
+        $product_sale        = $request->input('product_sale');
+        $product_price_sale  = $request->input('product_price_sale');
+        $product_status      = $request->input('product_status');
         $product_description = $request->input('product_description');
-        $product_code = $request->input('product_code');
+        $product_code        = $request->input('product_code');
         $category_id         = $request->input('category_id');
         if($request->hasFile('product_image')){
             $image      = $request->file('product_image');
@@ -112,6 +121,9 @@ class productController extends Controller
         $insert['product_margin']           = $product_margin;
         $insert['product_stock']            = $product_stock;
         $insert['product_weight']           = $product_weight;
+        $insert['product_sale']             = $product_sale;
+        $insert['product_price_sale']       = $product_price_sale;
+        $insert['product_status']           = $product_status;
         $insert['product_description']      = $product_description;
         $insert['category_id']              = $category_id;
         $insert['created_at']               = date('Y-m-d H:i:s');
@@ -127,6 +139,9 @@ class productController extends Controller
             $request->session()->flash('product_weight',$product_weight);
             $request->session()->flash('product_margin',$product_margin);
             $request->session()->flash('product_stock',$product_stock);
+            $request->session()->flash('product_sale',$product_sale);
+            $request->session()->flash('product_stock',$product_price_sale);
+            $request->session()->flash('product_status',$product_status);
             $request->session()->flash('product_description',$product_description);
             $request->session()->flash('category_id',$category_id);
             $request->session()->flash('notip','<div class="alert alert-danger">Add data failed, please try again</div>');
@@ -142,9 +157,44 @@ class productController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function addstock($id)
     {
-        //
+        $getproduct                  = $this->product->get_id($id);
+        $view['url']                 = config('app.url').'public/admin/product/stock/add';
+        $view['product_name']        = $getproduct->product_name;
+        $view['product_stock']       = $getproduct->product_stock;
+        $view['idproduct']           = $getproduct->idproduct;
+        return view('product.addstock',$view);
+    }
+
+    public function addstock_do(Request $request){
+        $idproduct          = $request->input('idproduct');
+        $stock              = $request->input('stock');
+        $product_stock      = $request->input('product_stock');
+        $newstock           = $product_stock + $stock;
+        $this->product->edit($idproduct,['product_stock'=>$newstock]);
+        session()->flash('notip','<div class="alert alert-success">Stock sudah ditambahkan</div>');
+        return redirect('/admin/product/stock/add/'.$idproduct);
+    }
+
+    public function minstock($id)
+    {
+        $getproduct                  = $this->product->get_id($id);
+        $view['url']                 = config('app.url').'public/admin/product/stock/min';
+        $view['product_name']        = $getproduct->product_name;
+        $view['product_stock']       = $getproduct->product_stock;
+        $view['idproduct']           = $getproduct->idproduct;
+        return view('product.minstock',$view);
+    }
+
+    public function minstock_do(Request $request){
+        $idproduct          = $request->input('idproduct');
+        $stock              = $request->input('stock');
+        $product_stock      = $request->input('product_stock');
+        $newstock           = $product_stock - $stock;
+        $this->product->edit($idproduct,['product_stock'=>$newstock]);
+        session()->flash('notip','<div class="alert alert-success">Stock sudah dikurangi</div>');
+        return redirect('/admin/product/stock/min/'.$idproduct);
     }
 
     /**
@@ -167,6 +217,9 @@ class productController extends Controller
         $product_weight      = $getdata->product_weight;
         $product_description = $getdata->product_description;
         $category_id         = $getdata->category_id;
+        $product_sale        = $getdata->product_sale;
+        $product_price_sale  = $getdata->product_price_sale;
+        $product_status      = $getdata->product_status;
         $arr_category['']    =  "-- Select category --";
         foreach ($getcategory as $categories) {
            $arr_category[$categories->idcategory] = $categories->category_name;
@@ -179,6 +232,9 @@ class productController extends Controller
         $view['product_hpp']           = $product_hpp;
         $view['product_margin']        = $product_margin;
         $view['product_stock']         = $product_stock;
+        $view['product_sale']          = $product_sale;
+        $view['product_price_sale']    = $product_price_sale;
+        $view['product_status']        = $product_status;
         $view['product_code']          = $product_code;
         $view['product_weight']        = $product_weight;
         $view['product_description']   = $product_description;
@@ -204,6 +260,9 @@ class productController extends Controller
         $product_margin      = $request->input('product_margin');
         $product_stock       = $request->input('product_stock');
         $product_weight      = $request->input('product_weight');
+        $product_sale        = $request->input('product_sale');
+        $product_price_sale  = $request->input('product_price_sale');
+        $product_status      = $request->input('product_status');
         $product_description = $request->input('product_description');
         $product_code = $request->input('product_code');
         $category_id         = $request->input('category_id');
@@ -223,7 +282,10 @@ class productController extends Controller
         $insert['product_weight']           = $product_weight;
         $insert['product_description']      = $product_description;
         $insert['category_id']              = $category_id;
-        $insert['created_at']               = date('Y-m-d H:i:s');
+        $insert['product_sale']             = $product_sale;
+        $insert['product_price_sale']       = $product_price_sale;
+        $insert['product_status']           = $product_status;
+        $insert['updated_at']               = date('Y-m-d H:i:s');
         // $ids = $this->product->add($insert);
         if($this->product->edit($ids,$insert)){
             $request->session()->flash('notip','<div class="alert alert-success">Data update successful</div>');

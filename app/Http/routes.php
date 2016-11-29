@@ -35,6 +35,10 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('/product/edit/{id}', 'productController@edit');	
 	Route::post('/product/edit', 'productController@update');	
 	Route::get('/product/delete/{id}', 'productController@destroy');
+	Route::get('/product/stock/add/{id}', 'productController@addstock');	
+	Route::post('/product/stock/add', 'productController@addstock_do');	
+	Route::get('/product/stock/min/{id}', 'productController@minstock');	
+	Route::post('/product/stock/min', 'productController@minstock_do');
 
 	//Order
 	Route::get('/order', 'orderController@index');	

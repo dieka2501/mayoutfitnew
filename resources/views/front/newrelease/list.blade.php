@@ -72,7 +72,12 @@
                             <p class="listing-item-content-description">{!!$lists->product_name!!}</p>
                             <!-- <p class="listing-item-content-description">Stock {!!$lists->product_stock!!} pcs.</p> -->
                             <!-- <span class="listing-item-price-old">Rp 349.000</span> -->
-                            <span class="listing-item-price-web">Rp {!!number_format($lists->product_price)!!}</span>
+                            @if($lists->product_sale == 0)
+                                <span class="listing-item-price-web">Rp {!!number_format($lists->product_price)!!}</span>
+                            @else
+                                <span class="listing-item-price-web"><del>Rp {!!number_format($lists->product_price)!!}</del></span>
+                                <span class="listing-item-price-web">Rp {!!number_format($lists->product_price_sale)!!}</span>
+                            @endif
                             
                         </a>
                         <a href="{!!config('app.url')!!}public/cart/add/{!!$lists->idproduct!!}" class="btn btn-warning btn-xs" style="height: 30px;line-height: 25px;">Add To Cart</a>

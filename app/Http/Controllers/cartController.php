@@ -80,7 +80,12 @@ class cartController extends Controller
                 $request->session()->put('cart.qty.'.$key,$qtybaru); 
             }else{
                 $request->session()->push('cart.idproduct',$getproduct->idproduct);
-                $request->session()->push('cart.price',$getproduct->product_price);
+                if($getproduct->product_sale == 0){
+                    $request->session()->push('cart.price',$getproduct->product_price);    
+                }else{
+                    $request->session()->push('cart.price',$getproduct->product_price_sale);    
+                }
+                
                 $request->session()->push('cart.name',$getproduct->product_name);
                 $request->session()->push('cart.code',$getproduct->product_code);
                 $request->session()->push('cart.image',$getproduct->product_image);
@@ -89,7 +94,12 @@ class cartController extends Controller
             }
         }else{
             $request->session()->push('cart.idproduct',$getproduct->idproduct);
-            $request->session()->push('cart.price',$getproduct->product_price);
+            if($getproduct->product_sale == 0){
+                $request->session()->push('cart.price',$getproduct->product_price);    
+            }else{
+                $request->session()->push('cart.price',$getproduct->product_price_sale);    
+            }    
+            
             $request->session()->push('cart.name',$getproduct->product_name);
             $request->session()->push('cart.code',$getproduct->product_code);
             $request->session()->push('cart.image',$getproduct->product_image);
@@ -139,7 +149,12 @@ class cartController extends Controller
         foreach ($idproduct as $products) {
             $getproduct    = $this->product->get_id($products);
             $request->session()->push('cart.idproduct',$getproduct->idproduct);
-            $request->session()->push('cart.price',$getproduct->product_price);
+            if($getproduct->product_sale == 0){
+                $request->session()->push('cart.price',$getproduct->product_price);    
+            }else{
+                $request->session()->push('cart.price',$getproduct->product_price_sale);    
+            }
+            
             $request->session()->push('cart.name',$getproduct->product_name);
             $request->session()->push('cart.code',$getproduct->product_code);
             $request->session()->push('cart.image',$getproduct->product_image);

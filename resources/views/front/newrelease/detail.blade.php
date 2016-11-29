@@ -16,8 +16,15 @@
                     <p id="availability-status"><span id="availability-value" class="label-success">{!!number_format($product->product_stock)!!} Pcs</span></p>
                     <p class="warning-inline" id="last-quantities" style="display: none;">Warning: Last items in stock!</p>
                     <div class="content-prices">
-                        <!-- <div class="price-old">Rp 400.000</div> -->
-                        <div class="our-price-display">Rp. {!!number_format($product->product_price)!!}</div>
+                        @if($product->product_sale == 0)
+                            <div class="our-price-display">Rp. {!!number_format($product->product_price)!!}</div>
+                        @else
+                            <div class="price-old">Rp. {!!number_format($product->product_price)!!}</div>
+                            <div class="our-price-display">Rp. {!!number_format($product->product_price_sale)!!}</div>
+                        @endif
+                        
+                        
+                        
                     </div>
                     <div id="short-description-block">
                         <p></p>

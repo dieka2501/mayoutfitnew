@@ -71,9 +71,27 @@
                       <td>{!!$lists->product_price!!}</td>
                       <td>{!!$lists->product_price!!}</td>
                       <td style="width:150px;">
-                        <a href="{!!config('app.url')!!}public/admin/product/edit/{!!$lists->idproduct!!}" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                        <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="{!!config('app.url')!!}public/admin/product/delete/{!!$lists->idproduct!!}" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
                         
+                        
+                        
+
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-default btn-flat">Action</button>
+                          <button type="button" class="btn btn-warning btn-flat dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="{!!config('app.url')!!}public/admin/product/stock/add/{!!$lists->idproduct!!}" ><i class="fa fa-plus"></i> Add Stock</a></li>
+                            <li><a href="{!!config('app.url')!!}public/admin/product/stock/min/{!!$lists->idproduct!!}" ><i class="fa fa-minus"></i> Less Stock</a></li>
+                            <li><a href="{!!config('app.url')!!}public/admin/product/edit/{!!$lists->idproduct!!}" ><i class="fa fa-pencil"></i> Edit</a></li>
+                            <li><a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="{!!config('app.url')!!}public/admin/product/delete/{!!$lists->idproduct!!}" ><i class="fa fa-times"></i> Delete</a></li>
+                            
+                                
+                            <!-- <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li> -->
+                          </ul>
+                        </div>
                       </td>
                     </tr>
                   @endforeach

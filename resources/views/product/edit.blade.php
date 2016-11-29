@@ -46,6 +46,17 @@
                       </div>
                     </div>
                     <div class="form-group">
+                      <label class="col-sm-3 control-label">Sale Price</label>
+                      <div class="col-sm-9">
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            Rp
+                          </div>
+                          <input type="text" class="form-control" name="product_price_sale" id="product_price_sale"  value="{!!$product_price_sale!!}" >
+                        </div><!-- /.input group -->
+                      </div>
+                    </div>
+                    <div class="form-group">
                       <label class="col-sm-3 control-label">HPP</label>
                       <div class="col-sm-9">
                         <div class="input-group">
@@ -110,6 +121,18 @@
                       <label class="col-sm-4 control-label">Product Weight</label>
                       <div class="col-sm-8">
                         <input type="number" class="form-control" name='product_weight' value="{!!$product_weight!!}" required="required" placeholder="Dalam gran">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label">Status Product</label>
+                      <div class="col-sm-8">
+                        {!!Form::select('product_status',['1'=>'Active','0'=>'Not active'],$product_status,['id'=>'product_status','class'=>'form-control','required'=>'required'])!!}
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label">Status Product Sale</label>
+                      <div class="col-sm-8">
+                        {!!Form::select('product_sale',['0'=>'Not Sale','1'=>'Sale'],$product_sale,['id'=>'product_sale','class'=>'form-control'])!!}
                       </div>
                     </div>
                   </div>

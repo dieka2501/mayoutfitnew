@@ -31,6 +31,7 @@
               <tr>
                 <th>No</th>
                 <th>Name</th>
+                <th>Discount</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -61,6 +62,7 @@
                       }
                     ?>
                   <td>{!!$stat!!}</td>
+                  <td>Rp. {!!number_format($lists->membertype_discount)!!}</td>
                   <td style="width:150px;">
                     <a href="{!!config('app.url')!!}public/admin/membertype/edit/{!!$lists->idmembertype!!}" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
                     <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" href="{!!config('app.url')!!}public/admin/membertype/delete/{!!$lists->idmembertype!!}" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</a>
@@ -72,6 +74,7 @@
               <tr>
                 <th>No</th>
                 <th>Name</th>
+                <th>Discount</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>

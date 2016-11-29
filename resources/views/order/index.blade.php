@@ -31,7 +31,7 @@
                       {!!Form::close()!!}
                       
                     </div>
-                  <table id="example" class="table table-bordered table-striped">
+                  <table id="example" class="table table-bordered ">
                     <thead>
                       <tr>
                         <th>Order ID</th>
@@ -39,13 +39,18 @@
                         <th>Order Phone</th>
                         <th>Total</th>
                         <th>Status</th>
+                        <th>Order Via</th>
                         <th>Action</th>
                         
                       </tr>
                     </thead>
                   <tbody>
                     @foreach($list as $lists)
-                    <tr>
+                      @if($lists->order_system == 'web')
+                        <tr bgcolor="#b2fb8e">
+                      @else
+                        <tr>
+                      @endif
                       <td>{!!$lists->order_code!!}</td>
                       <td>{!!$lists->order_name!!}</td>
                       <td>{!!$lists->order_phone!!}</td>
@@ -71,7 +76,7 @@
 
                         ?>
                       <td>{!!$stat!!} {!!$printed!!}</td>
-                      
+                      <td>{!!$lists->order_system!!} </td>
                       <td>
                         <div class="btn-group">
                           <button type="button" class="btn btn-default btn-flat">Action</button>
@@ -116,6 +121,7 @@
                     <th>Order Phone</th>
                     <th>Total</th>
                     <th>Status</th>
+                    <th>Order Via</th>
                     <th>Action</th>
                     
                   </tr>
