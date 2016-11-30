@@ -45,6 +45,7 @@
                         <th>Category</th>
                         <th>Product Price</th>
                         <th>Product Margin</th>
+                        <th>Status</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -69,7 +70,11 @@
                       <td>{!!$lists->product_code!!}</td>
                       <td>{!!$lists->category_name!!}</td>
                       <td>{!!$lists->product_price!!}</td>
-                      <td>{!!$lists->product_price!!}</td>
+                      <td>{!!$lists->product_margin!!}</td>
+                      <?php 
+                        $stat = ($lists->product_status ==1)?'Aktif':"Tidak Aktif";
+                      ?>
+                      <td>{!!$stat!!}</td>
                       <td style="width:150px;">
                         
                         
@@ -104,6 +109,7 @@
                     <th>Category</th>
                     <th>Product Price</th>
                     <th>Product Margin</th>
+                    <th>Status</th>
                     <th>Action</th>
                   </tr>
                   </tfoot>

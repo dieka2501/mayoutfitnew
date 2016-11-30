@@ -114,6 +114,7 @@ Route::group(['prefix'=>'api'],function(){
 
 Route::get('/','homeController@index');
 Route::get('/new','newReleaseController@index');
+Route::get('/sale','saleController@index');
 Route::get('/product/detail/{id}','newReleaseController@detail');
 Route::get('/product/category/{id}','productCategoryController@index');
 Route::get('/cart/add/{id}','cartController@store');

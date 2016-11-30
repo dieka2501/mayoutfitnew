@@ -42,21 +42,25 @@ class product extends Model
 
     //FRONT 
     function get_page_front($sort,$order){
-        return product::orderBy($sort,$order)->paginate(6);
+        return product::orderBy($sort,$order)->where('product.product_status',1)->paginate(6);
+    }
+
+    function get_page_front_sale($sort,$order){
+        return product::orderBy($sort,$order)->where('product.product_status',1)->where('product.product_sale',1)->paginate(6);
     }
 
     function get_page_category_front($sort,$order,$idcategory){
-        return product::orderBy($sort,$order)->where('category_id',$idcategory)->paginate(6);
+        return product::orderBy($sort,$order)->where('category_id',$idcategory)->where('product.product_status',1)->paginate(6);
     }
 
     function get_page_front_random1(){
-        return product::orderBy(DB::raw('RAND()'))
+        return product::orderBy(DB::raw('RAND()'))->where('product.product_status',1)
                     ->where($this->table.'.product_status',1)
                     ->take(2)->get();
     }
 
     function get_page_front_random2(){
-        return product::orderBy(DB::raw('RAND()'))
+        return product::orderBy(DB::raw('RAND()'))->where('product.product_status',1)
                     ->where($this->table.'.product_status',1)
                     ->take(2)->get();
     }

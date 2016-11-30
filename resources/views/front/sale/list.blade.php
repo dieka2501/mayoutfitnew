@@ -3,11 +3,11 @@
 	<!-- Listing Product -->
     <div  id="products-wrap" class="container">
         <div class="listing-top-nav clearfix">
-            <h1 class="heading-title-category">New Release</h1>
+            <h1 class="heading-title-category">Sale</h1>
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
                     <li><a href="#">Catalog</a></li>                            
-                    <li class="last">New Release</li>
+                    <li class="last">Sale</li>
                 </ol>
             </div>
             <div class="row clearfix">
