@@ -95,6 +95,24 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('/customer/changemember/{id}', 'customerController@edit');
 	Route::post('/customer/changemember', 'customerController@updatemember');
 	Route::get('/customer/resetpassword/{id}', 'customerController@resetpassword');
+	
+	//about us, faq, terms&privacy, partners, carerrs, contact us, news letter
+	Route::get('/aboutus', 'aboutusController@index');
+	Route::post('/aboutus/store', 'aboutusController@store');
+	Route::get('/faq', 'faqController@index');
+	Route::post('/faq/store', 'faqController@store');
+	Route::get('/termsprivacy', 'termsprivacyController@index');
+	Route::post('/termsprivacy/store', 'termsprivacyController@store');
+	Route::get('/partners', 'partnersController@index');
+	Route::post('/partners/store', 'partnersController@store');
+	Route::get('/carerrs', 'carerrsController@index');
+	Route::post('/carerrs/store', 'carerrsController@store');
+	Route::get('/contactus', 'contactusController@index');
+	Route::get('/contactus/view/{id}', 'contactusController@view');
+	Route::get('/newsletter', 'newsletterController@index');
+	Route::post('/newsletter/store', 'newsletterController@store');
+	Route::get('/howorder', 'howorderController@index');
+	Route::post('/howorder/store', 'howorderController@store');
 });
 
 Route::group(['prefix'=>'api'],function(){
@@ -133,4 +151,12 @@ Route::get('/checkout/mail','checkoutController@mail');
 Route::get('/galery/category/{id}','galeryCategoryController@index');
 Route::get('/registrasi/verify','loginFrontController@verify');
 Route::get('/logout','loginFrontController@destroy');
-
+Route::get('/aboutus','homeController@aboutus');
+Route::get('/faq','homeController@faq');
+Route::get('/termsprivacy','homeController@termsprivacy');
+Route::get('/partners','homeController@partners');
+Route::get('/carerrs','homeController@carerrs');
+Route::get('/contactus','homeController@contactus');
+Route::post('/contactus/add', 'homeController@contactusstore');
+Route::get('/newsletter','homeController@newsletter');
+Route::get('/howorder','homeController@howorder');

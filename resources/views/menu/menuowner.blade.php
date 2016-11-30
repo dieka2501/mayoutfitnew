@@ -97,4 +97,52 @@
       <span>Customer</span>
     </a>
   </li>
+  <li {{ (Request::is('*aboutus') ? 'class="active"' : '') }}>
+    <a href="{!!config('app.url')!!}public/admin/aboutus">
+      <i class="fa fa-user-secret"></i>
+      <span>About Us</span>
+    </a>
+  </li>
+  <li {{ (Request::is('*faq') ? 'class="active"' : '') }}>
+    <a href="{!!config('app.url')!!}public/admin/faq">
+      <i class="fa fa-support"></i>
+      <span>faq</span>
+    </a>
+  </li>
+  <li {{ (Request::is('*termsprivacy') ? 'class="active"' : '') }}>
+    <a href="{!!config('app.url')!!}public/admin/termsprivacy">
+      <i class="fa fa-support"></i>
+      <span>Terms & Privacy</span>
+    </a>
+  </li>
+  <li {{ (Request::is('*partners') ? 'class="active"' : '') }}>
+    <a href="{!!config('app.url')!!}public/admin/partners">
+      <i class="fa fa-support"></i>
+      <span>Partners</span>
+    </a>
+  </li>
+  <li {{ (Request::is('*carerrs') ? 'class="active"' : '') }}>
+    <a href="{!!config('app.url')!!}public/admin/carerrs">
+      <i class="fa fa-support"></i>
+      <span>Carerrs</span>
+    </a>
+  </li>
+  <li {{ (Request::is('*contactus') ? 'class="active"' : '') }}>
+    <a href="{!!config('app.url')!!}public/admin/contactus">
+      <i class="fa fa-support"></i>
+      <span>Contact Us</span>
+    </a>
+  </li>
+  <li {{ (Request::is('*newsletter') ? 'class="active"' : '') }}>
+    <a href="{!!config('app.url')!!}public/admin/newsletter">
+      <i class="fa fa-newspaper-o"></i>
+      <span>Newsletter</span>
+    </a>
+  </li>
+  <li {{ (Request::is('*howorder') ? 'class="active"' : '') }}>
+    <a href="{!!config('app.url')!!}public/admin/howorder">
+      <i class="fa fa-support"></i>
+      <span>How To Order</span>
+    </a>
+  </li>
 </ul>

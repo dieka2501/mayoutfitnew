@@ -33,7 +33,7 @@
                 @endif
                 
                 <li><a href="{!!config('app.url')!!}public/payment">Confirm Payment</a></li>
-                <li class="hidden-xs"><a href="#">How to Order</a></li>
+                <li class="hidden-xs"><a href="{!!config('app.url')!!}public/howorder">How to Order</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right hidden-xs">
                 <li class="lang">
@@ -122,8 +122,8 @@
             <li><a href="{!!config('app.url')!!}public/sale">Sale</a></li>
             <li><a href="#store">Store</a></li>
             <li><a href="#event">Event</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="{!!config('app.url')!!}public/faq">FAQ</a></li>
+            <li><a href="{!!config('app.url')!!}public/contactus">Contact</a></li>
             <li>
                 <form id="search-now">
                     <input type="search" placeholder="Search">
@@ -144,13 +144,13 @@
                 <div class="row clearfix">
                     <div class="col-md-8">
                         <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">FAQ</a></li>
-                            <li><a href="#">Terms &amp; Privacy</a></li>
-                            <li><a href="#">Partners</a></li>
-                            <li><a href="#">Careers</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Newsletter</a></li>
+                            <li><a href="{!!config('app.url')!!}public/aboutus">About Us</a></li>
+                            <li><a href="{!!config('app.url')!!}public/faq">FAQ</a></li>
+                            <li><a href="{!!config('app.url')!!}public/termsprivacy">Terms &amp; Privacy</a></li>
+                            <li><a href="{!!config('app.url')!!}public/partners">Partners</a></li>
+                            <li><a href="{!!config('app.url')!!}public/carerrs">Careers</a></li>
+                            <li><a href="{!!config('app.url')!!}public/contactus">Contact Us</a></li>
+                            <li><a href="{!!config('app.url')!!}public/newsletter">Newsletter</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 text-right"><span>Mayoutfit &copy; 2016</span></div>
