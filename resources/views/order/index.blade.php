@@ -47,7 +47,7 @@
                   <tbody>
                     @foreach($list as $lists)
                       @if($lists->order_system == 'web')
-                        <tr bgcolor="#b2fb8e">
+                        <tr bgcolor="#FB7DFF">
                       @else
                         <tr>
                       @endif

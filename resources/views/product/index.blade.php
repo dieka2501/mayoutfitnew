@@ -45,6 +45,7 @@
                         <th>Category</th>
                         <th>Product Price</th>
                         <th>Product Margin</th>
+                        <th>QTY</th>
                         <th>Status</th>
                         <th>Action</th>
                       </tr>
@@ -71,6 +72,7 @@
                       <td>{!!$lists->category_name!!}</td>
                       <td>{!!$lists->product_price!!}</td>
                       <td>{!!$lists->product_margin!!}</td>
+                      <td>{!!$lists->product_stock!!}</td>
                       <?php 
                         $stat = ($lists->product_status ==1)?'Aktif':"Tidak Aktif";
                       ?>

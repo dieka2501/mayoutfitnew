@@ -12,11 +12,14 @@
     <section id="featured-products">
         <div class="container">
             <div class="row clearfix">
-                @foreach($listproduct1 as $lists)
+                
                     <div class="col-md-6 col-xs-6">
-                        <a href="{!!config('app.url')!!}public/product/detail/{!!$lists->idproduct!!}" class="top-banner"><img src="{{Config::get('app.url')}}public/upload/{!!$lists->product_image!!}" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
+                        <a href="{!!config('app.url')!!}public/product/detail/{!!$lists->idproduct!!}" class="top-banner"><img src="{{Config::get('app.url')}}public/upload/{!!$frontnew!!}" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
                     </div>
-                @endforeach
+                    <div class="col-md-6 col-xs-6">
+                        <a href="{!!config('app.url')!!}public/product/detail/{!!$lists->idproduct!!}" class="top-banner"><img src="{{Config::get('app.url')}}public/upload/{!!$frontsale!!}" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
+                    </div>
+                
                 @foreach($listcategory as $lists)
                     <div class="col-md-3 col-xs-6">
                         <a href="{!!config('app.url')!!}public/product/category/{!!$lists->idcategory!!}"><span>{!!$lists->category_name!!}</span>

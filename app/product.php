@@ -53,15 +53,19 @@ class product extends Model
         return product::orderBy($sort,$order)->where('category_id',$idcategory)->where('product.product_status',1)->paginate(6);
     }
 
-    function get_page_front_random1(){
-        return product::orderBy(DB::raw('RAND()'))->where('product.product_status',1)
-                    ->where($this->table.'.product_status',1)
-                    ->take(2)->get();
+    function get_page_front_new(){
+        return product::orderBy('idproduct','DESC')->where('product.product_status',1)
+                    ->first();
+    }
+    function get_page_sale(){
+        return product::orderBy('idproduct','DESC')->where('product.product_status',1)
+                    ->where('product_sale',1)
+                    ->first();
     }
 
     function get_page_front_random2(){
-        return product::orderBy(DB::raw('RAND()'))->where('product.product_status',1)
-                    ->where($this->table.'.product_status',1)
+        return product::orderBy('idproduct','DESC')->where('product.product_status',1)
+                    
                     ->take(2)->get();
     }
 

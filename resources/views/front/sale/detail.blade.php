@@ -54,7 +54,13 @@
                             <!-- Add to cart -->
                             <div class="box-cart-bottom">
                                 <div>
-                                    <p class="buttons-bottom-block no-print" id="add-to-cart"><a href="{!!config('app.url')!!}public/cart/add/{!!$product->idproduct!!}"> <button class="exclusive" name="Submit" title="Add to Cart" type="button">Add to cart</button></a></p><!-- h=displayProductButtons /  Wishlist block  -->
+                                     @if($product->product_stock != '0')
+                                     
+                                        <p class="buttons-bottom-block no-print" id="add-to-cart"><a href="{!!config('app.url')!!}public/cart/add/{!!$product->idproduct!!}"> <button class="exclusive" name="Submit" title="Add to Cart" type="button">Add to cart</button></a></p><!-- 
+                                    h=displayProductButtons /  Wishlist block  -->
+                                    @else
+                                        <p><strong>SOLD OUT</strong></p>
+                                    @endif
                                     <!-- <div class="wishlist-button">
                                         <a class="button addToWishlist wishlistProd-30" data-tooltip="Add to wishlist" href="#" onclick="WishlistCart('wishlist-block-list', 'add', '30', false, 1); return false;" title="Add to Wishlist"><i class="fa fa-heart"></i></a>
                                     </div> -->
