@@ -333,7 +333,8 @@ input::-webkit-input-placeholder {
 #mayoutfit-bighero .item img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 450px!important;
+    object-fit: cover;
 }
 #mayoutfit-bighero .caption {
 	display: block;
