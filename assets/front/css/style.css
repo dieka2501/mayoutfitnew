@@ -333,7 +333,8 @@ input::-webkit-input-placeholder {
 #mayoutfit-bighero .item img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 450px!important;
+    object-fit: cover;
 }
 #mayoutfit-bighero .caption {
 	display: block;
@@ -414,6 +415,9 @@ input::-webkit-input-placeholder {
     z-index: 1;
     display: block;
 
+}
+.top-banner {
+	margin-bottom: 15px;
 }
 #featured-products .row > div > a.top-banner:hover:before {
 	content: '';

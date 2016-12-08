@@ -21,7 +21,11 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
     
     <!-- jQuery 2.1.4 -->
+<<<<<<< HEAD
     <script src="{!!config('app.url')!!}assets/dashboard/plugins/jQuery/jquery-2.1.4.min.js"></script>
+=======
+    <script src="{!!config('app.url')!!}assets/dashboard/plugins/jquery-libs/jquery-2.1.4.min.js"></script>
+>>>>>>> b42c96791c9e9e229d05a95cdfad5bc764bd2966
     <script   src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="{!!config('app.url')!!}assets/dashboard/bootstrap/js/bootstrap.min.js"></script>
