@@ -64,8 +64,7 @@ class product extends Model
     }
 
     function get_page_front_random2(){
-        return product::orderBy('idproduct','DESC')->where('product.product_status',1)
-                    
+        return product::orderBy('idproduct','DESC')->where('product.product_status',1) 
                     ->take(2)->get();
     }
 

@@ -245,9 +245,7 @@
            },function(data){
               console.log(data);
               var htmlkirim = '<option value="">-- Pilih Tipe Pengiriman --</option>';
-              if(data.oke > 0){
-                htmlkirim += '<option value="'+data.oke+'">OKE</option>';  
-              }
+              
               if(data.reg > 0){
                 htmlkirim += '<option value="'+data.reg+'">REGULER</option>';  
               }
@@ -260,8 +258,14 @@
         });
 
         $('#type_kirim').change(function(){
+
           var valkirim = $(this).val();
-          var jmlberat = Math.round($('#inberat').val()/1000);
+          var tempberat = Math.round($('#inberat').val()/1000);
+          if(tempberat == 0){
+              jmlberat = 1 
+          }else{
+            jmlberat = tempberat;
+          }
           var subtotal = $('#hidsubtotal').val();
           var voucher  = $('#out-voucher').val();
           // console.log(parseInt(nextid));
