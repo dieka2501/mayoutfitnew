@@ -29,6 +29,7 @@ class cartController extends Controller
         view()->share('code',session('cart.code'));
         view()->share('image',session('cart.image'));
         view()->share('qty',session('cart.qty'));
+
         $this->cart = new cart;
     }
     /**
@@ -103,7 +104,7 @@ class cartController extends Controller
             $request->session()->push('cart.name',$getproduct->product_name);
             $request->session()->push('cart.code',$getproduct->product_code);
             $request->session()->push('cart.image',$getproduct->product_image);
-            $request->session()->push('cart.weight',$getproduct->product_weight);
+            $request->session()->push('cart.weight',$getproduct->product_weight);   
             $request->session()->push('cart.qty',1);    
         }
         
@@ -158,6 +159,7 @@ class cartController extends Controller
             $request->session()->push('cart.name',$getproduct->product_name);
             $request->session()->push('cart.code',$getproduct->product_code);
             $request->session()->push('cart.image',$getproduct->product_image);
+            $request->session()->push('cart.weight',$getproduct->product_weight);
             $request->session()->push('cart.qty',$qty_cart[$products]);
             
             // echo $products."-".$qty_cart[$products]."<br>";

@@ -58,7 +58,7 @@ class checkoutController extends Controller
         //
         
         $count = count(session('cart.idproduct'));
-        // var_dump($count);
+        // var_dump(var_dump(session()->all()));
         if($count > 0){
             $getuniqueid        = $this->order->get_order_today_web();
             $cuniqueid          = count($getuniqueid);
