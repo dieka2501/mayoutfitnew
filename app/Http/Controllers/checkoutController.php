@@ -86,9 +86,9 @@ class checkoutController extends Controller
 
                 $getongkir      = $this->ongkir->get_ongkir(session('customer_province'),session('customer_city'),session('customer_district'));
                 $arr_ongkir['']  = "-- Pilih Pengiriman --";
-                if($getongkir->oke > 0){
-                    $arr_ongkir[$getongkir->oke]  = "OKE";
-                }
+                // if($getongkir->oke > 0){
+                //     $arr_ongkir[$getongkir->oke]  = "OKE";
+                // }
                 if($getongkir->reg > 0){
                     $arr_ongkir[$getongkir->reg]  = "REG";
                 }
@@ -167,6 +167,7 @@ class checkoutController extends Controller
         $order_note             = $request->input('order_note');
         $voucher                = $request->input('out-voucher');
         $kodevoucher            = $request->input('voucher');
+        $berat                  = $request->input('inberat');
         $getvoucher             = $this->voucher->get_vouchercode_stat($voucher);
         $grandtotal             = $tempgrandtotal - $voucher;
         // if($request->has('voucher')){
@@ -232,10 +233,10 @@ class checkoutController extends Controller
             $user['name']           = $order_name;
             $user['no_order']       = $insert['order_code'];
             
-            // Mail::send('front.checkout.mailOrder',$arr_mail,function($m) use ($user){
-            //     $m->from('no-reply-admin@mayoutfit.com','Admin Mayoutfit');
-            //     $m->to($user['email'], $user['name'])->subject("Konfirmasi Order No ".$user['no_order']);
-            // });  
+            Mail::send('front.checkout.mailOrder',$arr_mail,function($m) use ($user){
+                $m->from('no-reply-admin@mayoutfit.com','Admin Mayoutfit');
+                $m->to($user['email'], $user['name'])->subject("Konfirmasi Order No ".$user['no_order']);
+            });  
             $smscontent = "mayoutfit.com%20~%20Hai%20Sist%20".str_replace(" ",'%20', $order_name).",%20thx%20sudah%20belanja%20di%20mayoutfit.com%20(Order%20ID%20".$insert['order_code']."),%20total%20Rp.".number_format($grandtotal).".%20Yuk%20buruan%20trf%20ke%20BCA%20/%20Mandiri%20";
             $urlsms     =  config('app.urlsms').'?userkey='.config('app.smsuserkey').'&passkey='.config('app.smspasskey').'&nohp='.$order_phone.'&pesan='.$smscontent."";
             // echo $smscontent.'<br>'.$urlsms;
