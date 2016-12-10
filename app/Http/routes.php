@@ -113,6 +113,14 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::post('/newsletter/store', 'newsletterController@store');
 	Route::get('/howorder', 'howorderController@index');
 	Route::post('/howorder/store', 'howorderController@store');
+
+	//event
+	Route::get('/event', 'eventController@index');	
+	Route::get('/event/add', 'eventController@create');	
+	Route::post('/event/add', 'eventController@store');
+	Route::get('/event/edit/{id}', 'eventController@edit');	
+	Route::post('/event/edit', 'eventController@update');	
+	Route::get('/event/delete/{id}', 'eventController@destroy');	
 });
 
 Route::group(['prefix'=>'api'],function(){

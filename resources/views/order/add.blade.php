@@ -68,6 +68,8 @@
                             <label>Product Name</label>
                             <input type="text" class="form-control product_name" name='product_name[]' id="product_name_1" >
                             <input type="hidden" class="form-control product_id" name='product_id[]' id="product_id_1" >
+                            <input type="hidden" class="form-control product_weight" name='product_weight[]' id="product_weight_1" >
+                            <input type="hidden" class="form-control total_product_weight" name='total_product_weight[]' id="total_product_weight_1" >
                           </div><!-- /.form group -->
                         </div>
 
@@ -189,14 +191,14 @@
                             <label class="col-sm-4 control-label">Biaya Pengiriman</label>
                             <div class="col-sm-8">
                               <div class="mb15">
-                                <div class="input-group">
+                                <!-- <div class="input-group">
                                   <span class="input-group-addon">
                                     <div class="radio">
                                       <label><input type="radio" name="paket" value='0' class="type_paket" id="oke">OKE</label>
                                     </div>
                                   </span>
                                   <input type="text" class="form-control" aria-label="r1" name='shipment_oke' id="shipment_oke" readonly="readonly">
-                                </div><!-- /input-group -->
+                                </div> --><!-- /input-group -->
                               </div>
                               <div class="mb15">
                                 <div class="input-group">
@@ -229,7 +231,7 @@
                           <div class="form-group">
                             <label class="col-sm-4 control-label">Berat Barang</label>
                             <div class="col-sm-3">
-                              <input type="text" name="weight" class="form-control" id="weight" value='1000'>
+                              <input type="text" name="weight" class="form-control" id="weight" value='0'>
                             </div>
                           </div>
 
@@ -285,6 +287,11 @@
                   },function(data){
                       // console.log(data);
 
+                        // var berat       = parseInt($('#weight').val());
+                        // var getberat    = parseInt(data.product_weight);
+                        // var jumlahberat = berat + getberat;
+                        $('#product_weight_'+id).val(data.product_weight); 
+
                       $("#order_detail_price_"+id).val(data.product_price);
                       $("#product_stock_"+id).val(data.product_stock);
                   });
@@ -294,13 +301,41 @@
             $("#order_detail_qty_"+id).keyup(function(){
                 // alert('22323');
                 // console.log(id);
-                var qty       = $(this).val();
-                var price     = $("#order_detail_price_"+id).val();
-                var diskon    = $("#order_detail_diskon_"+id).val();
+                var qty         = $(this).val();
+                var price       = $("#order_detail_price_"+id).val();
+                var diskon      = $("#order_detail_diskon_"+id).val();
+                var oberat      = $("#product_weight_"+id).val(); 
+                var typeberat   = $(".type_paket").val();
+                // var $hargakirim = 0;
+                // console.log(typeberat);
+                // if(typeberat == 0){
+                //   $hargakirim = 0;
+                // }
                 var subtotal;
+                var subberat    = parseInt(qty) * parseInt(oberat);
+                var jmlberat    = 0;
+                var jmlqty      = 0;
+
                 subtotal = (qty*price) - diskon;
                 $("#subtotal_"+id).val(subtotal);
+                $("#total_product_weight_"+id).val(subberat);
                 calc_subtotal();
+                // $('.order_detail_qty').each(function(index,value){
+                //     jmlqty +=  parseInt($(this).val());
+                // });
+                $('.total_product_weight').each(function(index,value){
+                    jmlberat += parseInt($(this).val());
+                });
+
+                $('#weight').val(jmlberat);
+                
+                var kg          = Math.round(jmlberat/1000);
+                if(kg == 0){
+                  kg = 1;
+                }
+                var totalongkir = kg * parseInt(typeberat);
+                $("#order_shipment_price").val(totalongkir);
+
             });
 
             $("#order_detail_diskon_"+id).keyup(function(){
@@ -323,8 +358,13 @@
                   console.log(jml_sub);
               });
               // console.log(jml_sub);
+              var tmpweight   = $("#weight").val();
+              var kg          = Math.round(tmpweight/1000);
+              if(kg == 0){
+                kg = 1;
+              } 
               var diskon_tot  = $('#diskon_total').val();
-              var biaya_kirim = $("#order_shipment_price").val();
+              var biaya_kirim = parseInt($("#order_shipment_price").val())*kg;
               var uniqid      = parseInt($('#uniqid').val());
               var total_all   = (parseInt(jml_sub)+parseInt(biaya_kirim)) -  parseInt(diskon_tot);
               var grand       = total_all + uniqid;
@@ -421,13 +461,19 @@
           $(document).ready(function(){
               $('.type_paket').click(function(){
                 // alert($(this).val());
-                  var paket     = $(this).val();
+                  var paket       = parseInt($(this).val());
+                  var tmpweight   = parseInt($("#weight").val());
+                  var kg          = Math.round(tmpweight/1000);
+                  if(kg == 0){
+                    kg = 1;
+                  } 
                   // console.log(in_paket);
-                  $('#order_shipment_price').val(paket);
+                  var tot_hargakirim    = paket * kg;
+                  $('#order_shipment_price').val(tot_hargakirim);
                   calc_subtotal();
               });
 
-              $('#weight').keyup(function(){
+              $('#weight').change(function(){
                   var shipment_price = $('.type_paket:checked').val();
                   var berat          = $(this).val();
                   var ongkir          = shipment_price * Math.round((berat/1000));
@@ -460,9 +506,10 @@
                   // console.log(newids);
                   $('input.product_name').last().attr('id','product_name_'+newids);
                   $('input.product_id').last().attr('id','product_id_'+newids);
+                  $('input.product_weight').last().attr('id','product_weight_'+newids);
                   $('input.order_detail_price').last().attr('id','order_detail_price_'+newids);
                   $('input.product_stock').last().attr('id','product_stock_'+newids);
-                  $('input.product_stock').last().attr('id','product_stock_'+newids);
+                  $('input.total_product_weight').last().attr('id','total_product_weight_'+newids);
                   $('input.order_detail_qty').last().attr('id','order_detail_qty_'+newids);
                   $('input.order_detail_diskon').last().attr('id','order_detail_diskon_'+newids);
                   $('input.subtotal').last().attr('id','subtotal_'+newids);

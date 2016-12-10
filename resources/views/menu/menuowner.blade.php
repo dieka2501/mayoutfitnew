@@ -145,4 +145,10 @@
       <span>How To Order</span>
     </a>
   </li>
+  <li {{ (Request::is('*event') ? 'class="active"' : '') }}>
+    <a href="{!!config('app.url')!!}public/admin/event">
+      <i class="fa fa-support"></i>
+      <span>Event</span>
+    </a>
+  </li>
 </ul>

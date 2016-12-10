@@ -106,7 +106,8 @@ class orderController extends Controller
         $order_shipment_name    = $request->input('order_shipment_name');
         $order_shipment_phone   = $request->input('order_shipment_phone');
         $order_note             = $request->input('order_note');
-        $order_weight           = $request->input('weight');      
+        $order_weight           = $request->input('weight');
+        $type_paket             = $request->input('type_paket');      
         $product_name           = $request->input('product_name');
         $product_id             = $request->input('product_id');
         $order_detail_price     = $request->input('order_detail_price');
@@ -124,7 +125,9 @@ class orderController extends Controller
         $order_shipment_zip     = $request->input('order_shipment_zip');
         $weight                 = $request->input('weight');
         $diskon_total           = $request->input('diskon_total');
-        $grand_total            = $request->input('grand_total');
+        $grand_total                 = $request->input('grand_total');
+        $order_detail_weight         = $request->input('product_weight');
+        $order_detail_total_weight   = $request->input('total_product_weight');
         if($grand_total > 0 && $provinsi != 0 && $kota != 0 && $kecamatan != 0){
             $insert['order_code']               = "MO-01".date('Ymd').$uniqid;
             $insert['order_name']               = $order_name;
@@ -139,6 +142,7 @@ class orderController extends Controller
             $insert['order_shipment_zip']       = $order_shipment_zip;
             $insert['order_shipment_price']     = $order_shipment_price;
             $insert['order_note']               = $order_note;
+            $insert['order_shipment_type']      = $type_paket;
             $insert['order_system']             = "admin";
             $insert['order_weight']             = $order_weight;
             $insert['order_discount']           = $diskon_total;
@@ -152,6 +156,8 @@ class orderController extends Controller
                     $detail['order_detail_price']              = $order_detail_price[$i];
                     $detail['order_detail_discount_nominal']   = $order_detail_diskon[$i];
                     $detail['order_detail_qty']                = $order_detail_qty[$i];
+                    $detail['order_detail_weight']             = $order_detail_weight[$i];
+                    $detail['order_detail_total_weight']       = $order_detail_total_weight[$i];
                     $detail['order_detail_subtotal']           = $subtotal[$i];
                     $detail['created_at']                      = date('Y-m-d H:i:s');
                     $this->od->add($detail);
@@ -245,6 +251,7 @@ class orderController extends Controller
         // var_dump($getdata->order_weight);die;
         $true_ongkir                        = $order['order_shipment_price']/$order['weight'];
         $order['ongkir']                    = $true_ongkir;
+        $order['type_kirim']                = $getdata->order_shipment_type;
 
         return view('order.edit',$order);
         
@@ -287,6 +294,9 @@ class orderController extends Controller
         $grand_total            = $request->input('grand_total');
         $subtotal               = $request->input('subtotal');
         $qtybefore              = session('qty');
+        $order_detail_weight         = $request->input('product_weight');
+        $order_detail_total_weight   = $request->input('total_product_weight');
+        $type_paket             = $request->input('type_paket');
         if($grand_total > 0 && $provinsi != 0 && $kota != 0 && $kecamatan != 0){
             // $insert['order_code']               = date('Ymd').$uniqid;
             $insert['order_name']               = $order_name;
@@ -298,6 +308,7 @@ class orderController extends Controller
             $insert['order_shipment_name']      = $order_shipment_name;
             $insert['order_shipment_phone']     = $order_shipment_phone;
             $insert['order_shipment_address']   = $order_address;
+            $insert['order_shipment_type']      = $type_paket;
             $insert['order_shipment_zip']       = $order_shipment_zip;
             $insert['order_shipment_price']     = $order_shipment_price;
             $insert['order_note']               = $order_note;
@@ -321,6 +332,8 @@ class orderController extends Controller
                 $detail['order_detail_qty']                = $order_detail_qty[$i];
                 $detail['order_detail_subtotal']           = $subtotal[$i];
                 $detail['created_at']                      = date('Y-m-d H:i:s');
+                $detail['order_detail_weight']             = $order_detail_weight[$i];
+                $detail['order_detail_total_weight']       = $order_detail_total_weight[$i];
                 $this->od->add($detail);
                 $getstock = $this->product->get_id($product_id[$i]);
                 $newstock = $getstock->product_stock - $order_detail_qty[$i];

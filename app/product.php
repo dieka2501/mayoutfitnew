@@ -36,6 +36,10 @@ class product extends Model
     	return product::orderBy('product_name','ASC')->where('product_name','like','%'.$name.'%')->get();
     }
 
+    function get_byname_all_instock($name){
+        return product::orderBy('product_name','ASC')->where('product_stock','>',0)->where('product_name','like','%'.$name.'%')->get();
+    }
+
     function get_all($orderby,$ordering){
         return product::orderBy($orderby,$ordering)->where('product_status',1)->get();
     }

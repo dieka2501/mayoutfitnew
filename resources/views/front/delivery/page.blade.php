@@ -1,5 +1,8 @@
 @extends('front.home')
 @section('content')
+<?php 
+// var_dump(session('cart'));die;
+?>
   <section class="section section-content long-content grey-bg">
         <div class="container">
             <div class="section-title no-border">

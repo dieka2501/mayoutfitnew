@@ -81,9 +81,9 @@
                     <li class="first active">
                         <a data-toggle="tab" href="#idTab1">Description</a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a data-toggle="tab" href="#idTab2">Information</a>
-                    </li>
+                    </li> -->
                 </ul>
                 <div class="tab-content">
                     <!-- More info -->

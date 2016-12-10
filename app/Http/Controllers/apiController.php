@@ -56,7 +56,7 @@ class apiController extends Controller
 
     function  get_product_auto(Request $request){
         $term           = $request->input('term');
-        $getdata        = $this->product->get_byname_all($term);
+        $getdata        = $this->product->get_byname_all_instock($term);
         foreach ($getdata as $datas) {
             $arr[] = ['id'=>$datas->idproduct,'label'=>$datas->product_name,'value'=>$datas->product_name];
         }
