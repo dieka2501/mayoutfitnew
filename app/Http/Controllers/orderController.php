@@ -107,7 +107,7 @@ class orderController extends Controller
         $order_shipment_phone   = $request->input('order_shipment_phone');
         $order_note             = $request->input('order_note');
         $order_weight           = $request->input('weight');
-        $type_paket             = $request->input('type_paket');      
+        $type_paket             = $request->input('paket');      
         $product_name           = $request->input('product_name');
         $product_id             = $request->input('product_id');
         $order_detail_price     = $request->input('order_detail_price');
