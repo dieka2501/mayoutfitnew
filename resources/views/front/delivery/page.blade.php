@@ -164,8 +164,16 @@
                                   <td class="subtotal highlight shipping-cost-free">Biaya pengiriman</td>
                                   <td class="right-align highlight shipping-cost-free" colspan="2">Rp. <p id='ongkir'>0 </p>
                                     <?php 
-                                      $berat    = session('cart.weight');
-                                      $jmlberat = array_sum($berat);
+                                      $jmlberat         = 0;
+                                      $cartberat        = session('cart.weight');
+                                      $cartqty          =  session('cart.qty');
+                                      $countcartberat   = count($cartberat);
+                                      for($ii=0;$ii <$countcartberat;$ii++ ){
+                                         $jmlberat += $cartberat[$ii] * $cartqty[$ii];
+                                      }
+                                      // var_dump(count($berat));
+                                      // $jmlberat = array_sum($berat);
+
                                     ?>
                                     <input type='hidden' id='inberat' name='inberat' value='{!!$jmlberat!!}'>
                                     <input type='hidden' id='totkirim' name='totkirim' >
@@ -249,10 +257,10 @@
               console.log(data);
               var htmlkirim = '<option value="">-- Pilih Tipe Pengiriman --</option>';
               
-              if(data.reg > 0){
+              if(parseInt(data.reg) > 0){
                 htmlkirim += '<option value="'+data.reg+'">REGULER</option>';  
               }
-              if(data.yes > 0){
+              if(parseInt(data.yes) > 0){
                 htmlkirim += '<option value="'+data.yes+'">YES</option>';  
               }
               $('#type_kirim').html(htmlkirim);

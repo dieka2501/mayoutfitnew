@@ -93,10 +93,16 @@ class checkoutController extends Controller
                 // }
 
                 if(isset($getongkir->reg)){
-                    $arr_ongkir[$getongkir->reg]  = "REG";
+                    if($getongkir->reg > 0){
+                        $arr_ongkir[$getongkir->reg]  = "REG";    
+                    }
+                    
                 }
                 if(isset($getongkir->yes)){
-                    $arr_ongkir[$getongkir->yes]  = "YES";
+                    if($getongkir->yes > 0){
+                        $arr_ongkir[$getongkir->yes]  = "YES";    
+                    }
+                    
                 }
                 $view['arr_type']       = $arr_ongkir;
 
