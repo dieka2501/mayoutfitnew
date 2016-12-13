@@ -64,8 +64,8 @@ class homeController extends Controller
         $getrandomproduct2   = $this->product->get_page_front_random2();
         $view['listgalery']  = $getdatagalery;
         $view['listcategory']= $getdatacategory;
-        $view['frontnew']     = (!empty($frontnew))?$frontnew->product_image:"";
-        $view['frontsale']    = (!empty($frontsale))?$frontsale->product_image:"";
+        $view['frontnew']     = $frontnew; //(!empty($frontnew))?$frontnew->product_image:"";
+        $view['frontsale']    = $frontsale;// (!empty($frontsale))?$frontsale->product_image:"";
         $view['listproduct2'] = $getrandomproduct2;
         return view('front.home.page',$view);
     }

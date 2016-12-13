@@ -12,13 +12,22 @@
     <section id="featured-products">
         <div class="container">
             <div class="row clearfix">
-                
+                    <?php 
+                        $idfront = (!empty($frontnew))?$frontnew->idproduct:"";
+                        $imgfront = (!empty($frontnew))?$frontnew->product_image:"";
+                        // var_dump($frontsale);die;
+                        $idsale = (!empty($frontsale))?$frontsale->idproduct:"";
+
+                        $imgsale = (!empty($frontsale))?$frontsale->product_image:"";
+                    ?>
                     <div class="col-md-6 col-xs-6">
-                        <a href="{!!config('app.url')!!}public/product/detail/{!!$lists->idproduct!!}" class="top-banner"><img src="{{Config::get('app.url')}}public/upload/{!!$frontnew!!}" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
+                        <a href="{!!config('app.url')!!}public/product/detail/{!!$idfront!!}" class="top-banner"><img src="{{Config::get('app.url')}}public/upload/{!!$imgfront!!}" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
                     </div>
+                    @if(!empty($frontsale))
                     <div class="col-md-6 col-xs-6">
-                        <a href="{!!config('app.url')!!}public/product/detail/{!!$lists->idproduct!!}" class="top-banner"><img src="{{Config::get('app.url')}}public/upload/{!!$frontsale!!}" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
+                        <a href="{!!config('app.url')!!}public/product/detail/{!!$idsale!!}" class="top-banner"><img src="{{Config::get('app.url')}}public/upload/{!!$imgsale!!}" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
                     </div>
+                    @endif
                 
                 @foreach($listcategory as $lists)
                     <div class="col-md-3 col-xs-6">

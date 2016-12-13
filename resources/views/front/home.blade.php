@@ -37,8 +37,8 @@
             </ul>
             <ul class="nav navbar-nav navbar-right hidden-xs">
                 <li class="lang">
-                    <a href="#">ENG</a>
-                    <a href="#" class="active">ID</a>
+                    <!-- <a href="#">ENG</a>
+                    <a href="#" class="active">ID</a> -->
                 </li>
                 <li class="dropdown bags">
                   <a href="#" class="dropdown-toggle shop-bag" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
