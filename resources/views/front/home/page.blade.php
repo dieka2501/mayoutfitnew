@@ -21,11 +21,11 @@
                         $imgsale = (!empty($frontsale))?$frontsale->product_image:"";
                     ?>
                     <div class="col-md-6 col-xs-6">
-                        <a href="{!!config('app.url')!!}public/product/detail/{!!$idfront!!}" class="top-banner"><img src="{{Config::get('app.url')}}public/upload/{!!$imgfront!!}" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
+                        <a href="{!!config('app.url')!!}public/new" class="top-banner"><img src="{{Config::get('app.url')}}public/upload/{!!$imgfront!!}" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
                     </div>
                     @if(!empty($frontsale))
                     <div class="col-md-6 col-xs-6">
-                        <a href="{!!config('app.url')!!}public/product/detail/{!!$idsale!!}" class="top-banner"><img src="{{Config::get('app.url')}}public/upload/{!!$imgsale!!}" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
+                        <a href="{!!config('app.url')!!}public/sale" class="top-banner"><img src="{{Config::get('app.url')}}public/upload/{!!$imgsale!!}" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
                     </div>
                     @endif
                 
