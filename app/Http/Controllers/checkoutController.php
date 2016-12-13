@@ -84,15 +84,18 @@ class checkoutController extends Controller
                 }
                 $view['arr_kecamatan'] = $arr_kecamatan;
 
+                // $getongkir->reg = "";
+                // $getongkir->yes = "";
                 $getongkir      = $this->ongkir->get_ongkir(session('customer_province'),session('customer_city'),session('customer_district'));
                 $arr_ongkir['']  = "-- Pilih Pengiriman --";
                 // if($getongkir->oke > 0){
                 //     $arr_ongkir[$getongkir->oke]  = "OKE";
                 // }
-                if($getongkir->reg > 0){
+
+                if(isset($getongkir->reg)){
                     $arr_ongkir[$getongkir->reg]  = "REG";
                 }
-                if($getongkir->yes > 0){
+                if(isset($getongkir->yes)){
                     $arr_ongkir[$getongkir->yes]  = "YES";
                 }
                 $view['arr_type']       = $arr_ongkir;
