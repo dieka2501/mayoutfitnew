@@ -14,7 +14,10 @@
             <div class="row clearfix">
                 @foreach($listproduct1 as $lists)
                     <div class="col-md-6 col-xs-6">
-                        <a href="{!!config('app.url')!!}public/product/detail/{!!$lists->idproduct!!}" class="top-banner"><img src="{{Config::get('app.url')}}public/upload/{!!$lists->product_image!!}" alt="Mayoutfit" width="100%" class="img-responsive center-block"></a>
+                        <a href="{!!config('app.url')!!}public/product/detail/{!!$lists->idproduct!!}" class="top-banner bannersec">
+                        <img src="{{Config::get('app.url')}}public/upload/{!!$lists->product_image!!}" alt="Mayoutfit" width="100%" class="img-responsive center-block">
+                        <h2 class="bannersec-title">Test</h2>
+                        </a>
                     </div>
                 @endforeach
                 @foreach($listcategory as $lists)
