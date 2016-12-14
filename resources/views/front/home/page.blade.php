@@ -22,7 +22,7 @@
                     ?>
                     <div class="col-md-6 col-xs-6">
 
-                        <a href="{!!config('app.url')!!}public/product/detail/{!!$idfront!!}" class="top-banner bannersec">
+                        <a href="{!!config('app.url')!!}public/new" class="top-banner bannersec">
                         <img src="{{Config::get('app.url')}}public/upload/{!!$imgfront!!}" alt="Mayoutfit" width="100%" class="img-responsive center-block">
                         <h2 class="bannersec-title">New Release</h2>
                         </a>
