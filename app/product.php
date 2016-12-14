@@ -33,45 +33,45 @@ class product extends Model
     }
 
     function get_byname_all($name){
-    	return product::orderBy('product_name','ASC')->where('product_name','like','%'.$name.'%')->get();
+    	return product::orderBy('product_name','ASC')->where('product_name','like','%'.$name.'%')->where('product.deleted_at',NULL)->get();
     }
 
     function get_byname_all_instock($name){
-        return product::orderBy('product_name','ASC')->where('product_stock','>',0)->where('product_name','like','%'.$name.'%')->get();
+        return product::orderBy('product_name','ASC')->where('product_stock','>',0)->where('product_name','like','%'.$name.'%')->where('product.deleted_at',NULL)->get();
     }
 
     function get_all($orderby,$ordering){
-        return product::orderBy($orderby,$ordering)->where('product_status',1)->get();
+        return product::orderBy($orderby,$ordering)->where('product_status',1)->where('product.deleted_at',NULL)->get();
     }
 
     //FRONT 
     function get_page_front($sort,$order){
-        return product::orderBy($sort,$order)->where('product.product_status',1)->paginate(6);
+        return product::orderBy($sort,$order)->where('product.product_status',1)->where('product.deleted_at',NULL)->paginate(6);
     }
     function get_page_front_search($sort,$order,$cari){
-        return product::orderBy($sort,$order)->where('product.product_status',1)->where('product_name','like','%'.$cari.'%')->paginate(6);
+        return product::orderBy($sort,$order)->where('product.product_status',1)->where('product_name','like','%'.$cari.'%')->where('product.deleted_at',NULL)->paginate(6);
     }
 
     function get_page_front_sale($sort,$order){
-        return product::orderBy($sort,$order)->where('product.product_status',1)->where('product.product_sale',1)->paginate(6);
+        return product::orderBy($sort,$order)->where('product.product_status',1)->where('product.product_sale',1)->where('product.deleted_at',NULL)->paginate(6);
     }
 
     function get_page_category_front($sort,$order,$idcategory){
-        return product::orderBy($sort,$order)->where('category_id',$idcategory)->where('product.product_status',1)->paginate(6);
+        return product::orderBy($sort,$order)->where('category_id',$idcategory)->where('product.product_status',1)->where('product.deleted_at',NULL)->paginate(6);
     }
 
     function get_page_front_new(){
-        return product::orderBy('idproduct','DESC')->where('product.product_status',1)
+        return product::orderBy('idproduct','DESC')->where('product.product_status',1)->where('product.deleted_at',NULL)
                     ->first();
     }
     function get_page_sale(){
-        return product::orderBy('idproduct','DESC')->where('product.product_status',1)
+        return product::orderBy('idproduct','DESC')->where('product.product_status',1)->where('product.deleted_at',NULL)
                     ->where('product_sale',1)
                     ->first();
     }
 
     function get_page_front_random2(){
-        return product::orderBy('idproduct','DESC')->where('product.product_status',1) 
+        return product::orderBy('idproduct','DESC')->where('product.product_status',1)->where('product.deleted_at',NULL) 
                     ->take(2)->get();
     }
 

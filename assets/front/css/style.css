@@ -1572,3 +1572,19 @@ p.faq-desc {margin-bottom: 25px;}
 @media (max-width: 320px) {
 
 }
+.bannersec-title {
+	position: absolute;
+    top: 0px;
+    background: rgba(0,0,0,0.5);
+    width: 100%;
+    z-index: 999999999;
+    color: #fff;
+    top: 40%;
+    padding: 10px;
+}
+.bannersec {
+	position: relative;
+}
+.bannersec img {
+	max-height: 350px;
+}
