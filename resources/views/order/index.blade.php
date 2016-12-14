@@ -89,7 +89,7 @@
                               <li><a href="{!!config('app.url')!!}public/admin/order/edit/{!!$lists->idorder!!}">Edit</a></li>
                             @endif
                             @if($lists->order_status != 5)
-                              @if($role == 'owner' || $role == 'confirm')
+                              @if($role == 'owner' || $role == 'confirm' || $role == 'order')
                                 <li><a href="{!!config('app.url')!!}public/admin/order/konfirm/bayar/{!!$lists->idorder!!}">Konfirmasi Bayar</a></li>
                               @endif
                               
