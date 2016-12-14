@@ -3,7 +3,7 @@
         <!-- Main content -->
         <section class="content-header">
           <h1>
-            Add Product
+            Edit Product
           </h1>
         </section>
         {!!session('notip')!!}
@@ -110,7 +110,12 @@
                 <!-- form start -->
                 <div class="form-horizontal">
                   <div class="box-body" style="height:445px;">
-
+                  <div class="form-group">
+                    <div class="col-md-12 text-center">
+                        <img src="{!!config('app.url')!!}/public/upload/{!!$product_image!!}" height="100" width="100">
+                    </div>
+                      
+                  </div>
                     <div class="form-group">
                       <label class="col-sm-4 control-label">Product Image</label>
                       <div class="col-sm-8">

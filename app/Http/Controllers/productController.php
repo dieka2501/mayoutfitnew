@@ -220,6 +220,7 @@ class productController extends Controller
         $product_sale        = $getdata->product_sale;
         $product_price_sale  = $getdata->product_price_sale;
         $product_status      = $getdata->product_status;
+        $product_image      = $getdata->product_image;
         $arr_category['']    =  "-- Select category --";
         foreach ($getcategory as $categories) {
            $arr_category[$categories->idcategory] = $categories->category_name;
@@ -239,6 +240,7 @@ class productController extends Controller
         $view['product_weight']        = $product_weight;
         $view['product_description']   = $product_description;
         $view['category_id']           = $category_id;
+        $view['product_image']         = $product_image;
         $view['arr_category']          = $arr_category;
         return view('product.edit',$view);
     }
