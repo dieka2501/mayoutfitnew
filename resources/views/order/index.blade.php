@@ -98,6 +98,9 @@
                                   <li><a href="{!!config('app.url')!!}public/admin/order/print/{!!$lists->idorder!!}" target="__blank">Print</a></li>
                                   <li><a onclick="modal('{!!$lists->order_code!!}')"  href="#">Cek Status Pengiriman</a></li>
                                 @endif
+                                @if($role == 'order')
+                                  <li><a onclick="modal('{!!$lists->order_code!!}')"  href="#">Cek Status Pengiriman</a></li>
+                                @endif
                               @else
                                 @if($role == 'owner' || $role == 'confirm')
                                   <li><a href="#" onclick="if(!confirm('Order ini belum dibayar')) return false;">Print</a></li>
