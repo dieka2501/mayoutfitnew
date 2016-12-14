@@ -168,3 +168,4 @@ Route::get('/contactus','homeController@contactus');
 Route::post('/contactus/add', 'homeController@contactusstore');
 Route::get('/newsletter','homeController@newsletter');
 Route::get('/howorder','homeController@howorder');
+Route::get('/search','searchController@index');

@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\product;
 use App\category;
 use App\galery;
-class newReleaseController extends Controller
+class searchController extends Controller
 {
     function __construct(){
         date_default_timezone_set('Asia/Jakarta');
@@ -39,32 +39,32 @@ class newReleaseController extends Controller
      */
     public function index(Request $request)
     {
-        // var_dump($request->session()->all());
-        //
         if($request->has('sort') && $request->has('order') && $request->has('sort_name')){
             $sort        = $request->input('sort');
             $sort_name   = $request->input('sort_name');
             $order       = $request->input('order');
+            
 
         }else{
             $sort       = 'created_at';
             $order      = "DESC";
             $sort_name  = "terbaru";
+            
         }
-        $getdata             = $this->product->get_page_front($sort,$order);
+        if($request->has('cari')){
+            $cari        = $request->input('cari');
+        }else{
+            $cari       = "%";
+        }
+        $getdata             = $this->product->get_page_front_search($sort,$order,$cari);
         $view['list']        = $getdata;
         $view['sort_name']   = $sort_name;
         $view['sort']        = $sort;
         $view['order']       = $order;
-        $view['cari']        = "";
+        $view['cari']        = $cari;
         return view('front.newrelease.list',$view);
     }
 
-    function detail($id){
-        $getproduct         = $this->product->get_id($id);
-        $view['product']    = $getproduct;
-        return view('front.newrelease.detail',$view);
-    }
     /**
      * Show the form for creating a new resource.
      *

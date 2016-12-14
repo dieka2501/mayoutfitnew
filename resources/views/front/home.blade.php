@@ -126,8 +126,8 @@
             <li><a href="{!!config('app.url')!!}public/faq">FAQ</a></li>
             <li><a href="{!!config('app.url')!!}public/contactus">Contact</a></li>
             <li>
-                <form id="search-now">
-                    <input type="search" placeholder="Search">
+                <form id="search-now" method="GET" action="search">
+                    <input type="search" placeholder="Search" name='cari' value="{!!Input::get('cari')!!}">
                 </form>
             </li>
           </ul>

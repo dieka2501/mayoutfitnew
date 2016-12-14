@@ -48,6 +48,9 @@ class product extends Model
     function get_page_front($sort,$order){
         return product::orderBy($sort,$order)->where('product.product_status',1)->paginate(6);
     }
+    function get_page_front_search($sort,$order,$cari){
+        return product::orderBy($sort,$order)->where('product.product_status',1)->where('product_name','like','%'.$cari.'%')->paginate(6);
+    }
 
     function get_page_front_sale($sort,$order){
         return product::orderBy($sort,$order)->where('product.product_status',1)->where('product.product_sale',1)->paginate(6);

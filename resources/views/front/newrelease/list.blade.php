@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-md-4 results"></div>
                 <div class="listing-pagination col-md-4">
-                    {!!$list->appends(['sort'=>$sort,'order'=>$order,'sort_name'=>$sort_name])->render()!!}
+                    {!!$list->appends(['sort'=>$sort,'order'=>$order,'sort_name'=>$sort_name,'cari'=>$cari])->render()!!}
                     <!-- <ul class="pagination">
                         <li><a title="Prev" href="#"><i class="ion-arrow-left-b"></i></a></li>
                         <li class="active"><a title="Go to page 1" href="#">1</a></li>
@@ -108,7 +108,7 @@
                 </section>
             </div>
     </div>
-    {!!$list->appends(['sort'=>$sort,'order'=>$order,'sort_name'=>$sort_name])->render()!!}
+    {!!$list->appends(['sort'=>$sort,'order'=>$order,'sort_name'=>$sort_name,'cari'=>$cari])->render()!!}
     <!-- <ul class="pagination">
         <li><a title="Prev" href="#"><i class="ion-arrow-left-b"></i></a></li>
         <li class="active"><a title="Go to page 1" href="#">1</a></li>
