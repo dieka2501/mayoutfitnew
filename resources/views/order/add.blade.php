@@ -60,11 +60,15 @@
                   <div class="box-header">
                     <h3 class="box-title">Product</h3>
                   </div>
+                  <small id='loading'>Mengambil data barang....</small>
                   <div class="box-body">
                     <div class="box-body">
-                      <div class="row data-clone">
+                     
+                       <div class="row data-clone">
                         <div class="col-md-3">
+                        
                           <div class="form-group">
+
                             <label>Product Name</label>
                             <input type="text" class="form-control product_name" name='product_name[]' id="product_name_1" >
                             <input type="hidden" class="form-control product_id" name='product_id[]' id="product_id_1" >
@@ -518,10 +522,13 @@
               });
           // });
             
-            // $(document).ready(function(){
-            //     $("#order_shipment_price").change(function(){
-            //         calc_subtotal();
-            //     });
-            // });
+            $(document).ready(function(){
+                $('#loading').hide();
+                $(this).ajaxStart(function(){
+                    $('#loading').show();
+                }).ajaxStop(function(){
+                    $('#loading').hide();
+                });
+            });
         </script>
 @stop      
