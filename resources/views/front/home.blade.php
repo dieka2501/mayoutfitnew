@@ -121,8 +121,8 @@
               </ul>
             </li>
             <li><a href="{!!config('app.url')!!}public/sale">Sale</a></li>
-            <li><a href="#store">Store</a></li>
-            <li><a href="#event">Event</a></li>
+            <li><a href="{!!config('app.url')!!}public/store">Store</a></li>
+            <!-- <li><a href="#event">Event</a></li> -->
             <li><a href="{!!config('app.url')!!}public/faq">FAQ</a></li>
             <li><a href="{!!config('app.url')!!}public/contactus">Contact</a></li>
             <li>

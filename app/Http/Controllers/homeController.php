@@ -17,6 +17,7 @@ use App\howorder;
 use App\partners;
 use App\newsletter;
 use App\contactus;
+use App\store;
 
 class homeController extends Controller
 {
@@ -33,6 +34,7 @@ class homeController extends Controller
         $this->partners 	= new partners;
         $this->newsletter 	= new newsletter;
         $this->contactus 	= new contactus;
+        $this->store    = new store;
         $getcategory        = $this->category->get_all('category_name','ASC');
         $arr_cat            = [];
         foreach ($getcategory as $cats) {
@@ -167,6 +169,17 @@ class homeController extends Controller
     	}
     	 
     	return view('front.home.carerrs')->with('data',$result);
+    }
+
+    public function frontstore(Request $request)
+    {
+        if ($this->store->get_id() == NULL) {
+            $result = (object) array('store_content' => "",);
+        }else{
+            $result = $this->store->get_store();
+        }
+         
+        return view('front.home.store')->with('data',$result);
     }
     
     public function faq(Request $request)

@@ -113,6 +113,8 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::post('/newsletter/store', 'newsletterController@store');
 	Route::get('/howorder', 'howorderController@index');
 	Route::post('/howorder/store', 'howorderController@store');
+	Route::get('/store', 'storeController@index');
+	Route::post('/store', 'storeController@store');
 
 	//event
 	Route::get('/event', 'eventController@index');	
@@ -169,3 +171,4 @@ Route::post('/contactus/add', 'homeController@contactusstore');
 Route::get('/newsletter','homeController@newsletter');
 Route::get('/howorder','homeController@howorder');
 Route::get('/search','searchController@index');
+Route::get('/store','homeController@frontstore');

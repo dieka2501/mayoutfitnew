@@ -151,4 +151,10 @@
       <span>Event</span>
     </a>
   </li>
+  <li {{ (Request::is('*store') ? 'class="active"' : '') }}>
+    <a href="{!!config('app.url')!!}public/admin/store">
+      <i class="fa fa-support"></i>
+      <span>Store</span>
+    </a>
+  </li>
 </ul>
