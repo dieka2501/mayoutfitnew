@@ -56,6 +56,8 @@ class productCategoryController extends Controller
         $view['sort_name']   = $sort_name;
         $view['sort']        = $sort;
         $view['order']       = $order;
+        $view['cari']        = "";
+
         return view('front.newrelease.list',$view);
     }
 
