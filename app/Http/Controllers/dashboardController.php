@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Auth;
+use App\order;
 class dashboardController extends Controller
 {
     function __construct(){
@@ -17,7 +18,7 @@ class dashboardController extends Controller
         view()->share('name',session('name'));
         view()->share('email',session('email'));
         view()->share('date_register',session('date_register'));
-
+        $this->order = new order;
     }
     /**
      * Display a listing of the resource.
@@ -27,8 +28,16 @@ class dashboardController extends Controller
     public function index()
     {
         //
-        
-        return view('dashboard.page');
+        $date_start = date('Y-m-01 00:00:00');
+        $date_end   = date('Y-m-31 23:59:59');
+        $order_dibuat   = $this->order->get_order_status_date(0,$date_start,$date_end)->count();
+        $order_dibayar  = $this->order->get_order_status_date(1,$date_start,$date_end)->count();
+        $order_dikirim  = $this->order->get_order_status_date(2,$date_start,$date_end)->count();
+        $order_selesai  = $this->order->get_order_status_date(3,$date_start,$date_end)->count();
+        $order_gagal    = $this->order->get_order_status_date(5,$date_start,$date_end)->count();
+        $semua          = $order_dibuat + $order_dibayar + $order_dikirim + $order_selesai + $order_gagal;
+        $view           = ['dibuat'=>$order_dibuat,'dibayar'=>$order_dibayar,'dikirim'=>$order_dikirim,'selesai'=>$order_selesai,'gagal'=>$order_gagal,'semua'=>$semua];
+        return view('dashboard.page',$view);
     }
 
     /**

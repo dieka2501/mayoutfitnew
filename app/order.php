@@ -82,6 +82,8 @@ class order extends Model
 		return order::select(DB::raw('idorder,TIMESTAMPDIFF(HOUR,created_at,"'.date('Y-m-d H:i:s').'") as selisih'))->where('order_status',0)->get();
 			
 	}
-
+	function get_order_status_date($status,$date_start,$date_end){
+		return order::where('order_status',$status)->whereBetween('created_at',[$date_start,$date_end]);
+	}
 
 }
