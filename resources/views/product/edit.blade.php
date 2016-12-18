@@ -24,6 +24,7 @@
                       <div class="col-sm-9">
                         <input type="text" class="form-control"  name="product_name" id="product_name" value="{!!$product_name!!}" required="required">
                         <input type="hidden" class="form-control"  name="ids" id="ids" value="{!!$ids!!}" required="required">
+                        {!!csrf_field()!!}
                       </div>
                     </div>
                     <div class="form-group">

@@ -22,6 +22,7 @@
                             <input type="text" class="form-control" name='order_name' id='order_name' value='{!!$order_name!!}'>
                             <input type="hidden" class="form-control" name='uniqid' id='uniqid' value="{!!$uniqid!!}">
                             <input type="hidden" class="form-control" name='ids' id='ids' value="{!!$ids!!}">
+                            {!!csrf_field()!!}
                             
 
                         </div>

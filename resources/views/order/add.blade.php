@@ -21,6 +21,7 @@
                           <label>Nama Penerima</label>
                             <input type="text" class="form-control" name='order_name' id='order_name'>
                             <input type="hidden" class="form-control" name='uniqid' id='uniqid' value="{!!$uniqid!!}">
+                             {!!csrf_field()!!}
                         </div>
                       </div>
 
