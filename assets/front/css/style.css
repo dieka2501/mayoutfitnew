@@ -1559,6 +1559,16 @@ p.faq-desc {margin-bottom: 25px;}
 	}
 	#featured-products .row > div > a {margin-top: 5px;margin-bottom: 5px;}
 	.listing-items > .listing-item {width: 50%;}
+	.topbar .navbar-nav > li > a, .topbar .navbar-nav > li > span {
+		font-size: 10px;
+	}
+	.top-bar .navbar-right {
+    float: right!important;
+    margin-right: -15px;
+	}
+	.top-bar .nav>li>a {
+		padding: 10px 5px;
+	}
 }
 @media (max-width: 480px) {
 	#mayoutfit-bighero .caption {top: 20px;}
@@ -1585,6 +1595,7 @@ p.faq-desc {margin-bottom: 25px;}
 .bannersec {
 	position: relative;
 }
-.bannersec img {
+.bannersec img, .top-banner img {
 	max-height: 350px;
+	object-fit: cover;
 }

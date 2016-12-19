@@ -28,9 +28,9 @@
             <ul class="nav navbar-nav">
                 <li><a href="{!!config('app.url')!!}public/login">Log In</a><span>/</span><a href="{!!config('app.url')!!}public/login">Register</a></li>
                 <li><a href="{!!config('app.url')!!}public/payment">Confirm Payment</a></li>
-                <li class="hidden-xs"><a href="#">How to Order</a></li>
+                <li><a href="#">How to Order</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right hidden-xs">
+            <ul class="nav navbar-nav navbar-right">
                 <li class="lang">
                     <a href="#">ENG</a>
                     <a href="#" class="active">ID</a>
