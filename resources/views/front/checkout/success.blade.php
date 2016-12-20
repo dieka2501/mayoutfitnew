@@ -11,7 +11,8 @@
                         <p>ID Pesanan : <strong>{!!$order_code!!}</strong></p>
                         <p>Total Belanja : <strong>Rp {!!$grandtotal!!}</strong></p>
                         <br/>
-                        <p>Terima kasih telah berbelanja di mayoutfit.com.</p><br>
+                        <p>Terima kasih telah berbelanja di mayoutfit.com.</p>
+                        <p>Silakan trf maksimal 1x12 jam ke rekening bca a/n Sinthya Audi 1830712158.</p><br>
                         <p>kalau kamu sudah transfer, silakan konfirmasi di sini, agar pesananmu langsung diproses.</p>
                         <br/>
                         <div class="well">

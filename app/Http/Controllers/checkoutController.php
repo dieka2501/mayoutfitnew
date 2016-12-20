@@ -246,7 +246,9 @@ class checkoutController extends Controller
                 $m->from('no-reply-admin@mayoutfit.com','Admin Mayoutfit');
                 $m->to($user['email'], $user['name'])->subject("Konfirmasi Order No ".$user['no_order']);
             });  
-            $smscontent = "mayoutfit.com%20~%20Hai%20Sist%20".str_replace(" ",'%20', $order_name).",%20thx%20sudah%20belanja%20di%20mayoutfit.com%20(Order%20ID%20".$insert['order_code']."),%20total%20Rp.".number_format($grandtotal).".%20Yuk%20buruan%20trf%20Thanks";
+            $smscontenold = "mayoutfit.com%20~%20Hai%20Sist%20".str_replace(" ",'%20', $order_name).",%20thx%20sudah%20belanja%20di%20mayoutfit.com%20(Order%20ID%20".$insert['order_code']."),%20total%20Rp.".number_format($grandtotal).".%20Yuk%20buruan%20trf%20Thanks";
+            $pesan   =  "Hai Sis ".$order_name." total Rp".number_format($grandtotal)." silakan trf maks 1x12 jam bca a/n sinthya 1830712158 Thx sudah order di mayoutfit.com (Order ID ".$insert['order_code'].") ";
+            $smscontent = str_replace(" ","%20", $pesan);
             $urlsms     =  config('app.urlsms').'?userkey='.config('app.smsuserkey').'&passkey='.config('app.smspasskey').'&nohp='.$order_phone.'&tipe=regular&pesan='.$smscontent."";
             // echo $smscontent.'<br>'.$urlsms;
             $res = $this->curl->get($urlsms);

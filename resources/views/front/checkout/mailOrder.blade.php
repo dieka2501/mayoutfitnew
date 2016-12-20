@@ -66,6 +66,9 @@
 		</div>
 		<div class="content">
 			<p>Hai {!!$billing['order_name']!!}.	</p>
+			<p>Terima kasih telah berbelanja di mayoutfit.com
+			Silakan trf maksimal 1x12 jam ke rekening bca a/n Sinthya Audi 1830712158
+			</p>
 			<h1>Order: {!!$billing['order_code']!!}</h1>
 			<table>
 				<tbody>
