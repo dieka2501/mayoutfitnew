@@ -382,7 +382,7 @@ class orderController extends Controller
         $data['qr'] = $string;
         // $print['print'] = 1;
         $this->order->edit($id,['order_is_printed'=>1]);
-        $smscontent = "mayoutfit.com%20~%20Hai%20Sist%20".str_replace(" ",'%20',$getintern->order_name).",%20order%20kamu%20(Order%20ID%20".$getintern->order_code."),%20akan%20segera%20dikirim";
+        $smscontent = "mayoutfit.com%20~%20Hai%20Sist%20".str_replace(" ",'%20',$getintern->order_name).",%20order%20kamu%20(Order%20ID%20".$getintern->order_code."),%20akan%20segera%20dikirim,%20silakan%20cek%20resi%20di%20instagram%20@inforesi_mayoutfit%20Semoga%20cepat%20sampai%20brgnya:)";
         $urlsms     =  config('app.urlsms').'?userkey='.config('app.smsuserkey').'&passkey='.config('app.smspasskey').'&nohp='.$getintern->order_phone.'&pesan='.$smscontent."";
         // echo $smscontent.'<br>'.$urlsms;
 
