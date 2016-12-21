@@ -45,6 +45,7 @@ class orderController extends Controller
      */
     public function index(Request $request)
     {
+        // var_dump($request->session()->all());
         if($request->has('cari')){
             $cari       = $request->input('cari');
 
@@ -369,6 +370,7 @@ class orderController extends Controller
         $data['penerima']       = $getintern->order_name;
         $data['pengirim']       = $getintern->order_shipment_name;
         $data['no_hp']          = $getintern->order_shipment_phone;
+        $data['no_hp_pengirim'] = $getintern->order_phone;
         $data['alamat']         = $getintern->order_shipment_address;
         $data['provinsi']       = $getintern->nama_provinsi;
         $data['kota']           = $getintern->nama_kota;

@@ -149,7 +149,7 @@
             </tr>
             <tr>
                 <td>Tlp <div class="text-right" style="padding-right:10px;font-weight:bold;">:</div></td>
-                <td class="border-bottom border-left border-right" style="font-weight:bold"><?php if (isset($no_hp)) {echo $no_hp;} else { echo "-";} ?></td>
+                <td class="border-bottom border-left border-right" style="font-weight:bold"><?php if ($no_hp!="") {echo $no_hp;} else { echo $no_hp_pengirim;} ?></td>
                 <td class="border-right"></td>
             </tr>
             <tr>
@@ -161,7 +161,7 @@
                 // $getadmin = DB::table('intern_user')->select('nama')->where('id', $no_order)->groupBy('nama')->get();
                 // foreach ($getadmin as $rowadmin) {
                 //   echo $rowadmin->nama;
-                echo $admin;
+                if($admin !=""){echo $admin;}else{echo session('username');};
                 // }
                 ?>
                 </td>
