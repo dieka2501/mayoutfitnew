@@ -150,6 +150,7 @@ class loginFrontController extends Controller
             $request->session()->put('customer_city',$data->customer_city);
             $request->session()->put('customer_district',$data->customer_district);
             $request->session()->put('customer_zip',$data->customer_zip);
+            $request->session()->put('customer_member',$data->customer_member);
             return redirect('/');
         }else{
             $request->session()->flash("notip","<div class='alert alert-danger'>Email/Password kamu salah, atau akun kamu belum diverifikasi.</div>");

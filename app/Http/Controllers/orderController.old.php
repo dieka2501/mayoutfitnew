@@ -10,7 +10,6 @@ use App\order;
 use App\orderDetail;
 use App\provinsi; 
 use App\product; 
-
 use App\kota;
 use App\kecamatan;
 use App\ongkir;
@@ -32,7 +31,6 @@ class orderController extends Controller
         $this->product      = new product;
         // $this->category     = new category;
         $this->path         = public_path().'/upload/';
-
         $this->kota         = new kota;
         $this->kecamatan    = new kecamatan;
         $this->ongkir       = new ongkir;
@@ -206,7 +204,6 @@ class orderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function edit(Request $request,$id)
     {
         $getdata                = $this->order->get_id_join_loc($id);
@@ -271,7 +268,6 @@ class orderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function update(Request $request)
     {
         // var_dump($request->input());die;
@@ -375,7 +371,7 @@ class orderController extends Controller
         $data['pengirim']       = $getintern->order_shipment_name;
         $data['no_hp']          = $getintern->order_shipment_phone;
         $data['no_hp_pengirim'] = $getintern->order_phone;
-        $data['alamat']         = ($getintern->order_shipment_address != "")?$getintern->order_shipment_address:$getintern->order_address;
+        $data['alamat']         = $getintern->order_shipment_address;
         $data['provinsi']       = $getintern->nama_provinsi;
         $data['kota']           = $getintern->nama_kota;
         $data['kecamatan']      = $getintern->nama_kecamatan;

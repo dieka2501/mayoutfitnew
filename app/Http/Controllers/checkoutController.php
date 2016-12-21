@@ -18,6 +18,7 @@ use Mail;
 use App\curl;
 use App\voucher;
 use App\usedVoucher;
+use App\memberType;
 class checkoutController extends Controller
 {
     function __construct(){
@@ -33,6 +34,7 @@ class checkoutController extends Controller
         $this->kecamatan    = new kecamatan;
         $this->ongkir       = new ongkir;
         $this->usedVoucher  = new usedVoucher;
+        $this->mt   = new memberType;
         $getcategory        = $this->category->get_all('category_name','ASC');
         $arr_cat            = [];
         foreach ($getcategory as $cats) {
@@ -60,8 +62,26 @@ class checkoutController extends Controller
         $count = count(session('cart.idproduct'));
         // var_dump(var_dump(session()->all()));
         if($count > 0){
+
             $getuniqueid        = $this->order->get_order_today_web();
             $cuniqueid          = count($getuniqueid);
+            $membertype         = session('customer_member');
+            if($membertype != 0){
+                 $get_membertype       = $this->mt->get_active($membertype);
+                 if($get_membertype->count() >0){
+                    $memberdata = $get_membertype->first();
+                    $member_diskon        = $memberdata->membertype_discount;        
+                    $member_diskon_type   = $memberdata->membertype_disc_type;
+                 }else{
+                    $member_diskon = "";
+                    $member_diskon_type = "";
+                 }
+                 
+            }else{
+                $member_diskon = "";
+                $member_diskon_type = "";
+            }
+           
             $getprovinsi = $this->provinsi->get_all('nama_provinsi','ASC');
             $arr_provinsi = [''=>'-- Pilih Provinsi --'];
             foreach ($getprovinsi as $prov) {
@@ -125,6 +145,8 @@ class checkoutController extends Controller
             $view['customer_address']   = session('customer_address');
             $view['customer_phone']     = session('customer_phone');
             $view['customer_zip']       = session('customer_zip');
+            $view['member_diskon']      = $member_diskon;
+            $view['member_diskon_type'] = $member_diskon_type;
             return view('front.delivery.page',$view);    
         }else{
             return redirect('/new');
@@ -174,6 +196,7 @@ class checkoutController extends Controller
         $ongkir                 = $request->input('totkirim');
         $tempgrandtotal         = $request->input('grandtotal');
         $order_note             = $request->input('order_note');
+        $memberdiskon           = $request->input('member_total_diskon');
         $voucher                = $request->input('out-voucher');
         $kodevoucher            = $request->input('voucher');
         $berat                  = $request->input('inberat');
@@ -196,7 +219,7 @@ class checkoutController extends Controller
         $insert['city_id']                  = $id_kota;
         $insert['district_id']              = $id_kecamatan;
         $insert['order_total']              = $grandtotal;
-        $insert['order_discount']           = $voucher;
+        $insert['order_discount']           = $voucher+$memberdiskon;
         $insert['order_shipment_name']      = $order_shipment_name;
         $insert['order_shipment_phone']     = $order_shipment_phone;
         $insert['order_shipment_address']   = $order_shipment_address;

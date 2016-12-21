@@ -43,11 +43,13 @@ class memberTypeController extends Controller
         $membertype_name                = session('membertype_name');
         $membertype_status              = session('membertype_status');
         $membertype_discount            = session('membertype_discount');
+        $membertype_disc_type           = session('membertype_disc_type');
         $view['url']                    = config('app.url')."public/admin/membertype/add";
         $view['notip']                  = session('notip');
         $view['membertype_name']        = $membertype_name;
         $view['membertype_status']      = $membertype_status;
         $view['membertype_discount']    = $membertype_discount;
+        $view['membertype_disc_type']   = $membertype_disc_type;
         return view('membertype.add',$view);
     }
 
@@ -56,9 +58,11 @@ class memberTypeController extends Controller
         $membertype_name                    = $request->input('membertype_name');
         $membertype_status                  = $request->input('membertype_status');
         $membertype_discount                = $request->input('membertype_discount');
+        $membertype_disc_type               = $request->input('membertype_disc_type');
         $insert['membertype_name']          = $membertype_name;
         $insert['membertype_status']        = $membertype_status;
         $insert['membertype_discount']      = $membertype_discount;
+        $insert['membertype_disc_type']     = $membertype_disc_type;
         $insert['created_at']               = date('Y-m-d H:i:s');
 
         $cekmembertype  = $this->memberType->get_membertype($membertype_name);
@@ -89,10 +93,12 @@ class memberTypeController extends Controller
         $membertype_name                = $getdata->membertype_name;
         $membertype_status              = $getdata->membertype_status;
         $membertype_discount            = $getdata->membertype_discount;
+        $membertype_disc_type           = $getdata->membertype_disc_type;
         $view['idmembertype']           = $id;
         $view['membertype_name']        = $membertype_name;
         $view['membertype_status']      = $membertype_status; 
-        $view['membertype_discount']    = $membertype_discount; 
+        $view['membertype_discount']    = $membertype_discount;
+        $view['membertype_disc_type']   = $membertype_disc_type; 
         $view['url']                    = config('app.url')."public/admin/membertype/edit";
         $view['notip']                  = session('notip');
         return view('membertype.edit',$view);
@@ -103,27 +109,29 @@ class memberTypeController extends Controller
         $ids                                = $request->input('idmembertype');
         $membertype_name                    = $request->input('membertype_name');
         $membertype_status                  = $request->input('membertype_status');
-        $membertype_discount                  = $request->input('membertype_discount');
+        $membertype_discount                = $request->input('membertype_discount');
+        $membertype_disc_type               = $request->input('membertype_disc_type');
         $insert['membertype_name']          = $membertype_name;
         $insert['membertype_status']        = $membertype_status;
-        $insert['membertype_discount']        = $membertype_discount;
+        $insert['membertype_discount']      = $membertype_discount;
+        $insert['membertype_disc_type']     = $membertype_disc_type;
         $insert['updated_at']               = date('Y-m-d H:i:s');
 
-        $cekmembertype  = $this->memberType->get_membertype($membertype_name);
-        if($cekmembertype == NULL){
+        
+        if(true){
             if($this->memberType->edit($ids,$insert)){
                 $request->session()->flash('notip','<div class="alert alert-success">Data added successful</div>');
                 return redirect('/admin/membertype');
             }else{
                 $request->session()->flash('membertype_name',$membertype_name);
                 $request->session()->flash('membertype_status',$membertype_status);
-                $request->session()->flash('notip','<div class="alert alert-danger">Add data failed, please try again</div>');
+                $request->session()->flash('notip','<div class="alert alert-danger">Update data failed, please try again</div>');
                 return redirect('/admin/membertype/edit/'.$ids);            
             }
         }else{
             $request->session()->flash('membertype_name',$membertype_name);
             $request->session()->flash('membertype_status',$membertype_status);
-            $request->session()->flash('notip','<div class="alert alert-danger">Add data failed, Member Type is already</div>');
+            $request->session()->flash('notip','<div class="alert alert-danger">Update data failed</div>');
             return redirect('/admin/membertype/edit/'.$ids);
         }
     }

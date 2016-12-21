@@ -14,6 +14,7 @@ class memberType extends Model
         return memberType::where('membertype_name',$membertype_name)->first();
     }
 
+
     function get_page(){
         return memberType::orderBy($this->primaryKey,'DESC')->where('deleted_at',NULL)->paginate(20);
     }
@@ -28,6 +29,9 @@ class memberType extends Model
 
     function get_id($id){
         return memberType::find($id);
+    }
+    function get_active($id){
+        return memberType::where('membertype_status',1)->where($this->primaryKey,$id);
     }
 
     function edit($id,$data){

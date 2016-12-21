@@ -91,6 +91,7 @@
                             <div class="clearfix add-address ch-address-type-option">
 
                             </div>
+                            @if(session('customer_member') == 0)
                             <div id="addnew" style="background:#f5f5f5;padding:20px;">
                               <div class="form-group">
                                 <label>Masukan Voucher</label>
@@ -98,6 +99,7 @@
                                   <button type="button" id='voucher'>Cek Voucher</button>
                               </div> 
                             </div>
+                            @endif
                           </div>
                         </div>
                         <!-- End of shipping -->
@@ -130,7 +132,7 @@
                                 </tr>
                                 @endfor
                                 <?php 
-                                    if(session('customer_member') != 0){
+                                    if(session("customer_member") != 0){
                                         if($member_diskon_type == 'nomimal'){
                                         $realdiskon = $member_diskon; 
                                       }else{
@@ -193,6 +195,7 @@
                                     <input type='hidden' id='totkirim' name='totkirim' >
                                     <input type='hidden' id='member_diskon' name='member_diskon' value="{!!$member_diskon!!}" >
                                     <input type='hidden' id='member_diskon_type' name='member_diskon_type' value="{!!$member_diskon_type!!}">
+                                    <input type='hidden' id='member_total_diskon' name='member_total_diskon' value="{!!$realdiskon!!}">
                                     <?php 
 
                                     ?>
@@ -208,8 +211,8 @@
                                 @if(session("customer_member") != 0)
                                 <tr>
                                   <td class="subtotal highlight shipping-cost-free">Diskon Member</td>
-                                  <td class="right-align highlight shipping-cost-free" colspan="2">Rp. <p id='htmlvoucher'>0 </p>
-                                    <input type='hidden' id='out-voucher' name='out-voucher'  value="0">
+                                  <td class="right-align highlight shipping-cost-free" colspan="2">Rp. <p id='htmlmember'>{!!number_format($realdiskon)!!} </p>
+                                    
                                   </td>
                                 </tr>
                                 @endif
@@ -306,9 +309,10 @@
           }
           var subtotal = $('#hidsubtotal').val();
           var voucher  = $('#out-voucher').val();
+          var memberdis = $('#member_total_diskon').val();
           // console.log(parseInt(nextid));
           var jmlkirim = valkirim * jmlberat;
-          var total    = parseInt(jmlkirim)  + parseInt(subtotal) - parseInt(voucher);
+          var total    = (parseInt(jmlkirim)  + parseInt(subtotal)) - parseInt(voucher) ;
           $('#ongkir').html(jmlkirim);
           $('#totkirim').val(jmlkirim);
           $('#grandtotal').html(total);
