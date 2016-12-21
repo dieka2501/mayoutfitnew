@@ -129,7 +129,21 @@
                                   <td class="right-align sel-cart-item-total-MI399OTAA42B24ANID-7914138">Rp. {!!number_format($price[$icart])!!}</td>
                                 </tr>
                                 @endfor
-                                <?php $subtotal += $uniqid?>
+                                <?php 
+                                    if(session('customer_member') != 0){
+                                        if($member_diskon_type == 'nomimal'){
+                                        $realdiskon = $member_diskon; 
+                                      }else{
+                                        $realdiskon = ($member_diskon/100)*$subtotal;
+                                      }
+                                    }else{
+                                      $realdiskon = 0;
+                                    }
+                                      
+                                      
+
+                                ?>
+                                <?php $subtotal = ($subtotal-$realdiskon) + $uniqid?>
                               </tbody>
                             </table>
                           </div>
@@ -177,6 +191,11 @@
                                     ?>
                                     <input type='hidden' id='inberat' name='inberat' value='{!!$jmlberat!!}'>
                                     <input type='hidden' id='totkirim' name='totkirim' >
+                                    <input type='hidden' id='member_diskon' name='member_diskon' value="{!!$member_diskon!!}" >
+                                    <input type='hidden' id='member_diskon_type' name='member_diskon_type' value="{!!$member_diskon_type!!}">
+                                    <?php 
+
+                                    ?>
                                     
                                   </td>
                                 </tr>
@@ -186,6 +205,14 @@
                                     <input type='hidden' id='out-voucher' name='out-voucher'  value="0">
                                   </td>
                                 </tr>
+                                @if(session("customer_member") != 0)
+                                <tr>
+                                  <td class="subtotal highlight shipping-cost-free">Diskon Member</td>
+                                  <td class="right-align highlight shipping-cost-free" colspan="2">Rp. <p id='htmlvoucher'>0 </p>
+                                    <input type='hidden' id='out-voucher' name='out-voucher'  value="0">
+                                  </td>
+                                </tr>
+                                @endif
                                 <tr class="total">
                                   <td class="total"><strong class="total-label">Total</strong> <span class="vat-minicart">(Termasuk PPN)</span></td>
                                   <td class="total right-align sel-total" colspan="2"><strong class="total-price">Rp. <p id="grandtotal">{!!number_format($subtotal)!!}</p></strong>

@@ -16,6 +16,10 @@
                 <input type='hidden' name='idmembertype' value='{!!$idmembertype!!}'/>
               </div>
               <div class="form-group">
+                <label>Type Discount</label>
+                {!!Form::select('membertype_disc_type',['nominal'=>"Nominal",'persen'=>'Persen'],$membertype_disc_type,['class'=>'form-control'])!!}
+              </div>
+              <div class="form-group">
                 <label>Discount</label>
                 <input type="text" class="form-control" name='membertype_discount' id='membertype_discount' value='{!!$membertype_discount!!}' required="required" placeholder="Dalam Rupiah">
               </div>

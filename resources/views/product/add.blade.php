@@ -52,7 +52,7 @@
                           <div class="input-group-addon">
                             Rp
                           </div>
-                          <input type="text" class="form-control" name="product_price" id="product_price_sale"  value="{!!$product_price_sale!!}" >
+                          <input type="text" class="form-control" name="product_price_sale" id="product_price_sale"  value="{!!$product_price_sale!!}" >
                         </div><!-- /.input group -->
                       </div>
                     </div>

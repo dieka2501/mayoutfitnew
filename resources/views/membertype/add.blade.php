@@ -15,9 +15,14 @@
                 <input type="text" class="form-control" name='membertype_name' id='membertype_name' value='{!!$membertype_name!!}' required="required">
               </div>
               <div class="form-group">
-                <label>Discount</label>
-                <input type="text" class="form-control" name='membertype_discount' id='membertype_discount' value='{!!$membertype_discount!!}' required="required" placeholder="Dalam Rupiah">
+                <label>Type Discount</label>
+                {!!Form::select('membertype_disc_type',['nominal'=>"Nominal",'persen'=>'Persen'],$membertype_disc_type,['class'=>'form-control'])!!}
               </div>
+              <div class="form-group">
+                <label>Discount</label>
+                <input type="text" class="form-control" name='membertype_discount' id='membertype_discount' value='{!!$membertype_discount!!}' required="required" placeholder="">
+              </div>
+              
               <div class="form-group">
                 <label>Status</label>
                 {!! Form::select('membertype_status', [
