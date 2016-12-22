@@ -451,4 +451,19 @@ class orderController extends Controller
         $view['url']        = config('app.url').'public/admin/order/konfirm/kirim';
         return view('confirmation.delivery',$view);
     }
+    function ganti_status($id){
+        $getorder           = $this->order->get_id($id);
+        $view['url']        = config('app.url')."public/admin/order/change";
+        $view['order_code'] = $getorder->order_code;
+        $view['order_status'] = $getorder->order_status;
+        $view['idorder']    = $getorder->idorder;
+        return view('order.statechange',$view);
+    }
+    function do_change(Request $request){
+        $idorder      = $request->input('idorder');
+        $status        = $request->input('change');
+        $this->order->edit($idorder,['order_status'=>$status]);
+        return redirect('/admin/order/change/'.$idorder);
+
+    }
 }

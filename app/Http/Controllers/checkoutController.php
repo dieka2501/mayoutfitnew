@@ -209,7 +209,13 @@ class checkoutController extends Controller
         // }
         
         // $uniqid                 = substr(strtoupper(md5($order_name.date('YmdHis'))), -7);
-        $insert['order_code']               = "MO-02".date('Ymd').$unik; 
+        $kodeunique                         = "MO-02".date('Ymd').$unik;
+        $getkodeorder                       = $this->order->get_code($kodeunique)->count();
+        if($getkodeorder > 0){
+            $randid     = rand(000,999);
+            $kodeunique = $kodeunique.$randid;
+        }
+        $insert['order_code']               = $kodeunique; 
         $insert['order_name']               = $order_name;
         $insert['customer_id']              = session('idcustomer');
         $insert['order_phone']              = $order_phone;
@@ -228,6 +234,7 @@ class checkoutController extends Controller
         $insert['order_note']               = $order_note;
         $insert['order_system']             = "web";        
         $insert['created_at']               = date('Y-m-d H:i:s');
+
         $ids = $this->order->add($insert);
         if($ids > 0){
             $count          = count(session('cart.idproduct'));
