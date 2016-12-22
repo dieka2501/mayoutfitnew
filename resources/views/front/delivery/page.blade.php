@@ -92,7 +92,7 @@
 
                             </div>
                             @if(session('customer_member') == 0)
-                            <div id="addnew" style="background:#f5f5f5;padding:20px;">
+                            <div id='tdvoucher' style="background:#f5f5f5;padding:20px;">
                               <div class="form-group">
                                 <label>Masukan Voucher</label>
                                   <input type="text" name="voucher" class="form-control" id='input-voucher'>
@@ -142,7 +142,7 @@
                                       $realdiskon = 0;
                                     }
                                       
-                                      
+                                      $temptotal = $subtotal;
 
                                 ?>
                                 <?php $subtotal = ($subtotal-$realdiskon) + $uniqid?>
@@ -170,6 +170,7 @@
                                   <td class="subtotal sel-subtotal">Subtotal</td>
                                   <td class="right-align" colspan="2">Rp. {!!number_format($subtotal)!!}
                                   <input type="hidden" name="hidsubtotal" id="hidsubtotal" value="{!!$subtotal!!}">
+                                  <input type="hidden" name="temptotal" id="temptotal" value="{!!$temptotal!!}">
                                   </td>
                                 </tr>
                                 <tr>
@@ -192,7 +193,7 @@
 
                                     ?>
                                     <input type='hidden' id='inberat' name='inberat' value='{!!$jmlberat!!}'>
-                                    <input type='hidden' id='totkirim' name='totkirim' >
+                                    <input type='hidden' id='totkirim' name='totkirim' value="0">
                                     <input type='hidden' id='member_diskon' name='member_diskon' value="{!!$member_diskon!!}" >
                                     <input type='hidden' id='member_diskon_type' name='member_diskon_type' value="{!!$member_diskon_type!!}">
                                     <input type='hidden' id='member_total_diskon' name='member_total_diskon' value="{!!$realdiskon!!}">
@@ -301,6 +302,7 @@
         $('#type_kirim').change(function(){
 
           var valkirim = $(this).val();
+          var nextid        = $('#nextid').val();
           var tempberat = Math.round($('#inberat').val()/1000);
           if(tempberat == 0){
               jmlberat = 1 
@@ -312,7 +314,7 @@
           var memberdis = $('#member_total_diskon').val();
           // console.log(parseInt(nextid));
           var jmlkirim = valkirim * jmlberat;
-          var total    = (parseInt(jmlkirim)  + parseInt(subtotal)) - parseInt(voucher) ;
+          var total    = (parseInt(jmlkirim)  + parseInt(subtotal)) + parseInt(nextid)- parseInt(voucher) ;
           $('#ongkir').html(jmlkirim);
           $('#totkirim').val(jmlkirim);
           $('#grandtotal').html(total);
@@ -349,6 +351,12 @@
     <script type="text/javascript">
         $(document).ready(function(){
           // alert('adsdsd');
+          $(this).ajaxStart(function(){
+                $('#voucher').hide();
+            }).ajaxStop(function(){
+                $('#voucher').show();
+            })
+
             $('#voucher').click(function(){
                 var codevoucher = $('#input-voucher').val();
                 $.post("{!!config('app.url')!!}public/api/voucher/cek",{
@@ -357,9 +365,11 @@
                     // var count = data.length;
                     // console.log(data);
                     // console.log(data.length);
-                    var total         = $('#input-grandtotal').val();
+                    var total         = $('#temptotal').val();
                     var realdiskon    = 0;
                     var newtotal      = 0;
+                    var totkirim      = $('#totkirim').val();
+                    var nextid        = $('#nextid').val();
                     if(data.status){
                         if(data.data.voucher_type == "nominal"){
                           realdiskon = data.data.voucher_discount;
@@ -370,12 +380,12 @@
                           
                         }
                         alert("Selamat kamu dapat potongan harga Rp."+realdiskon);
-                        newtotal = total-realdiskon;
+                        newtotal = (parseInt(total)+parseInt(totkirim) + parseInt(nextid))-parseInt(realdiskon);
                         $('#input-grandtotal').val(newtotal);
                         $('#grandtotal').html(newtotal);
                         $('#out-voucher').val(realdiskon);
                         $('#htmlvoucher').html(realdiskon);
-
+                        $("#tdvoucher").hide();
                     }else{
                       alert(data.alert);
                     }

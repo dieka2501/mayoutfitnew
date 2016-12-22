@@ -201,7 +201,7 @@ class checkoutController extends Controller
         $kodevoucher            = $request->input('voucher');
         $berat                  = $request->input('inberat');
         $getvoucher             = $this->voucher->get_vouchercode_stat($voucher);
-        $grandtotal             = $tempgrandtotal - $voucher;
+        $grandtotal             = $tempgrandtotal;
         // if($request->has('voucher')){
             
         // }else{
