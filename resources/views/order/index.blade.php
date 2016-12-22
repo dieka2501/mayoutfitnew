@@ -87,6 +87,7 @@
                           <ul class="dropdown-menu" role="menu">
                             @if($role == 'owner' || $role== 'order')
                               <li><a href="{!!config('app.url')!!}public/admin/order/edit/{!!$lists->idorder!!}">Edit</a></li>
+                              <li><a href="{!!config('app.url')!!}public/admin/order/change/{!!$lists->idorder!!}">Ganti Status</a></li>
                             @endif
                             @if($lists->order_status != 5)
                               @if($role == 'owner' || $role == 'confirm' || $role == 'order')
