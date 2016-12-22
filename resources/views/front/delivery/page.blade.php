@@ -291,9 +291,7 @@
               if(parseInt(data.reg) > 0){
                 htmlkirim += '<option value="'+data.reg+'">REGULER</option>';  
               }
-              if(parseInt(data.yes) > 0){
-                htmlkirim += '<option value="'+data.yes+'">YES</option>';  
-              }
+              
               $('#type_kirim').html(htmlkirim);
               
            });
