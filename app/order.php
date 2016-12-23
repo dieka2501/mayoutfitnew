@@ -85,5 +85,8 @@ class order extends Model
 	function get_order_status_date($status,$date_start,$date_end){
 		return order::where('order_status',$status)->whereBetween('created_at',[$date_start,$date_end]);
 	}
+	function get_code($code){
+		return order::where('order_code',$code);
+	}
 
 }

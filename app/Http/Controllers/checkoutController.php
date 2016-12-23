@@ -213,9 +213,11 @@ class checkoutController extends Controller
         $getkodeorder                       = $this->order->get_code($kodeunique)->count();
         if($getkodeorder > 0){
             $randid     = rand(000,999);
-            $kodeunique = $kodeunique.$randid;
+            $kodeorder = $kodeunique.$randid;
+        }else{
+            $kodeorder = $kodeunique;
         }
-        $insert['order_code']               = $kodeunique; 
+        $insert['order_code']               = $kodeorder; 
         $insert['order_name']               = $order_name;
         $insert['customer_id']              = session('idcustomer');
         $insert['order_phone']              = $order_phone;

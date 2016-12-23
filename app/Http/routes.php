@@ -51,7 +51,9 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('/order/konfirm/bayar/{id}', 'orderController@konfirm_bayar');	
 	Route::post('/order/konfirm/bayar', 'orderController@do_payment');
 	Route::get('/order/konfirm/kirim/{id}', 'orderController@konfirm_kirim');		
-	Route::post('/order/konfirm/kirim', 'shipmentController@add_shipment');		
+	Route::post('/order/konfirm/kirim', 'shipmentController@add_shipment');	
+	Route::get('/order/change/{id}', 'orderController@ganti_status');		
+	Route::post('/order/change', 'orderController@do_change');		
 
 	//Report Order
 	Route::get('/report/order', 'reportOrderController@index');	
