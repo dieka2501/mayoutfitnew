@@ -76,7 +76,11 @@
 
                         ?>
                       <td>{!!$stat!!} {!!$printed!!}</td>
-                      <td>{!!$lists->order_system!!} </td>
+                      @if($lists->order_system == 'web')
+                        <td>{!!$lists->order_system!!} </td>
+                      @else
+                        <td>{!!$lists->order_admin!!} </td>
+                      @endif
                       <td>
                         <div class="btn-group">
                           <button type="button" class="btn btn-default btn-flat">Action</button>
