@@ -241,7 +241,7 @@
                           </div>
 
                           <div class="form-group">
-                            <label class="col-sm-4 control-label">Diskon Total</label>
+                            <label class="col-sm-4 control-label">Diskon Total (%)</label>
                             <div class="col-sm-3">
                               <input type="text" name="diskon_total" id="diskon_total" class="form-control" value="0" >
                             </div>
@@ -371,7 +371,8 @@
               var diskon_tot  = $('#diskon_total').val();
               var biaya_kirim = parseInt($("#order_shipment_price").val())*kg;
               var uniqid      = parseInt($('#uniqid').val());
-              var total_all   = (parseInt(jml_sub)+parseInt(biaya_kirim)) -  parseInt(diskon_tot);
+              var no_diskon   = (parseInt(diskon_tot)/100)*parseInt(jml_sub);
+              var total_all   = (parseInt(jml_sub)+parseInt(biaya_kirim)) -  parseInt(no_diskon);
               var grand       = total_all + uniqid;
               $("#grand_total").val(grand);
           }
