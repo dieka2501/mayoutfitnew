@@ -21,11 +21,24 @@
                       {!!Form::open(['url'=>$url,'method'=>'GET'])!!}
                         <div class='row'>
                             <div class="col-md-5">
+                                <input type="text" name="date_start" id='date_start' class="form-control date" placeholder="Tanggal Awal" value="{!!$date_start!!}">
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" name="date_end" id='date_end' class="form-control date" placeholder="Tanggal Akhir" value="{!!$date_end!!}">
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class="col-md-5">
                                 <input type="text" name="cari" id='cari' class="form-control" placeholder="Masukan Kata Kunci" value="{!!$cari!!}">
                             </div>
                             <div class="col-md-5">
-                                <button class="btn btn-box-tool" type='submit'><i class="fa fa-search"></i> <span class="hidden-xs">Search</span></button>
+                                
                             </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                              <button class="btn btn-primary" type='submit'><i class="fa fa-search"></i> <span class="hidden-xs">Search</span></button>
+                          </div>
                         </div>
                       
                       {!!Form::close()!!}
@@ -135,7 +148,7 @@
                   </tr>
                   </tfoot>
                   </table>
-                  <p>{!!$list->appends(['cari'=>$cari])->render()!!}</p>
+                  <p>{!!$list->appends(['cari'=>$cari,'date_start'=>$date_start,'date_end'=>$date_end])->render()!!}</p>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col -->
@@ -252,5 +265,12 @@
   
           $('#MyModal').modal('show');
       }
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+        $('.date').datepicker({
+            dateFormat:'yy-mm-dd'
+        });
+    });
   </script>
 @stop        

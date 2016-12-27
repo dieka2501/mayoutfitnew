@@ -16,8 +16,20 @@ class order extends Model
 	function get_page(){
 		return order::orderBy($this->primaryKey,'DESC')->paginate(20);
 	}
-	function get_search($cari){
-		return order::orderBy($this->primaryKey,'DESC')->where('order_code','like','%'.$cari.'%')->orWhere('order_name','like','%'.$cari.'%')->orWhere('order_total','like','%'.$cari.'%')->paginate(20);	
+	function get_search($cari,$date_start,$date_end){
+		if($date_start != ""){
+			$where_date_start = $date_start;
+		}else{
+			$where_date_start = "1988-01-01";
+		}
+		if($date_end != ""){
+			$where_date_end = $date_end;
+		}else{
+			$where_date_end = "2999-12-31";
+		}
+		return order::orderBy($this->primaryKey,'DESC')->whereBetween('created_at',[$where_date_start." 00:00:00",$where_date_end." 23:59:59"])->where(function($query) use ($cari){
+			$query->where('order_code','like','%'.$cari.'%')->orWhere('order_name','like','%'.$cari.'%')->orWhere('order_total','like','%'.$cari.'%');
+		})->paginate(20);	
 	}
 	function add($data){
 		return order::insertGetId($data);

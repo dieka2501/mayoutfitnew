@@ -48,19 +48,25 @@ class orderController extends Controller
     public function index(Request $request)
     {
         // var_dump($request->session()->all());
-        if($request->has('cari')){
+        if($request->has('cari') || $request->has('date_start') || $request->has('date_end')){
             $cari       = $request->input('cari');
-
-            $get_data   = $this->order->get_search($cari);    
+            $date_start = $request->input('date_start');
+            $date_end   = $request->input('date_end');
+            // var_dump($date_start);
+            $get_data   = $this->order->get_search($cari,$date_start,$date_end);    
             // var_dump($get_data);die;
         }else{
-            $cari       = "";
+            $cari       = $request->input('cari');
+            $date_start = $request->input('date_start');
+            $date_end   = $request->input('date_end');
             $get_data   = $this->order->get_page();    
         }
         // var_dump(session()->all());
         $view['url']        = config('app.url').'public/admin/order';
         $view['list']       = $get_data;
         $view['cari']       = $cari;
+        $view['date_start'] = $date_start;
+        $view['date_end']   = $date_end;
         return view('order.index',$view);
         //
     }
