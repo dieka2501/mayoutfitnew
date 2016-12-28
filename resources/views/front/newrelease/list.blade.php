@@ -80,7 +80,7 @@
                             @endif
                             
                         </a>
-                        @if($lists->product_stock != '0')
+                        @if($lists->product_stock  > 1)
                         <a href="{!!config('app.url')!!}public/cart/add/{!!$lists->idproduct!!}" class="btn btn-warning btn-xs" style="height: 30px;line-height: 25px;">Add To Cart</a>
                         @else
                             {!!"SOLD OUT"!!}
