@@ -373,7 +373,7 @@
                 kg = 1;
               } 
               var diskon_tot  = $('#diskon_total').val();
-              var biaya_kirim = parseInt($("#order_shipment_price").val())*kg;
+              var biaya_kirim = parseInt($("#order_shipment_price").val());
               var uniqid      = parseInt($('#uniqid').val());
               var no_diskon   = (parseInt(diskon_tot)/100)*parseInt(jml_sub);
               var total_all   = (parseInt(jml_sub)+parseInt(biaya_kirim)) -  parseInt(no_diskon);

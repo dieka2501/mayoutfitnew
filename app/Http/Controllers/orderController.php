@@ -242,10 +242,10 @@ class orderController extends Controller
         $order['order_phone']               = $getdata->order_phone;
         $order['order_shipment_name']       = $getdata->order_shipment_name;
         $order['order_shipment_phone']      = $getdata->order_shipment_phone;
-        $order['order_shipment_address']    = $getdata->order_shipment_address;
+        $order['order_shipment_address']    = ($getdata->order_shipment_address=="")?$getdata->order_address:$getdata->order_shipment_address;
         $order['order_shipment_zip']        = $getdata->order_shipment_zip;
         $order['order_shipment_price']      = $getdata->order_shipment_price;
-        $order['weight']                    = (is_numeric($getdata->order_weight) && $getdata->order_weight!=0 )?$getdata->order_weight:1;
+        $order['weight']                    = (is_numeric($getdata->order_weight) && $getdata->order_weight!=0 )?$getdata->order_weight:1000;
         $order['diskon_total']              = $getdata->order_discount;
         $order['grand_total']               = $getdata->order_total;
         $order['order_note']                = $getdata->order_note;
@@ -300,7 +300,7 @@ class orderController extends Controller
         $provinsi               = $request->input('provinsi');
         $kota                   = $request->input('kota');
         $kecamatan              = $request->input('kecamatan');
-        $order_address          = $request->input('order_address');
+        $order_address          = $request->input('order_shipment_address');
         $order_shipment_price   = $request->input('order_shipment_price');
         $order_shipment_zip     = $request->input('order_shipment_zip');
         $weight                 = $request->input('weight');
