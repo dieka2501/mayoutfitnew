@@ -50,7 +50,8 @@
     <script src="{!!config('app.url')!!}assets/dashboard/plugins/datatables/dataTables.bootstrap.min.js"></script>
     <!-- AdminLTE App -->
     <script src="{!!config('app.url')!!}assets/dashboard/dist/js/app.min.js"></script>
-    <script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
+    <!-- <script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script> -->
+    <script src="{!!config('app.url')!!}assets/dashboard/plugins/ckeditor/ckeditor.js"></script>
     <!-- SlimScroll 1.3.0 -->
     <script src="{!!config('app.url')!!}assets/dashboard/plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <!-- ChartJS 1.0.1 -->

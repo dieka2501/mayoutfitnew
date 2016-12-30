@@ -35,4 +35,9 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Make dialogs simpler.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
+	
+	config.extraPlugins = 'imageuploader';
+	config.extraPlugins = 'filetools';
+	config.extraPlugins = 'ckfinder';
+	config.extraPlugins = 'notificationaggregator';
 };
