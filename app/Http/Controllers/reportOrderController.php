@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+header("Content-Type: text/plain; charset=utf-8");
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -34,8 +34,8 @@ class reportOrderController extends Controller
             $getdata            = $this->order->get_search_report($date_start,$date_end);
             $getall             = $this->order->get_report_search($date_start,$date_end);
         }else{
-            $date_start         = "";
-            $date_end           = "";
+            $date_start         = date('2016-01-01');
+            $date_end           = date('Y-12-31');
             $getdata            = $this->order->get_page_report();
             $getall             = $this->order->get_report_all();
         }
@@ -86,6 +86,7 @@ class reportOrderController extends Controller
                 });
 
             })->download('xlsx');
+            //var_dump($orderArray);
         }
         else
         {
