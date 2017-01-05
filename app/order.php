@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
-
+use Log;
 class order extends Model
 {
 	protected $table = "order";
@@ -71,6 +71,7 @@ class order extends Model
 						->orderBy('product.product_name','asc')
 						->groupBy('product.product_name')
 						->paginate(20);
+		
 	}
 
 	function get_search_report($date_start,$date_end){
@@ -78,7 +79,10 @@ class order extends Model
 						->join('order_detail',$this->table.'.idorder','=','order_detail.order_id')
 						->join('product','order_detail.product_id','=','product.idproduct')
 						->whereBetween($this->table.'.created_at',[$date_start.'%',$date_end."%"])
-						->orderBy('product.product_name','asc')->paginate(20);
+						->orderBy('product.product_name','asc')
+						->groupBy('product.product_name')
+						->paginate(20);
+		
 	}
 
 	function get_report_all(){
