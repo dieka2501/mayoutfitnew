@@ -32,12 +32,12 @@ class reportOrderController extends Controller
             $date_start         = $request->input('date_start');
             $date_end           = $request->input('date_end');
             $getdata            = $this->order->get_search_report($date_start,$date_end);
-            // $getall             = $this->order->get_report_search($date_start,$date_end);
+            $getall             = $this->order->get_report_search($date_start,$date_end);
         }else{
             $date_start         = "";
             $date_end           = "";
             $getdata            = $this->order->get_page_report();
-            // $getall             = $this->order->get_report_all();
+            $getall             = $this->order->get_report_all();
         }
 
         if ($request->has('search'))
@@ -50,7 +50,7 @@ class reportOrderController extends Controller
         }
         elseif ($request->has('pdf')) 
         {
-            $view['report']     = $getdata;
+            $view['report']     = $getall;
             $view['url']        = config('app.url').'public/admin/report/order';
             $view['date_start'] = $date_start;
             $view['date_end']   = $date_end;
@@ -60,7 +60,7 @@ class reportOrderController extends Controller
         elseif ($request->has('excel')) 
         {
             $orderArray[] = ['Nama Barang', 'Qty','Penjualan','Diskon','HPP','Profit'];
-            foreach ($getdata as $datas) {
+            foreach ($getall as $datas) {
                 $profit = ($datas->order_detail_price - $datas->order_detail_discount_nominal) - $datas->product_hpp;
                 $orderArray[] = [
                                 'Nama Barang'   => $datas->product_name, 
