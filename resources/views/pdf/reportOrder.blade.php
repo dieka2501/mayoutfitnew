@@ -20,7 +20,9 @@
 	    	<?php 
 	    		$total_profit = 0;
 	    		foreach($report as $orders):
-	          		$profit = ($orders->order_detail_price - $orders->order_detail_discount_nominal) -$orders->product_hpp;
+
+	          		$multiplehpp = $orders->product_hpp *$orders->order_detail_qty;
+                    $profit = ($orders->order_detail_price - $orders->order_detail_discount_nominal) - $multiplehpp;
 	          		$total_profit += $profit;
 
 	        ?>
@@ -29,7 +31,7 @@
 	          <td align="right">{!!$orders->order_detail_qty!!}</td>
 	          <td align="right">Rp. {!!number_format($orders->order_detail_price)!!}</td>
 	          <td align="right">Rp. {!!number_format($orders->order_detail_discount_nominal)!!}</td>
-	          <td align="right">Rp. {!!number_format($orders->product_hpp)!!}</td>
+	          <td align="right">Rp. {!!number_format($multiplehpp)!!}</td>
 	          <td align="right">Rp. {!!number_format($profit)!!}</td>
 
 	        </tr>

@@ -45,14 +45,15 @@
                   <tbody>
                     @foreach($order as $orders)
                     <?php 
-                      $profit = ($orders->order_detail_price - $orders->order_detail_discount_nominal) -$orders->product_hpp;
+                      $multiplehpp = $orders->product_hpp *$orders->order_detail_qty;
+                      $profit = ($orders->order_detail_price - $orders->order_detail_discount_nominal) - $multiplehpp;
                     ?>
                     <tr>
                       <td>{!!$orders->product_name!!}</td>
                       <td>{!!$orders->order_detail_qty!!}</td>
                       <td>Rp. {!!number_format($orders->order_detail_price)!!}</td>
                       <td>Rp. {!!number_format($orders->order_detail_discount_nominal)!!}</td>
-                      <td>Rp. {!!number_format($orders->product_hpp)!!}</td>
+                      <td>Rp. {!!number_format($multiplehpp)!!}</td>
                       <td>Rp. {!!number_format($profit)!!}</td>
                     </tr>
                     @endforeach
