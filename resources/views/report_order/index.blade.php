@@ -43,10 +43,12 @@
                       </tr>
                     </thead>
                   <tbody>
+                    
                     @foreach($order as $orders)
                     <?php 
                       $multiplehpp = $orders->product_hpp *$orders->order_detail_qty;
                       $profit = ($orders->order_detail_price - $orders->order_detail_discount_nominal) - $multiplehpp;
+                      
                     ?>
                     <tr>
                       <td>{!!$orders->product_name!!}</td>
@@ -57,6 +59,16 @@
                       <td>Rp. {!!number_format($profit)!!}</td>
                     </tr>
                     @endforeach
+                    @if($role == 'owner')
+                    <tr>
+                      <td colspan="5"> <strong>Total profit per tanggal {!!$date_start!!} - {!!$date_end!!} </strong></td>
+                      <!-- <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td> -->
+                      <td><strong>Rp. {!!number_format($profit)!!}</strong></td>
+                    </tr>
+                    @endif
                   </tbody>
                   <tfoot>
                   <tr>

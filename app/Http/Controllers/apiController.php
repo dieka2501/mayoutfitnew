@@ -11,6 +11,7 @@ use App\kecamatan;
 use App\ongkir;
 use App\product;
 use App\order;
+use App\orderDetail;
 use App\voucher;
 use App\usedVoucher;
 class apiController extends Controller
@@ -24,6 +25,7 @@ class apiController extends Controller
         $this->order        = new order;
         $this->voucher      = new voucher;
         $this->usedVoucher  = new usedVoucher;
+        $this->od           = new orderDetail;
     }
     /**
      * Display a listing of the resource.
@@ -98,8 +100,18 @@ class apiController extends Controller
     function autocancel(){
         $getdata = $this->order->get_diff_pending();
         foreach ($getdata as $key => $value) {
-               echo $value."<br>";
                if($value->selisih >= 24){
+                    $getdetail = $this->od->get_idorder($value->idorder);
+                    if(count($getdetail) > 0){
+                        $newstock = 0;
+                        foreach ($getdetail as $details) {
+                            $qtyorder = $details->order_detail_qty;
+                            $stock    = $details->product_stock;
+                            $newstock = $qtyorder + $stock;
+                            $this->product->edit($details->product_id,['product_stock'=>$newstock]);
+
+                        }
+                    }
                     $this->order->edit($value->idorder,['order_status'=>5]);
                }
            }   

@@ -176,7 +176,7 @@ Route::get('/search','searchController@index');
 Route::get('/store','homeController@frontstore');
 
 // Display all SQL executed in Eloquent
-Event::listen('illuminate.query', function($query)
+Event::listen('illuminate.Eloquent', function($query)
 {
     Log::info($query."<br>");
 });

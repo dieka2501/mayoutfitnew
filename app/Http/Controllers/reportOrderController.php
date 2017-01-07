@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-header("Content-Type: text/plain; charset=utf-8");
+// header("Content-Type: text/plain; charset=utf-8");
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -34,8 +34,8 @@ class reportOrderController extends Controller
             $getdata            = $this->order->get_search_report($date_start,$date_end);
             $getall             = $this->order->get_report_search($date_start,$date_end);
         }else{
-            $date_start         = date('2016-01-01');
-            $date_end           = date('Y-12-31');
+            $date_start         = date('Y-m-01');
+            $date_end           = date('Y-m-31');
             $getdata            = $this->order->get_page_report();
             $getall             = $this->order->get_report_all();
         }
@@ -90,10 +90,18 @@ class reportOrderController extends Controller
         }
         else
         {
+            $totalprofit = 0;
+            $untung      = 0;
+            foreach ($getall as $alls) {
+                $multiplehpp = $alls->product_hpp *$alls->order_detail_qty;
+                $untung += ($alls->order_detail_price - $alls->order_detail_discount_nominal) - $multiplehpp;
+                $totalprofit += $untung;
+            }
             $view['order']      = $getdata;
             $view['url']        = config('app.url').'public/admin/report/order';
             $view['date_start'] = $date_start;
             $view['date_end']   = $date_end;
+            $view['profit']     = $totalprofit;
             return view('report_order.index',$view);
         }
     }
