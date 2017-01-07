@@ -36,16 +36,24 @@ class reportOrderController extends Controller
         }else{
             $date_start         = date('Y-m-01');
             $date_end           = date('Y-m-31');
-            $getdata            = $this->order->get_page_report();
-            $getall             = $this->order->get_report_all();
+            $getdata            = $this->order->get_search_report($date_start,$date_end);
+            $getall             = $this->order->get_report_search($date_start,$date_end);
         }
-
+        $totalprofit = 0;
+        $untung      = 0;
+        foreach ($getall as $alls) {
+            $multiplehpp = $alls->product_hpp *$alls->order_detail_qty;
+            $untung +=  ($alls->order_detail_price - $alls->order_detail_discount_nominal) - $multiplehpp;
+           
+            $totalprofit += $untung;
+        }
         if ($request->has('search'))
         {
             $view['order']      = $getdata;
             $view['url']        = config('app.url').'public/admin/report/order';
             $view['date_start'] = $date_start;
             $view['date_end']   = $date_end;
+            $view['totalprofit']= $totalprofit;
             return view('report_order.index',$view);
         }
         elseif ($request->has('pdf')) 
@@ -90,18 +98,14 @@ class reportOrderController extends Controller
         }
         else
         {
-            $totalprofit = 0;
-            $untung      = 0;
-            foreach ($getall as $alls) {
-                $multiplehpp = $alls->product_hpp *$alls->order_detail_qty;
-                $untung += ($alls->order_detail_price - $alls->order_detail_discount_nominal) - $multiplehpp;
-                $totalprofit += $untung;
-            }
+            // var_dump($getall[0]->product_hpp);die;
+            
+             // var_dump($totalprofit);
             $view['order']      = $getdata;
             $view['url']        = config('app.url').'public/admin/report/order';
             $view['date_start'] = $date_start;
             $view['date_end']   = $date_end;
-            $view['profit']     = $totalprofit;
+            $view['totalprofit']= $totalprofit;
             return view('report_order.index',$view);
         }
     }

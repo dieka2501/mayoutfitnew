@@ -66,7 +66,7 @@
                       <td></td>
                       <td></td>
                       <td></td> -->
-                      <td><strong>Rp. {!!number_format($profit)!!}</strong></td>
+                      <td><strong>Rp. {!!number_format($totalprofit)!!}</strong></td>
                     </tr>
                     @endif
                   </tbody>
