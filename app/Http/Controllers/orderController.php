@@ -56,9 +56,9 @@ class orderController extends Controller
             $get_data   = $this->order->get_search($cari,$date_start,$date_end);    
             // var_dump($get_data);die;
         }else{
-            $cari       = $request->input('cari');
-            $date_start = $request->input('date_start');
-            $date_end   = $request->input('date_end');
+            $cari       = "";
+            $date_start = date('Y-m-01');
+            $date_end   = date('Y-m-31');
             $get_data   = $this->order->get_page();    
         }
         // var_dump(session()->all());
@@ -468,6 +468,19 @@ class orderController extends Controller
     function do_change(Request $request){
         $idorder      = $request->input('idorder');
         $status        = $request->input('change');
+        if($status == 5){
+            $getdetail = $this->od->get_idorder($idorder);
+            if(count($getdetail) > 0){
+                $newstock = 0;
+                foreach ($getdetail as $details) {
+                    $qtyorder = $details->order_detail_qty;
+                    $stock    = $details->product_stock;
+                    $newstock = $qtyorder + $stock;
+                    $this->product->edit($details->product_id,['product_stock'=>$newstock]);
+
+                }
+            }
+        }
         $this->order->edit($idorder,['order_status'=>$status]);
         return redirect('/admin/order/change/'.$idorder);
 
