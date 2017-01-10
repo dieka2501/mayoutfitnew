@@ -154,7 +154,7 @@
             </tr>
             <tr>
                 <td>Pengirim <div class="text-right" style="padding-right:10px;font-weight:bold;">:</div></td>
-                <td class="border-bottom border-left border-right" style="font-weight:bold"><?php if($pengirim == true){echo $pengirim;}else{ echo "Mayoutfit 087822055514";} ?></td>
+                <td class="border-bottom border-left border-right" style="font-weight:bold"><?php if($pengirim == true){echo $pengirim;}else{ echo "Mayoutfit 022 82004502";} ?></td>
                 <td class="border-top border-bottom border-right">Admin : 
                 <?php
                 // $no_id = $no_order;
