@@ -101,7 +101,7 @@
 			<h1>Customer details</h1>
 			<p class="margin-5">Nama : {!!$billing['order_name']!!}</p>
 			<p class="margin-5">Email : {!!$billing['order_email']!!}</p>
-			<p>Tel : 082121-77-0707</p>
+			<p>Tel : </p>
 			<br/>
 			<div class="content-half">
 				<h1>Billing address</h1>
