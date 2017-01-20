@@ -401,7 +401,7 @@ class orderController extends Controller
 
         $pesan = "Hai Sis ".$getintern->order_name.", uangnya sudah diterima (Order ID ".$getintern->order_code.") akan dikirim besok, silakan cek resi H+2 di ig @inforesi_mayoutfit";
         $smscontent = str_replace(" ","%20", $pesan);
-        $urlsms     =  config('app.urlsms').'?userkey='.config('app.smsuserkey').'&passkey='.config('app.smspasskey').'&nohp='.$getintern->order_phone.'&pesan='.$smscontent."";
+        $urlsms     =  config('app.urlsms').'?userkey='.config('app.smsuserkey').'&passkey='.config('app.smspasskey').'&nohp='.$getintern->order_phone.'&pesan='.$smscontent."&tipe=regular";
         // echo $smscontent.'<br>'.$urlsms;
 
         $res = $this->curl->get($urlsms);
