@@ -112,7 +112,7 @@
                               @endif
                               
                               @if($lists->order_status != 0)
-                                @if($role == 'owner' || $role == 'confirm')
+                                @if($role == 'owner' || $role == 'confirm' || $role == 'order')
                                   <li><a href="{!!config('app.url')!!}public/admin/order/print/{!!$lists->idorder!!}" target="__blank">Print</a></li>
                                   <li><a onclick="modal('{!!$lists->order_code!!}')"  href="#">Cek Status Pengiriman</a></li>
                                 @endif
@@ -120,7 +120,7 @@
                                   <li><a onclick="modal('{!!$lists->order_code!!}')"  href="#">Cek Status Pengiriman</a></li>
                                 @endif
                               @else
-                                @if($role == 'owner' || $role == 'confirm')
+                                @if($role == 'owner' || $role == 'confirm' | $role == 'order')
                                   <li><a href="#" onclick="if(!confirm('Order ini belum dibayar')) return false;">Print</a></li>
                                   <li><a href="#" onclick="if(!confirm('Order ini belum dibayar')) return false;">Cek Status Pengiriman</a></li>
                                 @endif

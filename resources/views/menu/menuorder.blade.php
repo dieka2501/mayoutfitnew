@@ -79,11 +79,17 @@
       <span>User</span>
     </a>
   </li> -->
-  <!-- <li {{ (Request::is('*membertype') ? 'class="active"' : '') }}>
+  <li {{ (Request::is('*membertype') ? 'class="active"' : '') }}>
     <a href="{!!config('app.url')!!}public/admin/membertype">
       <i class="fa fa-child"></i>
       <span>Member Type</span>
     </a>
-  </li> -->
+  </li>
+  <li {{ (Request::is('*customer') ? 'class="active"' : '') }}>
+    <a href="{!!config('app.url')!!}public/admin/customer">
+      <i class="fa fa-users"></i>
+      <span>Customer</span>
+    </a>
+  </li>
   
 </ul>
