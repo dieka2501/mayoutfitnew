@@ -58,7 +58,7 @@
                   <td>{!!number_format($lists->membertype_discount)!!}</td>
                   <td>{!!ucfirst($lists->membertype_disc_type)!!}</td>
                     <?php
-                      if($lists->membertype_status == 0){
+                      if($lists->membertype_status == 2){
                           $stat = "Non Active";
                       }else{
                           $stat = "Active";
