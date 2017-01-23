@@ -112,7 +112,7 @@
                               @endif
                               
                               @if($lists->order_status != 0)
-                                @if($role == 'owner' || $role == 'confirm' || $role == 'order')
+                                @if($role == 'owner' || $role == 'confirm')
                                   <li><a href="{!!config('app.url')!!}public/admin/order/print/{!!$lists->idorder!!}" target="__blank">Print</a></li>
                                   <li><a onclick="modal('{!!$lists->order_code!!}')"  href="#">Cek Status Pengiriman</a></li>
                                 @endif
