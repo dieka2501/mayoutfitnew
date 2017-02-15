@@ -21,7 +21,7 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('/dashboard', 'dashboardController@index');
 
 	//Categories
-	Route::get('/categories', 'categoryController@index');	
+	Route::get('/categories', ['middleware'=>['group:owner'],'uses'=>'categoryController@index']);	
 	Route::get('/categories/add', 'categoryController@create');	
 	Route::post('/categories/add', 'categoryController@store');
 	Route::get('/categories/edit/{id}', 'categoryController@edit');	
@@ -29,7 +29,7 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('/categories/delete/{id}', 'categoryController@destroy');	
 
 	//Product
-	Route::get('/product', 'productController@index');	
+	Route::get('/product',['middleware'=>['group:owner'],'uses'=>'productController@index'] );	
 	Route::get('/product/add', 'productController@create');	
 	Route::post('/product/add', 'productController@store');
 	Route::get('/product/edit/{id}', 'productController@edit');	
@@ -41,7 +41,8 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::post('/product/stock/min', 'productController@minstock_do');
 
 	//Order
-	Route::get('/order', 'orderController@index');	
+	Route::get('/order', ['middleware'=>['group:owner:order:confirm'],'uses'=>'orderController@index']);	
+	// Route::get('/order', ['middleware'=>['group:owner'],'uses'=>'orderController@index']);	
 	Route::get('/order/add', 'orderController@create');	
 	Route::post('/order/add', 'orderController@store');
 	Route::get('/order/edit/{id}', 'orderController@edit');	
@@ -60,7 +61,7 @@ Route::group(['prefix'=>'admin'],function(){
 	//Route::get('/report/order/print', 'reportOrderController@create');	
 
 	//Galery
-	Route::get('/galeries', 'galeryController@index');	
+	Route::get('/galeries',['middleware'=>['group:owner'],'uses'=>'galeryController@index'] );	
 	Route::get('/galeries/add', 'galeryController@create');	
 	Route::post('/galeries/add', 'galeryController@store');
 	Route::get('/galeries/edit/{id}', 'galeryController@edit');	
@@ -68,7 +69,7 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('/galeries/delete/{id}', 'galeryController@destroy');
 
 	//Categories
-	Route::get('/user', 'usersController@index');	
+	Route::get('/user', ['middleware'=>['group:owner'],'uses'=>'usersController@index']);	
 	Route::get('/user/add', 'usersController@create');	
 	Route::post('/user/add', 'usersController@store');
 	Route::get('/user/edit/{id}', 'usersController@edit');	
@@ -76,7 +77,7 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('/user/delete/{id}', 'usersController@destroy');
 
 	//Voucher
-	Route::get('/voucher', 'voucherController@index');	
+	Route::get('/voucher', ['middleware'=>['group:owner'],'uses'=>'voucherController@index']);	
 	Route::get('/voucher/add', 'voucherController@create');	
 	Route::post('/voucher/add', 'voucherController@store');
 	Route::get('/voucher/edit/{id}', 'voucherController@edit');	
@@ -84,7 +85,7 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('/voucher/delete/{id}', 'voucherController@destroy');
 
 	//Member Type
-	Route::get('/membertype', 'membertypeController@index');	
+	Route::get('/membertype', ['middleware'=>['group:owner:order'],'uses'=>'membertypeController@index']);	
 	Route::get('/membertype/add', 'membertypeController@create');	
 	Route::post('/membertype/add', 'membertypeController@store');
 	Route::get('/membertype/edit/{id}', 'membertypeController@edit');	
@@ -92,14 +93,14 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::get('/membertype/delete/{id}', 'membertypeController@destroy');
 
 	//Customers
-	Route::get('/customer', 'customerController@index');
+	Route::get('/customer', ['middleware'=>['group:owner:order'],'uses'=>'customerController@index']);
 	Route::get('/customer/historypayment/{id}', 'customerController@historypayment');
 	Route::get('/customer/changemember/{id}', 'customerController@edit');
 	Route::post('/customer/changemember', 'customerController@updatemember');
 	Route::get('/customer/resetpassword/{id}', 'customerController@resetpassword');
 	
 	//about us, faq, terms&privacy, partners, carerrs, contact us, news letter
-	Route::get('/aboutus', 'aboutusController@index');
+	Route::get('/aboutus', ['middleware'=>['group:owner'],'uses'=>'aboutusController@index']);
 	Route::post('/aboutus/store', 'aboutusController@store');
 	Route::get('/faq', 'faqController@index');
 	Route::post('/faq/store', 'faqController@store');
@@ -119,7 +120,7 @@ Route::group(['prefix'=>'admin'],function(){
 	Route::post('/store', 'storeController@store');
 
 	//event
-	Route::get('/event', 'eventController@index');	
+	Route::get('/event', ['middleware'=>['group:owner'],'uses'=>'eventController@index']);	
 	Route::get('/event/add', 'eventController@create');	
 	Route::post('/event/add', 'eventController@store');
 	Route::get('/event/edit/{id}', 'eventController@edit');	
