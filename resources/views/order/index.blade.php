@@ -21,7 +21,7 @@
                       {!!Form::open(['url'=>$url,'method'=>'GET'])!!}
                         <div class='row'>
                             <div class="col-md-5">
-                                <input type="text" name="date_start" id='date_start' class="form-control date" placeholder="Tanggal Awal" value="{!!$date_start!!}">
+                                <input type="text" name="date_start" id='date_start' class="form-control date" placeholder="Tanggal Awal" value="{!! $date_start !!}">
                             </div>
                             <div class="col-md-5">
                                 <input type="text" name="date_end" id='date_end' class="form-control date" placeholder="Tanggal Akhir" value="{!!$date_end!!}">
