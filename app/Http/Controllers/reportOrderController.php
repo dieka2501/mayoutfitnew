@@ -73,12 +73,12 @@ class reportOrderController extends Controller
                 $multiplehpp = $datas->product_hpp *$datas->order_detail_qty;
                 $profit += ($datas->order_detail_price - $datas->order_detail_discount_nominal) - $multiplehpp;
                 $orderArray[] = [
-                                $datas->product_name, 
-                                $datas->order_detail_qty, 
-                                 "Rp " . number_format($datas->order_detail_price,0,',','.'),
-                                 "Rp " . number_format($datas->order_detail_discount_nominal,0,',','.'),
-                                 "Rp " . number_format($multiplehpp,0,',','.'),
-                                 "Rp " . number_format($profit,0,',','.'),
+                                'Nama Barang' => $datas->product_name, 
+                                'Qty' => $datas->order_detail_qty, 
+                                'Penjualan' => "Rp " . number_format($datas->order_detail_price,0,',','.'),
+                                'Diskon' => "Rp " . number_format($datas->order_detail_discount_nominal,0,',','.'),
+                                'Hpp' => "Rp " . number_format($multiplehpp,0,',','.'),
+                                'Profit' =>  "Rp " . number_format($profit,0,',','.'),
                                ];
             }
             
@@ -91,7 +91,7 @@ class reportOrderController extends Controller
             ob_start();
             Excel::create('Report_Order_'.$tgl, function($excel) use ($orderArray) {
                 $excel->sheet('sheet1', function($sheet) use ($orderArray) {
-                    $sheet->fromArray($orderArray,NULL,"A1");
+                    $sheet->fromArray($orderArray,NULL,"A1",false,false);
                 });
 
             })->export('xlsx');
