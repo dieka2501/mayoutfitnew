@@ -73,12 +73,12 @@ class reportOrderController extends Controller
                 $multiplehpp = $datas->product_hpp *$datas->order_detail_qty;
                 $profit += ($datas->order_detail_price - $datas->order_detail_discount_nominal) - $multiplehpp;
                 $orderArray[] = [
-                                'Nama Barang'   => $datas->product_name, 
-                                'Qty'           => $datas->order_detail_qty, 
-                                'Penjualan'     => "Rp " . number_format($datas->order_detail_price,0,',','.'),
-                                'Diskon'        => "Rp " . number_format($datas->order_detail_discount_nominal,0,',','.'),
-                                'HPP'           => "Rp " . number_format($multiplehpp,0,',','.'),
-                                'Profit'        => "Rp " . number_format($profit,0,',','.'),
+                                $datas->product_name, 
+                                $datas->order_detail_qty, 
+                                 "Rp " . number_format($datas->order_detail_price,0,',','.'),
+                                 "Rp " . number_format($datas->order_detail_discount_nominal,0,',','.'),
+                                 "Rp " . number_format($multiplehpp,0,',','.'),
+                                 "Rp " . number_format($profit,0,',','.'),
                                ];
             }
             
@@ -93,7 +93,7 @@ class reportOrderController extends Controller
                     $sheet->fromArray($orderArray, null, 'A1', false, false);
                 });
 
-            })->download('xlsx');
+            })->export('xlsx');
             //var_dump($orderArray);
         }
         else
