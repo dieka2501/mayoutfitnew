@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 // header("Content-Type: text/plain; charset=utf-8");
 use Illuminate\Http\Request;
@@ -11,6 +10,7 @@ use App\orderDetail;
 use App\order;
 use PDF;
 use Excel;
+use Log;
 
 class reportOrderController extends Controller
 {
@@ -87,14 +87,16 @@ class reportOrderController extends Controller
             }else{
                 $tgl = 'All';
             }
-
+            ob_end_clean();
+            ob_start();
             Excel::create('Report_Order_'.$tgl, function($excel) use ($orderArray) {
                 $excel->sheet('sheet1', function($sheet) use ($orderArray) {
-                    $sheet->fromArray($orderArray, null, 'A1', false, false);
+                    $sheet->fromArray($orderArray,NULL,"A1");
                 });
 
             })->export('xlsx');
             //var_dump($orderArray);
+            Log::info($orderArray);
         }
         else
         {
