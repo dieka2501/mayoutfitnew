@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\product;
 use App\category;
+use Log;
+// use \App\Helper;
 class productController extends Controller
 {
     function __construct(){
@@ -21,6 +23,13 @@ class productController extends Controller
         $this->product      = new product;
         $this->category     = new category;
         $this->path         = public_path().'/upload/';
+        $this->helper       = new \App\Helper;
+        // Log::info([$this->helper->cek('owner',session('role'))]);
+        // if(!$this->helper->cek('asasa',session('role'))){
+
+        //    return redirect('admin/logout')->send();
+        // }
+        
     }
     /**
      * Display a listing of the resource.

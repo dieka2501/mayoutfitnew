@@ -16,6 +16,7 @@ use App\kecamatan;
 use App\ongkir;
 use App\payment;
 use App\curl;
+use Log;
 class orderController extends Controller
 {
     function __construct(){
@@ -62,6 +63,7 @@ class orderController extends Controller
             $get_data   = $this->order->get_page();    
         }
         // var_dump(session()->all());
+        // Log::info([$date_start]);
         $view['url']        = config('app.url').'public/admin/order';
         $view['list']       = $get_data;
         $view['cari']       = $cari;

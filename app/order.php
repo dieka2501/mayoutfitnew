@@ -65,22 +65,22 @@ class order extends Model
 
     //report
     function get_page_report(){
-		return order::select(DB::raw('product.product_name, sum(order_detail.order_detail_qty) as order_detail_qty, sum(order_detail.order_detail_price) as order_detail_price,sum(order_detail.order_detail_discount_nominal) as order_detail_discount_nominal,product.product_hpp as product_hpp '))
+		return order::select(DB::raw('product.product_name, sum(order_detail.order_detail_qty) as order_detail_qty, order_detail.order_detail_price as order_detail_price,order_detail.order_detail_discount_nominal as order_detail_discount_nominal,product.product_hpp as product_hpp '))
 						->join('order_detail',$this->table.'.idorder','=','order_detail.order_id')
 						->join('product','order_detail.product_id','=','product.idproduct')
 						->orderBy('product.product_name','asc')
-						->groupBy('product.product_name')
+						->groupBy('product.idproduct')
 						->paginate(20);
 		
 	}
 
 	function get_search_report($date_start,$date_end){
-		return order::select(DB::raw('product.product_name, sum(order_detail.order_detail_qty) as order_detail_qty, sum(order_detail.order_detail_price) as order_detail_price,sum(order_detail.order_detail_discount_nominal) as order_detail_discount_nominal,product.product_hpp as product_hpp '))
+		return order::select(DB::raw('product.product_name, sum(order_detail.order_detail_qty) as order_detail_qty, order_detail.order_detail_price as order_detail_price, order_detail.order_detail_discount_nominal as order_detail_discount_nominal,product.product_hpp as product_hpp '))
 						->join('order_detail',$this->table.'.idorder','=','order_detail.order_id')
 						->join('product','order_detail.product_id','=','product.idproduct')
 						->whereBetween($this->table.'.created_at',[$date_start.'%',$date_end."%"])
 						->orderBy('product.product_name','asc')
-						->groupBy('product.product_name')
+						->groupBy('product.idproduct')
 						->paginate(20);
 		
 	}
@@ -95,12 +95,13 @@ class order extends Model
 	}
 
 	function get_report_search($date_start,$date_end){
-		return order::select(DB::raw('product.product_name, sum(order_detail.order_detail_qty) as order_detail_qty, sum(order_detail.order_detail_price) as order_detail_price,sum(order_detail.order_detail_discount_nominal) as order_detail_discount_nominal,product.product_hpp as product_hpp '))
+		return order::select(DB::raw('product.product_name, sum(order_detail.order_detail_qty) as order_detail_qty, order_detail.order_detail_price as order_detail_price, order_detail.order_detail_discount_nominal as order_detail_discount_nominal,product.product_hpp as product_hpp '))
 						->join('order_detail',$this->table.'.idorder','=','order_detail.order_id')
 						->join('product','order_detail.product_id','=','product.idproduct')
 						->whereBetween($this->table.'.created_at',[$date_start.'%',$date_end."%"])
-						->groupBy('product.product_name')
-						->orderBy('product.product_name','asc')->get();
+						->orderBy('product.product_name','asc')
+						->groupBy('product.idproduct')
+						->get();
 	}
 
 	function get_diff_pending(){

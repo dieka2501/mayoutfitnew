@@ -42,10 +42,8 @@ class reportOrderController extends Controller
         $totalprofit = 0;
         $untung      = 0;
         foreach ($getall as $alls) {
-            $multiplehpp = $alls->product_hpp *$alls->order_detail_qty;
-            $untung +=  ($alls->order_detail_price - $alls->order_detail_discount_nominal) - $multiplehpp;
-           
-            $totalprofit += $untung;
+            $profit = $alls->order_detail_price - $alls->order_detail_discount_nominal - $alls->product_hpp ;
+            $totalprofit += $profit * $alls->order_detail_qty;
         }
         if ($request->has('search'))
         {
@@ -68,18 +66,24 @@ class reportOrderController extends Controller
         elseif ($request->has('excel')) 
         {
             $profit = 0;
-            $orderArray[] = ['Nama Barang', 'Qty','Penjualan','Diskon','HPP','Profit'];
+            $grandprofit = 0;
+            ob_end_clean();
+            $orderArray[] = ['Nama Barang', 'Qty','Harga Jual','Diskon','HPP','Profit','Total Profit'];
             foreach ($getall as $datas) {
-                $multiplehpp = $datas->product_hpp *$datas->order_detail_qty;
-                $profit += ($datas->order_detail_price - $datas->order_detail_discount_nominal) - $multiplehpp;
+                // $profit = 0;
+                // $grandprofit = 0;
+                $profit = $alls->order_detail_price - $alls->order_detail_discount_nominal - $alls->product_hpp ;
+                $grandprofit = $profit * $alls->order_detail_qty;
                 $orderArray[] = [
                                 'Nama Barang' => $datas->product_name, 
                                 'Qty' => $datas->order_detail_qty, 
-                                'Penjualan' => "Rp " . number_format($datas->order_detail_price,0,',','.'),
-                                'Diskon' => "Rp " . number_format($datas->order_detail_discount_nominal,0,',','.'),
-                                'Hpp' => "Rp " . number_format($multiplehpp,0,',','.'),
-                                'Profit' =>  "Rp " . number_format($profit,0,',','.'),
+                                'Harga Jual' => $datas->order_detail_price,
+                                'Diskon' => $datas->order_detail_discount_nominal,
+                                'Hpp' => $datas->product_hpp,
+                                'Profit' =>  $profit,
+                                'Total Profit' =>  $grandprofit,
                                ];
+
             }
             
             if($request->has('date_start') && $request->has('date_end')){
@@ -87,8 +91,8 @@ class reportOrderController extends Controller
             }else{
                 $tgl = 'All';
             }
-            ob_end_clean();
-            ob_start();
+            
+                ob_start();
             Excel::create('Report_Order_'.$tgl, function($excel) use ($orderArray) {
                 $excel->sheet('sheet1', function($sheet) use ($orderArray) {
                     $sheet->fromArray($orderArray,NULL,"A1",false,false);
@@ -96,7 +100,7 @@ class reportOrderController extends Controller
 
             })->export('xlsx');
             //var_dump($orderArray);
-            Log::info($orderArray);
+            // Log::info($orderArray);
         }
         else
         {
