@@ -14,25 +14,28 @@
 	        <th >Diskon</th>
 	        <th >HPP</th>
 	        <th >Profit</th>
+	        <th >Total Profit</th>
 	      </tr>
 	    </thead>
 	    <tbody style="border:1px solid black">
 	    	<?php 
 	    		$total_profit = 0;
+	    		$grandtotal = 0;
 	    		foreach($report as $orders):
 
-	          		$multiplehpp = $orders->product_hpp *$orders->order_detail_qty;
-                    $profit = ($orders->order_detail_price - $orders->order_detail_discount_nominal) - $multiplehpp;
-	          		$total_profit += $profit;
-
+	          		// $multiplehpp = $orders->product_hpp * $orders->order_detail_qty;
+                    $profit = $orders->order_detail_price - $orders->order_detail_discount_nominal - $orders->product_hpp;
+	          		$total_profit = $profit * $orders->order_detail_qty;
+	          		$grandtotal += $total_profit;
 	        ?>
 	        <tr>
 	          <td>{!!$orders->product_name!!}</td>
 	          <td align="right">{!!$orders->order_detail_qty!!}</td>
 	          <td align="right">Rp. {!!number_format($orders->order_detail_price)!!}</td>
 	          <td align="right">Rp. {!!number_format($orders->order_detail_discount_nominal)!!}</td>
-	          <td align="right">Rp. {!!number_format($multiplehpp)!!}</td>
+	          <td align="right">Rp. {!!number_format($orders->product_hpp)!!}</td>
 	          <td align="right">Rp. {!!number_format($profit)!!}</td>
+	          <td align="right">Rp. {!!number_format($total_profit)!!}</td>
 
 	        </tr>
 	        <?php 
@@ -42,7 +45,7 @@
 	    <tfoot>
 	    	<tr>
 	    		
-	    		<td colspan="6" align="right">Rp. {!!number_format($total_profit)!!}</td>
+	    		<td colspan="7" align="right">Rp. {!!number_format($grandtotal)!!}</td>
 	    	</tr>
 	    </tfoot>
     </table>

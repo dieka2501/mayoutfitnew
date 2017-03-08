@@ -36,32 +36,34 @@
                       <tr>
                         <th>Nama Barang</th>
                         <th>Qty</th>
-                        <th>Penjualan</th>
+                        <th>Harga Jual</th>
                         <th>Diskon</th>
                         <th>HPP</th>
                         <th>Profit</th>
+                        <th>Total Profit </th>
                       </tr>
                     </thead>
                   <tbody>
                     
                     @foreach($order as $orders)
                     <?php 
-                      $multiplehpp = $orders->product_hpp *$orders->order_detail_qty;
-                      $profit = ($orders->order_detail_price - $orders->order_detail_discount_nominal) - $multiplehpp;
-                      
+                      // $multiplehpp = $orders->product_hpp * $orders->order_detail_qty;
+                      $profit = $orders->order_detail_price - $orders->order_detail_discount_nominal - $orders->product_hpp ;
+                      $qtyprofit = $profit * $orders->order_detail_qty;
                     ?>
                     <tr>
                       <td>{!!$orders->product_name!!}</td>
                       <td>{!!$orders->order_detail_qty!!}</td>
                       <td>Rp. {!!number_format($orders->order_detail_price)!!}</td>
                       <td>Rp. {!!number_format($orders->order_detail_discount_nominal)!!}</td>
-                      <td>Rp. {!!number_format($multiplehpp)!!}</td>
+                      <td>Rp. {!!number_format($orders->product_hpp)!!}</td>
                       <td>Rp. {!!number_format($profit)!!}</td>
+                      <td>Rp. {!!number_format($qtyprofit)!!}</td>
                     </tr>
                     @endforeach
                     @if($role == 'owner')
                     <tr>
-                      <td colspan="5"> <strong>Total profit per tanggal {!!$date_start!!} - {!!$date_end!!} </strong></td>
+                      <td colspan="6"> <strong>Total profit per tanggal {!!$date_start!!} - {!!$date_end!!} </strong></td>
                       <!-- <td></td>
                       <td></td>
                       <td></td>
