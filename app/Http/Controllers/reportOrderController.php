@@ -67,13 +67,14 @@ class reportOrderController extends Controller
         {
             $profit = 0;
             $grandprofit = 0;
-            ob_end_clean();
+            
+
             $orderArray[] = ['Nama Barang', 'Qty','Harga Jual','Diskon','HPP','Profit','Total Profit'];
             foreach ($getall as $datas) {
                 // $profit = 0;
                 // $grandprofit = 0;
-                $profit = $alls->order_detail_price - $alls->order_detail_discount_nominal - $alls->product_hpp ;
-                $grandprofit = $profit * $alls->order_detail_qty;
+                $profit = $datas->order_detail_price - $datas->order_detail_discount_nominal - $datas->product_hpp ;
+                $grandprofit = $profit * $datas->order_detail_qty;
                 $orderArray[] = [
                                 'Nama Barang' => $datas->product_name, 
                                 'Qty' => $datas->order_detail_qty, 
@@ -91,15 +92,15 @@ class reportOrderController extends Controller
             }else{
                 $tgl = 'All';
             }
-            
-                ob_start();
+            ob_end_clean();
+            ob_start();
             Excel::create('Report_Order_'.$tgl, function($excel) use ($orderArray) {
                 $excel->sheet('sheet1', function($sheet) use ($orderArray) {
                     $sheet->fromArray($orderArray,NULL,"A1",false,false);
                 });
 
             })->export('xlsx');
-            //var_dump($orderArray);
+            // var_dump($orderArray);
             // Log::info($orderArray);
         }
         else
