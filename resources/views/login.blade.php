@@ -30,7 +30,8 @@
       <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
         <form action="{!!config('app.url')!!}public/admin/login" method="POST">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <!-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
+             {{ csrf_field() }}
           <div class="form-group has-feedback">
 
             <input type="text" class="form-control" placeholder="Username" name='username'>
