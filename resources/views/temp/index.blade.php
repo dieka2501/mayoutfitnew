@@ -1,7 +1,7 @@
 <!doctype html>
 <title>Site Maintenance</title>
 <style>
-  body { text-align: center; background-image: url("{!! config('app.url') !!}public/Close_order_web_Full_small_size-01.jpg"); 
+  body { text-align: center; background-image: url("{!! config('app.url') !!}public/close-mayoufit.jpg"); 
         background-repeat: no-repeat;
         background-position: top center ; 
     }
