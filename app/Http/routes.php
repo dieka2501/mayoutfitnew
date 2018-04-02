@@ -143,10 +143,10 @@ Route::group(['prefix'=>'api'],function(){
 });
 
 
-Route::get('/','homeController@index');
-// Route::get('/',function(){
-// 	return view('temp.index');
-// });
+//Route::get('/','homeController@index');
+ Route::get('/',function(){
+ 	return view('temp.index');
+ });
 Route::get('/new','newReleaseController@index');
 Route::get('/sale','saleController@index');
 Route::get('/product/detail/{id}','newReleaseController@detail');
